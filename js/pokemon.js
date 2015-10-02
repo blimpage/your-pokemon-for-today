@@ -13,9 +13,17 @@ var kc_pokemon = {
 
     $.getJSON('js/kc.json')
       .done(function(data) {
+
         that.kc_data = data;
         that._display_pokemon();
+
         $('.swipebox').swipebox();
+
+        $('img.lazy').lazyload({
+          effect: 'fadeIn',
+          placeholder: 'images/loading.gif'
+        });
+
       })
       .fail(function() {
         that.$pokemon_container.prepend('<p class="bg-danger error">Oh nooooo, something went wrong :(</p>');
@@ -32,13 +40,13 @@ var kc_pokemon = {
     if ( this._has_kc_artwork(dex_number) ) {
       return "<div class='kc " + this.config.cell_classes + "'>\
         <a href='images/kc/" + dex_number + ".png' class='swipebox'>\
-          <img src='images/kc/thumbs/" + dex_number + ".png' width='200' height='200'>\
+          <img " + ( dex_number <= 24 ? "src=" : "class='lazy' data-original=" ) + "'images/kc/thumbs/" + dex_number + ".png' width='200' height='200'>\
         </a>\
       </div>"
 
     } else {
-      return "<div class='sugimori " + this.config.cell_classes + "'>\
-        <img src='images/sugimori/" + dex_number + ".jpg' width='200' height='200'>\
+      return "<div class='" + this.config.cell_classes + "'>\
+        <img " + ( dex_number <= 24 ? "src=" : "class='lazy' data-original=" ) + "'images/sugimori/" + dex_number + ".jpg' width='200' height='200'>\
       </div>"
     }
   },
