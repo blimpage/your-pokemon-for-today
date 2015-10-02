@@ -1,0 +1,4 @@
+.js-pokemon-container > div {
+  background-color: #b4d455;
+  outline: 1px solid red;
+}
