@@ -1,4 +1,8 @@
-.js-pokemon-container > div {
-  background-color: #b4d455;
-  outline: 1px solid red;
+.pokemon {
+  text-align: center;
+}
+
+.pokemon img {
+  width: 100%;
+  height: auto;
 }
