@@ -1,13 +1,33 @@
 $(function() {
 
   var $pokemon_container = $('.js-pokemon-container'),
-      cell_classes = 'pokemon col-xs-4 col-sm-3 col-md-2 col-lg-1'
+      cell_classes = 'pokemon col-xs-4 col-sm-3 col-md-2';
 
-  for ( i = 1; i <= 151; i++ ) {
-    $pokemon_container.append(
-      "<div class='" + cell_classes + "'>\
-        <img src='images/sugimori/" + i + ".png'>\
-      </div>");
+  function cell_for_pokemon(dex_number) {
+    if ( has_kc_artwork(dex_number) ) {
+      return "<div class='" + cell_classes + "'>\
+        CHARIZARD\
+      </div>"
+
+    } else {
+      return "<div class='" + cell_classes + "'>\
+        <img src='images/sugimori/" + dex_number + ".png'>\
+      </div>"
+    }
+  }
+
+  function has_kc_artwork(dex_number) {
+    // We'll test for KC's artwork here... SOON
+    // For now let's just pick a random number and return true for that.
+    if ( dex_number == 6 ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  for ( i = 1; i <= 30; i++ ) {
+    $pokemon_container.append( cell_for_pokemon(i) );
   }
 
 });
