@@ -15,6 +15,7 @@ var kc_pokemon = {
       .done(function(data) {
         that.kc_data = data;
         that._display_pokemon();
+        $('.swipebox').swipebox();
       })
       .fail(function() {
         that.$pokemon_container.prepend('<p>Oh nooooo, something went wrong :(</p>');
@@ -30,7 +31,9 @@ var kc_pokemon = {
   _new_cell_for_pokemon: function(dex_number) {
     if ( this._has_kc_artwork(dex_number) ) {
       return "<div class='kc " + this.config.cell_classes + "'>\
-        <img src='images/kc/" + dex_number + "-t.png' width='200' height='200'>\
+        <a href='images/kc/" + dex_number + ".png' class='swipebox'>\
+          <img src='images/kc/thumbs/" + dex_number + ".png' width='200' height='200'>\
+        </a>\
       </div>"
 
     } else {
