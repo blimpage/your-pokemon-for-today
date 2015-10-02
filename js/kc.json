@@ -1,338 +1,86 @@
 {
-  "6": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "10": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "21": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "26": {
-    "twitter": "https://twitter.com/kcgreenn/status/611235050269593600",
-    "tumblr": "http://midnitesurprise.com/post/122101554086"
-  },
-  "28": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "30": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "38": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "42": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "66": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "73": {
-    "twitter": "https://twitter.com/kcgreenn/status/610914164219875330",
-    "tumblr": "http://midnitesurprise.com/post/122101554086"
-  },
-  "81": {
-    "twitter": "https://twitter.com/kcgreenn/status/606196620942823425",
-    "tumblr": "http://midnitesurprise.com/post/121440296086"
-  },
-  "84": {
-    "twitter": "https://twitter.com/kcgreenn/status/607598249877336064",
-    "tumblr": "http://midnitesurprise.com/post/121440296086"
-  },
-  "86": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "88": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "99": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "108": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "110": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "120": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "129": {
-    "twitter": "https://twitter.com/kcgreenn/status/611597627025686528",
-    "tumblr": "http://midnitesurprise.com/post/122101554086"
-  },
-  "149": {
-    "twitter": "",
-    "tumblr": "http://midnitesurprise.com/post/122101554086"
-  },
-  "152": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "163": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "176": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "203": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "208": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "213": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "214": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "225": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "226": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "230": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "231": {
-    "twitter": "https://twitter.com/kcgreenn/status/607964262343045120",
-    "tumblr": "http://midnitesurprise.com/post/121440296086"
-  },
-  "239": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "243": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "269": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "284": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "311": {
-    "twitter": "",
-    "tumblr": "http://midnitesurprise.com/post/122689432471"
-  },
-  "312": {
-    "twitter": "",
-    "tumblr": "http://midnitesurprise.com/post/122101554086"
-  },
-  "321": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "337": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "338": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "340": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "347": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "351": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "367": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "373": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "397": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "405": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "424": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "436": {
-    "twitter": "https://twitter.com/kcgreenn/status/609039150856216576",
-    "tumblr": "http://midnitesurprise.com/post/121440296086"
-  },
-  "437": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "441": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "447": {
-    "twitter": "",
-    "tumblr": "http://midnitesurprise.com/post/122101554086"
-  },
-  "451": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "466": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "483": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "494": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "500": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "507": {
-    "twitter": "",
-    "tumblr": "http://midnitesurprise.com/post/122689432471"
-  },
-  "524": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "528": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "535": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "546": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "547": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "548": {
-    "twitter": "https://twitter.com/kcgreenn/status/605769588995956736",
-    "tumblr": "http://midnitesurprise.com/post/121440296086"
-  },
-  "567": {
-    "twitter": "https://twitter.com/kcgreenn/status/610132433925742594",
-    "tumblr": "http://midnitesurprise.com/post/122101554086"
-  },
-  "569": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "585": {
-    "twitter": "https://twitter.com/kcgreenn/status/605417201240276992",
-    "tumblr": "http://midnitesurprise.com/post/121440296086"
-  },
-  "591": {
-    "twitter": "https://twitter.com/kcgreenn/status/610482610419183616",
-    "tumblr": "http://midnitesurprise.com/post/122101554086"
-  },
-  "604": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "616": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "625": {
-    "twitter": "https://twitter.com/kcgreenn/status/606565475623903232",
-    "tumblr": "http://midnitesurprise.com/post/121440296086"
-  },
-  "626": {
-    "twitter": "https://twitter.com/kcgreenn/status/608720081305092096",
-    "tumblr": "http://midnitesurprise.com/post/121440296086"
-  },
-  "629": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "636": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "671": {
-    "twitter": "https://twitter.com/kcgreenn/status/609455357379932160",
-    "tumblr": "http://midnitesurprise.com/post/121440296086"
-  },
-  "674": {
-    "twitter": "",
-    "tumblr": "http://midnitesurprise.com/post/122689432471"
-  },
-  "694": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "698": {
-    "twitter": "",
-    "tumblr": "http://midnitesurprise.com/post/121440296086"
-  },
-  "701": {
-    "twitter": "",
-    "tumblr": "http://midnitesurprise.com/post/122689432471"
-  },
-  "704": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "707": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "712": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "713": {
-    "twitter": "",
-    "tumblr": ""
-  },
-  "716": {
-    "twitter": "",
-    "tumblr": ""
-  }
+  "6": true,
+  "10": true,
+  "21": true,
+  "26": true,
+  "28": true,
+  "30": true,
+  "38": true,
+  "42": true,
+  "66": true,
+  "73": true,
+  "81": true,
+  "84": true,
+  "86": true,
+  "88": true,
+  "99": true,
+  "108": true,
+  "110": true,
+  "120": true,
+  "129": true,
+  "149": true,
+  "152": true,
+  "163": true,
+  "176": true,
+  "203": true,
+  "208": true,
+  "213": true,
+  "214": true,
+  "225": true,
+  "226": true,
+  "230": true,
+  "231": true,
+  "239": true,
+  "243": true,
+  "269": true,
+  "284": true,
+  "311": true,
+  "312": true,
+  "321": true,
+  "337": true,
+  "338": true,
+  "340": true,
+  "347": true,
+  "351": true,
+  "367": true,
+  "373": true,
+  "397": true,
+  "405": true,
+  "424": true,
+  "436": true,
+  "437": true,
+  "441": true,
+  "447": true,
+  "451": true,
+  "466": true,
+  "483": true,
+  "494": true,
+  "500": true,
+  "507": true,
+  "524": true,
+  "528": true,
+  "535": true,
+  "546": true,
+  "547": true,
+  "548": true,
+  "567": true,
+  "569": true,
+  "585": true,
+  "591": true,
+  "604": true,
+  "616": true,
+  "625": true,
+  "626": true,
+  "629": true,
+  "636": true,
+  "671": true,
+  "674": true,
+  "694": true,
+  "698": true,
+  "701": true,
+  "704": true,
+  "707": true,
+  "712": true,
+  "713": true,
+  "716": true
 }
