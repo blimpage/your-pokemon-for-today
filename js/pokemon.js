@@ -23,11 +23,11 @@ var kc_pokemon = {
 
   _display_pokemon: function() {
     for ( i = 1; i <= 721; i++ ) {
-      this.$pokemon_container.append( this._cell_for_pokemon(i) );
+      this.$pokemon_container.append( this._new_cell_for_pokemon(i) );
     }
   },
 
-  _cell_for_pokemon: function(dex_number) {
+  _new_cell_for_pokemon: function(dex_number) {
     if ( this._has_kc_artwork(dex_number) ) {
       return "<div class='kc " + this.config.cell_classes + "'>\
         <img src='images/kc/" + dex_number + "-t.png' width='200' height='200'>\
@@ -35,7 +35,7 @@ var kc_pokemon = {
 
     } else {
       return "<div class='sugimori " + this.config.cell_classes + "'>\
-        <img src='images/sugimori/" + dex_number + ".png' width='200' height='200'>\
+        <img src='images/sugimori/" + dex_number + ".jpg' width='200' height='200'>\
       </div>"
     }
   },
