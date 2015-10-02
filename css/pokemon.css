@@ -6,6 +6,10 @@ h1 {
   max-width: 1300px;
 }
 
+.intro-container {
+  margin-bottom: 20px;
+}
+
 .pokemon {
   text-align: center;
 }
@@ -13,4 +17,8 @@ h1 {
 .pokemon img {
   width: 100%;
   height: auto;
+}
+
+.error {
+  padding: 15px;
 }

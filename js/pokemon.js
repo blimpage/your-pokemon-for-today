@@ -18,7 +18,7 @@ var kc_pokemon = {
         $('.swipebox').swipebox();
       })
       .fail(function() {
-        that.$pokemon_container.prepend('<p>Oh nooooo, something went wrong :(</p>');
+        that.$pokemon_container.prepend('<p class="bg-danger error">Oh nooooo, something went wrong :(</p>');
       });
   },
 
