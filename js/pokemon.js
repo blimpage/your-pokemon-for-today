@@ -16,13 +16,7 @@ var kc_pokemon = {
 
         that.kc_data = data;
         that._display_pokemon();
-
-        $('.swipebox').swipebox();
-
-        $('img.lazy').lazyload({
-          effect: 'fadeIn',
-          placeholder: 'images/loading.gif'
-        });
+        that._init_vendor();
 
       })
       .fail(function() {
@@ -34,6 +28,15 @@ var kc_pokemon = {
     for ( i = 1; i <= 721; i++ ) {
       this.$pokemon_container.append( this._new_cell_for_pokemon(i) );
     }
+  },
+
+  _init_vendor: function() {
+    $('.swipebox').swipebox();
+
+    $('img.lazy').lazyload({
+      effect: 'fadeIn',
+      placeholder: 'images/loading.gif'
+    });
   },
 
   _new_cell_for_pokemon: function(dex_number) {
