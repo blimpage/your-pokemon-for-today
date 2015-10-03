@@ -39,15 +39,15 @@ var kc_pokemon = {
   _new_cell_for_pokemon: function(dex_number) {
     if ( this._has_kc_artwork(dex_number) ) {
       return "<div class='kc " + this.config.cell_classes + "'>\
-        <a href='images/kc/" + dex_number + ".png' class='swipebox'>\
-          <img " + ( dex_number <= 24 ? "src=" : "class='lazy' data-original=" ) + "'images/kc/thumbs/" + dex_number + ".png' width='200' height='200'>\
+        <a href='images/kc/" + dex_number + ".png' class='swipebox' title='" + this._pokemon_name(dex_number) + "'>\
+          <img " + ( dex_number <= 24 ? "src=" : "class='lazy' data-original=" ) + "'images/kc/thumbs/" + dex_number + ".png' alt='" + this._pokemon_name(dex_number) + "' width='200' height='200'>\
         </a>\
-      </div>"
+      </div>";
 
     } else {
       return "<div class='" + this.config.cell_classes + "'>\
         <img " + ( dex_number <= 24 ? "src=" : "class='lazy' data-original=" ) + "'images/sugimori/" + dex_number + ".jpg' width='200' height='200'>\
-      </div>"
+      </div>";
     }
   },
 
@@ -57,6 +57,10 @@ var kc_pokemon = {
     } else {
       return false;
     }
+  },
+
+  _pokemon_name: function(dex_number) {
+    return this.kc_data[dex_number];
   }
 };
 
