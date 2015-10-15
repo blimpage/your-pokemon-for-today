@@ -21,3 +21,5 @@ It uses [Swipebox](https://github.com/brutaldesign/swipebox) for lightboxy stuff
   - Maybe even exclude Sugimori images from the spritesheet based on whether or not a KC image is present?? :o
 
 - Concatenate and minify CSS & JS
+
+- Add a filtering option to _only_ display KC's images (and maybe one to show only ones he hasn't done? Would anyone ever even want that?)
