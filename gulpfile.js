@@ -74,7 +74,7 @@ gulp.task('watch', function() {
   gulp.watch(paths.index, ['copy_index']);
   gulp.watch(paths.scripts, ['scripts']);
   gulp.watch(paths.styles, ['styles']);
-  gulp.watch([paths.images], ['generate_thumbs', 'optimize_images'])
+  gulp.watch(paths.images, ['generate_thumbs', 'optimize_images'])
 });
 
 // The default task (called when you run `gulp` from cli)
