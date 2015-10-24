@@ -11,7 +11,7 @@ var kc_pokemon = {
   init: function() {
     var that = this;
 
-    $.getJSON('js/kc.json')
+    $.getJSON('data/kc.json')
       .done(function(data) {
 
         that.kc_data = data;
