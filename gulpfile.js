@@ -5,6 +5,7 @@ var gutil = require('gulp-util'); // For error logging
 
 // For minifying/concatenating scripts and styles
 var uglifyJS = require('gulp-uglify');
+var uglifyJSON = require('gulp-jsonminify');
 var uglifyCSS = require('gulp-minify-css');
 var concat = require('gulp-concat');
 
@@ -17,6 +18,7 @@ var paths = {
   styles: ['css/vendor/*.css', 'css/*.css'],
   images: 'images/**/*',
   kc_images: 'images/kc/*',
+  data: 'data/**/*.json',
   index: 'index.html'
 };
 
@@ -30,6 +32,13 @@ gulp.task('copy_index', ['clean'], function() {
   // Copy the index file into the build folder
   return gulp.src(paths.index)
     .pipe(gulp.dest('build'));
+});
+
+gulp.task('copy_data', ['clean'], function() {
+  // Copy data files into the build folder
+  return gulp.src(paths.data)
+    .pipe(uglifyJSON().on('error', gutil.log))
+    .pipe(gulp.dest('build/data'));
 });
 
 gulp.task('scripts', ['clean'], function() {
@@ -70,17 +79,11 @@ gulp.task('optimize_images', ['clean'], function(){
     .pipe(gulp.dest('build/images'));
 });
 
-gulp.task('watch', function() {
-  gulp.watch(paths.index, ['copy_index']);
-  gulp.watch(paths.scripts, ['scripts']);
-  gulp.watch(paths.styles, ['styles']);
-  gulp.watch(paths.images, ['generate_thumbs', 'optimize_images'])
-});
-
 // The default task (called when you run `gulp` from cli)
 gulp.task('default', [
-  'watch',
+  'clean',
   'copy_index',
+  'copy_data',
   'scripts',
   'styles',
   'generate_thumbs',
