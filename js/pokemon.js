@@ -1,7 +1,8 @@
 var kc_pokemon = {
 
   config: {
-    cell_classes: 'pokemon col-xs-4 col-sm-3 col-md-2'
+    cell_classes:       'pokemon col-xs-4 col-sm-3 col-md-2',
+    lazyload_threshold: 24
   },
 
   kc_data: {},
@@ -43,14 +44,30 @@ var kc_pokemon = {
     if ( this._has_kc_artwork(dex_number) ) {
       return "<div class='kc " + this.config.cell_classes + "'>\
         <a href='images/kc/" + dex_number + ".png' class='swipebox' title='" + this._pokemon_name(dex_number) + "'>\
-          <img " + ( dex_number <= 24 ? "src=" : "class='lazy' data-original=" ) + "'images/kc/thumbs/" + dex_number + ".png' alt='" + this._pokemon_name(dex_number) + "' width='200' height='200'>\
+          <img " + this._img_src_attribute(dex_number, true) + " alt='" + this._pokemon_name(dex_number) + "' width='200' height='200'>\
         </a>\
       </div>";
 
     } else {
       return "<div class='" + this.config.cell_classes + "'>\
-        <img " + ( dex_number <= 24 ? "src=" : "class='lazy' data-original=" ) + "'images/sugimori/" + dex_number + ".jpg' width='200' height='200'>\
+        <img " + this._img_src_attribute(dex_number, false) + "' width='200' height='200'>\
       </div>";
+    }
+  },
+
+  _img_src_attribute: function(dex_number, has_kc_artwork) {
+    if ( has_kc_artwork ) {
+      var image_path = 'images/kc/thumbs/',
+          image_type = 'png';
+    } else {
+      var image_path = 'images/sugimori/',
+          image_type = 'jpg';
+    }
+
+    if ( dex_number <= this.config.lazyload_threshold ) {
+      return "src='" + image_path + dex_number + "." + image_type + "'";
+    } else {
+      return "class='lazy' data-original='" + image_path + dex_number + "." + image_type + "'";
     }
   },
 
