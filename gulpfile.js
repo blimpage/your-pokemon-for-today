@@ -3,8 +3,9 @@ var gulp = require('gulp');
 var del = require('del'); // For deletin' files
 var gutil = require('gulp-util'); // For error logging
 
-// For scripts
-var uglify = require('gulp-uglify');
+// For minifying/concatenating scripts and styles
+var uglifyJS = require('gulp-uglify');
+var uglifyCSS = require('gulp-minify-css');
 var concat = require('gulp-concat');
 
 // For images
@@ -13,6 +14,7 @@ var imagemin = require('gulp-imagemin');
 
 var paths = {
   scripts: ['js/vendor/*.js', 'js/*.js'],
+  styles: ['css/vendor/*.css', 'css/*.css'],
   kc_images: 'images/kc/*.png',
   sugimori_images: 'images/sugimori/*.jpg'
 };
@@ -26,9 +28,17 @@ gulp.task('clean', function() {
 gulp.task('scripts', ['clean'], function() {
   // Minify and copy all JavaScript
   return gulp.src(paths.scripts)
-      .pipe(uglify().on('error', gutil.log))
-      .pipe(concat('scripts.js'))
+      .pipe(uglifyJS().on('error', gutil.log))
+      .pipe(concat('scripts.min.js'))
     .pipe(gulp.dest('build/js'));
+});
+
+gulp.task('styles', ['clean'], function() {
+  // Minify and copy all JavaScript
+  return gulp.src(paths.styles)
+      .pipe(uglifyCSS().on('error', gutil.log))
+      .pipe(concat('style.min.css'))
+    .pipe(gulp.dest('build/css'));
 });
 
 gulp.task('generate_thumbs', ['clean'], function() {
@@ -55,9 +65,16 @@ gulp.task('optimize_images', ['clean'], function(){
 
 gulp.task('watch', function() {
   gulp.watch(paths.scripts, ['scripts']);
+  gulp.watch(paths.styles, ['styles']);
   gulp.watch(paths.kc_images, ['generate_thumbs']);
   gulp.watch([paths.kc_images, paths.sugimori_images], ['optimize_images'])
 });
 
 // The default task (called when you run `gulp` from cli)
-gulp.task('default', ['watch', 'scripts', 'generate_thumbs', 'optimize_images']);
+gulp.task('default', [
+  'watch',
+  'scripts',
+  'styles',
+  'generate_thumbs',
+  'optimize_images'
+]);
