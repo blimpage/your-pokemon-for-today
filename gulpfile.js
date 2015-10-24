@@ -16,13 +16,20 @@ var paths = {
   scripts: ['js/vendor/*.js', 'js/*.js'],
   styles: ['css/vendor/*.css', 'css/*.css'],
   images: 'images/**/*',
-  kc_images: 'images/kc/*'
+  kc_images: 'images/kc/*',
+  index: 'index.html'
 };
 
 
 gulp.task('clean', function() {
   // Delete dat build directory
   return del(['build']);
+});
+
+gulp.task('copy_index', ['clean'], function() {
+  // Copy the index file into the build folder
+  return gulp.src(paths.index)
+    .pipe(gulp.dest('build'));
 });
 
 gulp.task('scripts', ['clean'], function() {
@@ -64,6 +71,7 @@ gulp.task('optimize_images', ['clean'], function(){
 });
 
 gulp.task('watch', function() {
+  gulp.watch(paths.index, ['copy_index']);
   gulp.watch(paths.scripts, ['scripts']);
   gulp.watch(paths.styles, ['styles']);
   gulp.watch([paths.images], ['generate_thumbs', 'optimize_images'])
@@ -72,6 +80,7 @@ gulp.task('watch', function() {
 // The default task (called when you run `gulp` from cli)
 gulp.task('default', [
   'watch',
+  'copy_index',
   'scripts',
   'styles',
   'generate_thumbs',
