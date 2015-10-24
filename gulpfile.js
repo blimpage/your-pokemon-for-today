@@ -15,8 +15,8 @@ var imagemin = require('gulp-imagemin');
 var paths = {
   scripts: ['js/vendor/*.js', 'js/*.js'],
   styles: ['css/vendor/*.css', 'css/*.css'],
-  kc_images: 'images/kc/*.png',
-  sugimori_images: 'images/sugimori/*.jpg'
+  images: 'images/**/*',
+  kc_images: 'images/kc/*'
 };
 
 
@@ -58,7 +58,7 @@ gulp.task('generate_thumbs', ['clean'], function() {
 
 gulp.task('optimize_images', ['clean'], function(){
   // Optimize and copy all images
-  return gulp.src([paths.kc_images, paths.sugimori_images])
+  return gulp.src(paths.images)
     .pipe(imagemin({optimizationLevel: 4}))
     .pipe(gulp.dest('build/images'));
 });
@@ -66,8 +66,7 @@ gulp.task('optimize_images', ['clean'], function(){
 gulp.task('watch', function() {
   gulp.watch(paths.scripts, ['scripts']);
   gulp.watch(paths.styles, ['styles']);
-  gulp.watch(paths.kc_images, ['generate_thumbs']);
-  gulp.watch([paths.kc_images, paths.sugimori_images], ['optimize_images'])
+  gulp.watch([paths.images], ['generate_thumbs', 'optimize_images'])
 });
 
 // The default task (called when you run `gulp` from cli)
