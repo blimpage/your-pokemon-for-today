@@ -42,6 +42,7 @@
   "243": "Raikou",
   "248": "Tyranitar",
   "269": "Dustox",
+  "273": "Seedot",
   "284": "Masquerain",
   "311": "Plusle",
   "312": "Minun",
@@ -54,6 +55,7 @@
   "364": "Sealeo",
   "366": "Clamperl",
   "367": "Huntail",
+  "368": "Gorebyss",
   "373": "Salamence",
   "374": "Beldum",
   "397": "Staravia",
@@ -74,6 +76,7 @@
   "500": "Emboar",
   "507": "Herdier",
   "524": "Roggenrola",
+  "525": "Boldore",
   "528": "Swoobat",
   "530": "Excadrill",
   "535": "Tympole",
@@ -95,6 +98,7 @@
   "671": "Florges",
   "674": "Pancham",
   "694": "Helioptile",
+  "689": "Barbaracle",
   "698": "Amaura",
   "701": "Hawlucha",
   "702": "Dedenne",
@@ -103,5 +107,6 @@
   "710": "Pumpkaboo",
   "712": "Bergmite",
   "713": "Avalugg",
+  "714": "Noibat",
   "716": "Xerneas"
 }
