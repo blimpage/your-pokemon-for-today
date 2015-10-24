@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+var gutil = require('gulp-util');
 var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
 var del = require('del');
@@ -16,11 +17,15 @@ gulp.task('clean', function() {
 gulp.task('scripts', ['clean'], function() {
   // Minify and copy all JavaScript (except vendor scripts)
   return gulp.src(paths.scripts)
-      .pipe(uglify())
+      .pipe(uglify().on('error', gutil.log))
       .pipe(concat('scripts.js'))
     .pipe(gulp.dest('build/js'));
-    console.log('scripts 4eva');
+});
+
+gulp.task('watch', function() {
+  gulp.watch(paths.scripts, ['scripts']);
+  // gulp.watch(paths.images, ['images']);
 });
 
 // The default task (called when you run `gulp` from cli)
-gulp.task('default', ['scripts']);
+gulp.task('default', ['watch', 'scripts']);
