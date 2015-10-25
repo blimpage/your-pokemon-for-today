@@ -17,17 +17,19 @@ So you wanna be a Digimon master huh???? Here's how to build a version of this s
 
 1. Get a copy of this repository (either by [cloning it](https://help.github.com/articles/cloning-a-repository/) or [downloading a ZIP copy](https://github.com/blimpage/your-pokemon-for-today/archive/master.zip) and unzipping it)
 
-2. Make sure you've [got Node.js and npm installed](https://docs.npmjs.com/getting-started/installing-node)
+2. Make sure you've [got Node.js and npm installed](https://docs.npmjs.com/getting-started/installing-node), as well as [Homebrew](http://brew.sh/)
 
-3. **Install the project's dependencies:** Open a command line tool, navigate to the project folder and run `npm install`
+3. **Install GraphicsMagick for Node:** Open a command line tool and run `brew install graphicsmagick`
 
-4. **Build the site from the source files:** In the same folder, run `gulp`. The site is done building when you see `Finished 'default'` and you get your command prompt back.
+4. **Install the project's dependencies:** In your command line tool, navigate to the project folder and run `npm install`
 
-5. Checkout the "build" folder - there's your site! WOW!
+5. **Build the site from the source files:** In the same folder, run `gulp`. The site is done building when you see `Finished 'default'` and you get your command prompt back.
 
-6. To open the site in a web browser, you'll need to be running a web server in the "build" folder - [here's my favourite simple way to do that on a Mac](http://osxdaily.com/2010/05/07/create-an-instant-web-server-via-terminal-command-line/).
+6. Look in the "build" folder - there's your site! WOW!
 
-Dat's it! If you make any changes, run step 4 again to build a new version of the site. Then please feel free to [submit a pull request with your changes](https://help.github.com/articles/creating-a-pull-request/)! Collaboration is fun.
+7. To open the site in a web browser, you'll need to be running a web server in the "build" folder - [here's my favourite simple way to do that on a Mac](http://osxdaily.com/2010/05/07/create-an-instant-web-server-via-terminal-command-line/).
+
+Dat's it! If you make any changes, run step 5 again to build a new version of the site. Then please feel free to [submit a pull request with your changes](https://help.github.com/articles/creating-a-pull-request/)! Collaboration is fun.
 
 
 ## Todo
