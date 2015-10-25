@@ -53,3 +53,5 @@ Maybe you wanna help me do these things???
 - Add a filtering option to _only_ display KC's images (and maybe one to show only ones he hasn't done? Would anyone ever even want that?)
 
 - Add an option to sort by date
+
+- Add a "watch" task to the gulp config, to automatically rebuild the relevant build files when the source files change
