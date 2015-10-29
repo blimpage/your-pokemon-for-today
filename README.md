@@ -13,7 +13,7 @@ It's currently hosted on [Surge](http://surge.sh/) because omg that service is a
 
 ## To build it yourself
 
-So you wanna be a Digimon master huh???? Here's how to build a version of this site on your own computer:
+So you wanna be a Digimon master huh???? Here's how to build a version of this site on your own computer (if you're running Mac OS X):
 
 1. Get a copy of this repository (either by [cloning it](https://help.github.com/articles/cloning-a-repository/) or [downloading a ZIP copy](https://github.com/blimpage/your-pokemon-for-today/archive/master.zip) and unzipping it)
 
@@ -23,7 +23,7 @@ So you wanna be a Digimon master huh???? Here's how to build a version of this s
 
 4. **Install the project's dependencies:** In your command line tool, navigate to the project folder and run `npm install`
 
-5. **Build the site from the source files:** In the same folder, run `gulp`. The site is done building when you see `Finished 'default'` and you get your command prompt back.
+5. **Build the site from the source files:** In the same folder, run `gulp` (if you get a `command not found` error, try [this solution](http://blog.webbb.be/command-not-found-node-npm/)). The site is done building when you see `Finished 'default'` and you get your command prompt back.
 
 6. Look in the "build" folder - there's your site! WOW!
 
