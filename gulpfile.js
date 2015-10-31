@@ -2,6 +2,7 @@ var gulp = require('gulp');
 
 var del = require('del'); // For deletin' files
 var gutil = require('gulp-util'); // For error logging
+var fs = require("fs"); // For filesystem access
 
 // For minifying/concatenating scripts and styles
 var uglifyJS = require('gulp-uglify');
@@ -12,11 +13,13 @@ var concat = require('gulp-concat');
 // For images
 var gm = require('gulp-gm'); // GraphicsMagick
 var imagemin = require('gulp-imagemin');
+var spritesmith = require('gulp.spritesmith');
 
 var paths = {
   scripts: ['js/vendor/*.js', 'js/*.js'],
   styles: ['css/vendor/*.css', 'css/*.css'],
-  images: 'images/**/*',
+  sugimori_images: 'images/sugimori/',
+  non_sugimori_images: 'images/!(sugimori)/*',
   kc_images: 'images/kc/*',
   data: 'data/**/*.json',
   index: 'index.html'
@@ -74,9 +77,53 @@ gulp.task('generate_thumbs', ['clean'], function() {
 
 gulp.task('optimize_images', ['clean'], function(){
   // Optimize and copy all images
-  return gulp.src(paths.images)
+  return gulp.src(paths.non_sugimori_images)
     .pipe(imagemin({optimizationLevel: 4}))
     .pipe(gulp.dest('build/images'));
+});
+
+gulp.task('generate_sprites', ['clean'], function () {
+  // Generate spritesheets for the fallback Sugimori images.
+  // We're using spritesmith, which generates one spritesheet each time we call it.
+  // However we want to generate a few batches of spritesheets, so we need to call it multiple times.
+
+  // First we need a list of all of our files.
+  var src_files = fs.readdirSync(paths.sugimori_images)
+    .filter(function(filename) {
+      // Remove any files that aren't JPGs (e.g. .DS_Store)
+      return filename.match(/(\.jpg)$/);
+    }).map(function(filename) {
+      // Append the source path to the start of each filename
+      return paths.sugimori_images + filename;
+    });
+
+  // Then we need to split them into sets, based on our desired set size.
+  var set_size = 50;
+  var spritesets = {};
+
+  for (i = 0; i < (src_files.length / set_size); i++) {
+    // The Array.slice() method creates a subset starting from the first index,
+    // and stopping one short of the second index. So our arguments will be:
+    var first = set_size * i;
+    var last = set_size * (i + 1);
+
+    // Add this subset to our list of spritesets
+    spritesets[i] = src_files.slice(first, last);
+  }
+
+  // Generate a spritesheet for each set we've defined!
+  for (set in spritesets) {
+    gulp.src(spritesets[set])
+    .pipe(spritesmith({
+      algorithm: 'left-right',
+      algorithmOpts: {sort: false},
+      engine:    'gmsmith',
+      imgName:   'sugimori_' + set + '.jpg',
+      cssName:   'sugimori_' + set + '.css',
+      imgOpts:   { quality: 80 }
+    }))
+    .pipe(gulp.dest('build/images/sugimori'));
+  }
 });
 
 // The default task (called when you run `gulp` from cli)
@@ -87,5 +134,6 @@ gulp.task('default', [
   'scripts',
   'styles',
   'generate_thumbs',
-  'optimize_images'
+  'optimize_images',
+  'generate_sprites'
 ]);
