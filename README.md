@@ -4,7 +4,7 @@ This is a nice little gallery site showing off the rad [Your Pokémon for Today]
 
 It doesn't really need to exist, and yet it does!!
 
-On the webby end, it uses [Swipebox](https://github.com/brutaldesign/swipebox) for lightboxy stuff, [Lazy Load](https://github.com/tuupola/jquery_lazyload) to mitigate the loading of 700+ images, and [Bootstrap](https://github.com/twbs/bootstrap) for basic styling.
+On the webby end, it uses [Swipebox](https://github.com/brutaldesign/swipebox) for lightboxy stuff, and [Lazy Load](https://github.com/tuupola/jquery_lazyload) to mitigate the loading of a million images.
 
 On the buildy end, it uses [GraphicsMagick for Node](https://github.com/aheckmann/gm) to generate thumbnails for each illustration, and [gulp](http://gulpjs.com/) (and a whole host of gulp plugins) to rope the whole thing together.
 
@@ -36,7 +36,9 @@ Dat's it! If you make any changes, run step 5 again to build a new version of th
 
 Maybe you wanna help me do these things???
 
-- Convert thumbnails into a spritesheet (and make sure they load nicely? Gotta make sure that the first few Pokémon are visible when the page loads)
+- ~~Convert thumbnails into a spritesheet (and make sure they load nicely? Gotta make sure that the first few Pokémon are visible when the page loads)~~
+
+  - Prevent generation of stylesheets for the spritesheets (or delete them from the build folder after they're created), cause we don't need 'em!
 
 - ~~Create a script to handle processing of images:~~
 
