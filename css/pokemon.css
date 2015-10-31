@@ -19,6 +19,13 @@ h1 {
   height: auto;
 }
 
+.pokemon--sugimori {
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 0;
+  padding-bottom: 100%; /* http://daverupert.com/2012/04/uncle-daves-ol-padded-box/ */
+}
+
 .error {
   padding: 15px;
 }

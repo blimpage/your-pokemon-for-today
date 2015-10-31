@@ -115,7 +115,7 @@ gulp.task('generate_sprites', ['clean'], function () {
   for (set in spritesets) {
     gulp.src(spritesets[set])
     .pipe(spritesmith({
-      algorithm: 'left-right',
+      algorithm: 'top-down',
       algorithmOpts: {sort: false},
       engine:    'gmsmith',
       imgName:   'sugimori_' + set + '.jpg',
