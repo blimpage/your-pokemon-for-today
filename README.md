@@ -61,3 +61,5 @@ Maybe you wanna help me do these things???
 - Add a random hash to each build of the CSS and JS files, to ensure cache-busting (would need to add templating to index.html to allow dynamic insertion of the generated filename :/ )
 
 - Add a "Last updated" date to index.html (again, would need to add templating)
+
+- Add a favicon
