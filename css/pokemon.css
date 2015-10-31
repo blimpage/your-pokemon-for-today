@@ -1,29 +1,67 @@
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+}
+
 h1 {
+  font-size: 36px;
+  font-weight: 500;
   margin-bottom: 20px;
+}
+
+a {
+  color: #337ab7;
+}
+
+a:hover, a:focus {
+  color: #23527c;
 }
 
 .page-container {
   max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 .intro-container {
   margin-bottom: 20px;
 }
 
-.pokemon {
-  text-align: center;
+.pokemon-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
-.pokemon img {
+.pokemon {
+  flex-grow: 1;
+  min-width: 150px;
+  max-width: 200px;
+}
+
+.pokemon--kc img {
   width: 100%;
   height: auto;
 }
 
-.pokemon--sugimori {
+.pokemon--sugimori > div {
   background-repeat: no-repeat;
   background-size: cover;
   height: 0;
   padding-bottom: 100%; /* http://daverupert.com/2012/04/uncle-daves-ol-padded-box/ */
+}
+
+.small, small {
+  font-size: 85%;
+}
+
+.text-muted {
+  color: #777
 }
 
 .error {

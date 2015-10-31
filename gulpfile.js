@@ -7,8 +7,11 @@ var fs = require("fs"); // For filesystem access
 // For minifying/concatenating scripts and styles
 var uglifyJS = require('gulp-uglify');
 var uglifyJSON = require('gulp-jsonminify');
-var uglifyCSS = require('gulp-minify-css');
 var concat = require('gulp-concat');
+
+// For dem styles
+var autoprefixer = require('gulp-autoprefixer');
+var uglifyCSS = require('gulp-minify-css');
 
 // For images
 var gm = require('gulp-gm'); // GraphicsMagick
@@ -19,7 +22,7 @@ var paths = {
   scripts: ['js/vendor/*.js', 'js/*.js'],
   styles: ['css/vendor/*.css', 'css/*.css'],
   sugimori_images: 'images/sugimori/',
-  non_sugimori_images: 'images/!(sugimori)/*',
+  non_sugimori_images: ['images/*.*', 'images/!(sugimori)/**/*'],
   kc_images: 'images/kc/*',
   data: 'data/**/*.json',
   index: 'index.html'
@@ -56,6 +59,10 @@ gulp.task('styles', ['clean'], function() {
   // Minify and copy all JavaScript
   return gulp.src(paths.styles)
       .pipe(uglifyCSS().on('error', gutil.log))
+      .pipe(autoprefixer({
+        browsers: ['last 2 versions'],
+        cascade: false
+      }))
       .pipe(concat('style.min.css'))
     .pipe(gulp.dest('build/css'));
 });

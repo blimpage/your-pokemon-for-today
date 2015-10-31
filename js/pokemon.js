@@ -1,7 +1,7 @@
 var kc_pokemon = {
 
   config: {
-    cell_classes:       'col-xs-4 col-sm-3 col-md-2',
+    cell_classes:       'pokemon',
     lazyload_threshold: 24,
     total_pokemon:      721,
     spriteset_size:     50,
@@ -52,7 +52,7 @@ var kc_pokemon = {
   },
 
   _cell_for_kc_art: function(dex_number) {
-    return "<div class='pokemon " + this.config.cell_classes + "'>\
+    return "<div class='pokemon--kc " + this.config.cell_classes + "'>\
       <a href='images/kc/" + dex_number + ".png' class='swipebox' title='" + this._pokemon_name(dex_number) + "'>\
         <img " + this._img_src_attribute(dex_number) + "\
         alt='" + this._pokemon_name(dex_number) + "'\
@@ -74,8 +74,8 @@ var kc_pokemon = {
     var spriteset = Math.ceil(dex_number / this.config.spriteset_size) - 1,
         offset_y = ((dex_number - 1) % this.config.spriteset_size) * (1 / (this._images_in_set(spriteset) - 1) * 100);
 
-    return "<div class='" + this.config.cell_classes + "'>\
-      <div class='pokemon--sugimori' style='\
+    return "<div class='pokemon--sugimori " + this.config.cell_classes + "'>\
+      <div style='\
         background-image: url(/images/sugimori/sugimori_" + spriteset + ".jpg);\
         background-position: 0 " + offset_y + "%;
       '>\
