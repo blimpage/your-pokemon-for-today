@@ -13,6 +13,10 @@ h1 {
   margin-bottom: 20px;
 }
 
+p {
+  line-height: 1.45;
+}
+
 a {
   color: #337ab7;
 }
@@ -39,10 +43,18 @@ a:hover, a:focus {
 }
 
 .pokemon {
-  flex-grow: 1;
-  min-width: 150px;
-  max-width: 200px;
+  width: 50%;
 }
+
+@media (min-width: 401px) {
+  .pokemon {
+    flex-grow: 1;
+    width: auto;
+    min-width: 150px;
+    max-width: 200px;
+  }
+}
+
 
 .pokemon--kc img {
   width: 100%;
