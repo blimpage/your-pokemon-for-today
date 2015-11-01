@@ -36,7 +36,7 @@ Dat's it! If you make any changes, run step 5 again to build a new version of th
 
 Maybe you wanna help me do these things???
 
-- ~~Convert thumbnails into a spritesheet (and make sure they load nicely? Gotta make sure that the first few Pokémon are visible when the page loads)~~
+- ~~Convert thumbnails into a spritesheet~~ and make sure they load nicely - the first few Pokémon should be visible when the page loads, but we shouldn't download the entire spritesheet right away
 
   - Prevent generation of stylesheets for the spritesheets (or delete them from the build folder after they're created), cause we don't need 'em!
 

@@ -60,7 +60,7 @@ gulp.task('styles', ['clean'], function() {
   return gulp.src(paths.styles)
       .pipe(uglifyCSS().on('error', gutil.log))
       .pipe(autoprefixer({
-        browsers: ['last 2 versions'],
+        browsers: ['last 5 versions'],
         cascade: false
       }))
       .pipe(concat('style.min.css'))
