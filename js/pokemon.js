@@ -13,19 +13,29 @@ var kc_pokemon = {
   init: function() {
     this.config.last_spriteset = Math.floor(this.config.total_pokemon / this.config.spriteset_size);
 
-    var that = this;
+    var self = this;
 
     $.getJSON('data/kc.json')
       .done(function(data) {
 
-        that.kc_data = data;
-        that._display_pokemon();
-        that._init_vendor();
+        self.kc_data = data;
+        self._adjust_layout_for_ios();
+        self._display_pokemon();
+        self._init_vendor();
 
       })
       .fail(function() {
-        that.$pokemon_container.prepend('<p class="bg-danger error">Oh nooooo, something went wrong :(</p>');
+        self.$pokemon_container.prepend('<p class="bg-danger error">Oh nooooo, something went wrong :(</p>');
       });
+  },
+
+  _adjust_layout_for_ios: function() {
+    // User agent sniffing sucks, but parts of flexbox are still broken in mobile Safari as of iOS 9. :(
+    if ( /iPad|iPhone|iPod/.test(navigator.platform) ) {
+      $('body').addClass('no-flexbox');
+    } else {
+      $('body').addClass('flexbox');
+    }
   },
 
   _display_pokemon: function() {
