@@ -1,14 +1,20 @@
 var kc_pokemon = {
 
   config: {
-    cell_classes:       'pokemon',
-    lazyload_threshold: 24,
-    total_pokemon:      721,
-    spriteset_size:     50,
-    thumbnail_size:     200
+    cell_classes:    'pokemon',
+    batch_load_size: 30,
+    total_pokemon:   721,
+    spriteset_size:  50,
+    thumbnail_size:  200
+  },
+
+  state: {
+    last_loaded: 0
   },
 
   $pokemon_container: $('.js-pokemon-container'),
+  $loading:           $('.js-loading'),
+  $window:            $(window),
 
   init: function() {
     this.config.last_spriteset = Math.floor(this.config.total_pokemon / this.config.spriteset_size);
@@ -20,13 +26,31 @@ var kc_pokemon = {
 
         self.kc_data = data;
         self._adjust_layout_for_ios();
-        self._display_pokemon();
+        self._load_next_batch();
         self._init_vendor();
 
+        self.$window.bind('scroll.pokemon', $.proxy(_.throttle(self._on_scroll, 500), self));
       })
       .fail(function() {
+        self._remove_loading_spinner();
         self.$pokemon_container.prepend('<p class="bg-danger error">Oh nooooo, something went wrong :(</p>');
       });
+  },
+
+  _on_scroll: function() {
+    var window_bottom = this.$window.scrollTop() + this.$window.innerHeight(),
+        loading_top   = this.$loading.position().top,
+        diff          = this.config.thumbnail_size * 3;
+
+    var time_to_load_more = (window_bottom + diff >= loading_top);
+
+    if (time_to_load_more) {
+      this._load_next_batch();
+    }
+  },
+
+  _remove_loading_spinner: function() {
+    this.$loading.remove();
   },
 
   _adjust_layout_for_ios: function() {
@@ -38,19 +62,23 @@ var kc_pokemon = {
     }
   },
 
-  _display_pokemon: function() {
-    for ( i = 1; i <= this.config.total_pokemon; i++ ) {
+  _load_next_batch: function() {
+    var start = this.state.last_loaded + 1,
+        end   = this.state.last_loaded + this.config.batch_load_size;
+
+    for ( i = start; i <= end && i <= this.config.total_pokemon; i++ ) {
       this.$pokemon_container.append( this._new_cell_for_pokemon(i) );
+      this.state.last_loaded++;
+    }
+
+    if (end >= this.config.total_pokemon) {
+      this._remove_loading_spinner();
+      this.$window.unbind('scroll.pokemon');
     }
   },
 
   _init_vendor: function() {
     $('.swipebox').swipebox();
-
-    $('img.lazy').lazyload({
-      effect: 'fadeIn',
-      placeholder: 'images/loading.gif'
-    });
   },
 
   _new_cell_for_pokemon: function(dex_number) {
@@ -64,20 +92,12 @@ var kc_pokemon = {
   _cell_for_kc_art: function(dex_number) {
     return "<div class='pokemon--kc " + this.config.cell_classes + "'>\
       <a href='images/kc/" + dex_number + ".png' class='swipebox' title='" + this._pokemon_name(dex_number) + "'>\
-        <img " + this._img_src_attribute(dex_number) + "\
+        <img src='images/kc/thumbs/" + dex_number + ".png'\
         alt='" + this._pokemon_name(dex_number) + "'\
         width='" + this.config.thumbnail_size + "'\
         height='" + this.config.thumbnail_size + "'>\
       </a>\
     </div>";
-  },
-
-  _img_src_attribute: function(dex_number) {
-    if ( dex_number <= this.config.lazyload_threshold ) {
-      return "src='images/kc/thumbs/" + dex_number + ".png'";
-    } else {
-      return "class='lazy' data-original='images/kc/thumbs/" + dex_number + ".png'";
-    }
   },
 
   _cell_for_sugimori_art: function(dex_number) {
