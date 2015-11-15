@@ -1,0 +1,38 @@
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+}
+
+h1 {
+  font-size: 36px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+p {
+  line-height: 1.45;
+}
+
+a {
+  color: #337ab7;
+
+  &:hover, &:focus {
+    color: #23527c;
+  }
+}
+
+.small, small {
+  font-size: 85%;
+}
+
+.text-muted {
+  color: #777
+}
+
+.error {
+  padding: 15px;
+}

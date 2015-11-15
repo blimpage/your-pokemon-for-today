@@ -1,0 +1,49 @@
+@import 'base';
+
+.page-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.intro-container {
+  margin-bottom: 20px;
+}
+
+.pokemon--kc img {
+  width: 100%;
+  height: auto;
+}
+
+.pokemon--sugimori > div {
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 0;
+  padding-bottom: 100%; /* http://daverupert.com/2012/04/uncle-daves-ol-padded-box/ */
+}
+
+.flexbox {
+  .pokemon-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  .pokemon {
+    flex-grow: 1;
+    min-width: 50%;
+    max-width: 200px;
+
+    @media (min-width: 441px) {
+      min-width: 175px;
+    }
+  }
+}
+
+.no-flexbox {
+  .pokemon-container {
+    outline: 1px solid rgba(255,0,0,0.3);
+  }
+}

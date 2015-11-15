@@ -10,6 +10,7 @@ var uglifyJSON = require('gulp-jsonminify');
 var concat = require('gulp-concat');
 
 // For dem styles
+var sass = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
 var uglifyCSS = require('gulp-minify-css');
 
@@ -20,7 +21,7 @@ var spritesmith = require('gulp.spritesmith');
 
 var paths = {
   scripts: ['js/vendor/*.js', 'js/*.js'],
-  styles: ['css/vendor/*.css', 'css/*.css'],
+  styles: ['scss/vendor/*.scss', 'scss/pokemon.scss'],
   sugimori_images: 'images/sugimori/',
   non_sugimori_images: ['images/*.*', 'images/!(sugimori)/**/*'],
   kc_images: 'images/kc/*',
@@ -58,6 +59,7 @@ gulp.task('scripts', ['clean'], function() {
 gulp.task('styles', ['clean'], function() {
   // Minify and copy all JavaScript
   return gulp.src(paths.styles)
+      .pipe(sass().on('error', sass.logError))
       .pipe(uglifyCSS().on('error', gutil.log))
       .pipe(autoprefixer({
         browsers: ['last 5 versions'],
