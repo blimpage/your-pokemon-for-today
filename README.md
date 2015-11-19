@@ -58,6 +58,8 @@ Maybe you wanna help me do these things???
 
 - Add a "watch" task to the gulp config, to automatically rebuild the relevant build files when the source files change
 
+- Combine the data JSON file with the main HTML or JS, so we're not ajax'ing for it after the page loads. One less request, baby!
+
 - Add a random hash to each build of the CSS and JS files, to ensure cache-busting (would need to add templating to index.html to allow dynamic insertion of the generated filename :/ )
 
 - Add a "Last updated" date to index.html (again, would need to add templating)
