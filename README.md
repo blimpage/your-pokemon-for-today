@@ -19,7 +19,7 @@ So you wanna be a Digimon master huh???? Here's how to build a version of this s
 
 2. Make sure you've [got Node.js and npm installed](https://docs.npmjs.com/getting-started/installing-node), as well as [Homebrew](http://brew.sh/)
 
-3. **Install GraphicsMagick for Node:** Open a command line tool and run `brew install graphicsmagick`
+3. **Install GraphicsMagick:** Open a command line tool and run `brew install graphicsmagick`
 
 4. **Install the project's dependencies:** In your command line tool, navigate to the project folder and run `npm install`
 
