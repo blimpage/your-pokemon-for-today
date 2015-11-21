@@ -50,6 +50,8 @@ Maybe you wanna help me do these things???
 
   - Maybe even exclude Sugimori images from the spritesheet based on whether or not a KC image is present?? :o
 
+    - Tried to do this, but it's difficult since spritesmith ignores duplicate images. So if you want to insert a blank image into a spritesheet multiple times, then you need to use multiple blank images! :(
+
 - ~~Concatenate and minify CSS & JS~~
 
 - Add a filtering option to _only_ display KC's images (and maybe one to show only ones he hasn't done? Would anyone ever even want that?)
