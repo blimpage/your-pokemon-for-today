@@ -42,7 +42,7 @@ Maybe you wanna help me do these things???
 
 - ~~Create a script to handle processing of images:~~
 
-  - ~~Create a 200px~~ PNG-8 (whoops, needa add a conversion step) ~~thumbnail of each full-size image~~
+  - ~~Create a 200px PNG-8 thumbnail of each full-size image~~
 
   - ~~Optimise both the full-size image and the thumbnail~~
 
