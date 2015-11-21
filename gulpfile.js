@@ -131,10 +131,11 @@ gulp.task('generate_sprites', ['clean'], function () {
         algorithmOpts: { sort: false },
         engine:        'gmsmith',
         imgName:       'sugimori_' + set + '.jpg',
-        cssName:       'sugimori_' + set + '.css',
+        cssName:       'we_wont_even_output_this',
         imgOpts:       { quality: 80 }
       }))
-      .pipe(gulp.dest('build/images/sugimori'));
+        .img // So that we're only outputting the images, not the CSS
+          .pipe(gulp.dest('build/images/sugimori'));
   }
 });
 
