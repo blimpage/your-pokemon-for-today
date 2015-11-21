@@ -3,6 +3,7 @@ var gulp = require('gulp');
 var del = require('del'); // For deletin' files
 var gutil = require('gulp-util'); // For error logging
 var fs = require("fs"); // For filesystem access
+var rename = require("gulp-rename"); // For renaming files
 
 // For minifying/concatenating scripts and styles
 var uglifyJS = require('gulp-uglify');
@@ -51,21 +52,21 @@ gulp.task('copy_data', ['clean'], function() {
 gulp.task('scripts', ['clean'], function() {
   // Minify and copy all JavaScript
   return gulp.src(paths.scripts)
-      .pipe(uglifyJS().on('error', gutil.log))
-      .pipe(concat('scripts.min.js'))
+    .pipe(uglifyJS().on('error', gutil.log))
+    .pipe(concat('scripts.min.js'))
     .pipe(gulp.dest('build/js'));
 });
 
 gulp.task('styles', ['clean'], function() {
   // Minify and copy all JavaScript
   return gulp.src(paths.styles)
-      .pipe(sass().on('error', sass.logError))
-      .pipe(uglifyCSS().on('error', gutil.log))
-      .pipe(autoprefixer({
-        browsers: ['last 5 versions'],
-        cascade: false
-      }))
-      .pipe(concat('style.min.css'))
+    .pipe(sass().on('error', sass.logError))
+    .pipe(uglifyCSS().on('error', gutil.log))
+    .pipe(autoprefixer({
+      browsers: ['last 5 versions'],
+      cascade: false
+    }))
+    .pipe(concat('style.min.css'))
     .pipe(gulp.dest('build/css'));
 });
 
@@ -79,7 +80,9 @@ gulp.task('generate_thumbs', ['clean'], function() {
         .resize(160, 160)
         .gravity('Center')
         .extent(200, 200)
+        .setFormat('png8')
     }))
+    .pipe(rename({extname: '.png'}))
     .pipe(imagemin({optimizationLevel: 4}))
     .pipe(gulp.dest('build/images/kc/thumbs'));
 });
@@ -123,15 +126,15 @@ gulp.task('generate_sprites', ['clean'], function () {
   // Generate a spritesheet for each set we've defined!
   for (set in spritesets) {
     gulp.src(spritesets[set])
-    .pipe(spritesmith({
-      algorithm: 'top-down',
-      algorithmOpts: {sort: false},
-      engine:    'gmsmith',
-      imgName:   'sugimori_' + set + '.jpg',
-      cssName:   'sugimori_' + set + '.css',
-      imgOpts:   { quality: 80 }
-    }))
-    .pipe(gulp.dest('build/images/sugimori'));
+      .pipe(spritesmith({
+        algorithm:     'top-down',
+        algorithmOpts: { sort: false },
+        engine:        'gmsmith',
+        imgName:       'sugimori_' + set + '.jpg',
+        cssName:       'sugimori_' + set + '.css',
+        imgOpts:       { quality: 80 }
+      }))
+      .pipe(gulp.dest('build/images/sugimori'));
   }
 });
 
