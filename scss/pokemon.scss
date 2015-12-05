@@ -46,6 +46,10 @@
     @media (min-width: 441px) {
       min-width: 175px;
     }
+
+    &.hidden {
+      display: none;
+    }
   }
 }
 

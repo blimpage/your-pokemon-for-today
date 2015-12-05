@@ -1,15 +1,12 @@
 var kc_pokemon = {
 
   config: {
-    cell_classes:    'pokemon',
-    batch_load_size: 30,
-    total_pokemon:   721,
-    spriteset_size:  50,
-    thumbnail_size:  200
-  },
-
-  state: {
-    last_loaded: 0
+    cell_class:        'pokemon',
+    cell_hidden_class: 'hidden',
+    batch_load_size:   30,
+    total_pokemon:     721,
+    spriteset_size:    50,
+    thumbnail_size:    200
   },
 
   $pokemon_container: $('.js-pokemon-container'),
@@ -26,7 +23,8 @@ var kc_pokemon = {
 
         self.kc_data = data;
         self._adjust_layout_for_ios();
-        self._load_next_batch();
+        self._layout_all_cells();
+        self._unhide_next_batch();
         self._init_vendor();
 
         self.$window.bind('scroll.pokemon', $.proxy(_.throttle(self._on_scroll, 500), self));
@@ -45,7 +43,7 @@ var kc_pokemon = {
     var time_to_load_more = (window_bottom + diff >= loading_top);
 
     if (time_to_load_more) {
-      this._load_next_batch();
+      this._unhide_next_batch();
     }
   },
 
@@ -62,16 +60,31 @@ var kc_pokemon = {
     }
   },
 
-  _load_next_batch: function() {
-    var start = this.state.last_loaded + 1,
-        end   = this.state.last_loaded + this.config.batch_load_size;
-
-    for ( i = start; i <= end && i <= this.config.total_pokemon; i++ ) {
+  _layout_all_cells: function() {
+    for ( i = 1; i <= this.config.total_pokemon; i++ ) {
       this.$pokemon_container.append( this._new_cell_for_pokemon(i) );
-      this.state.last_loaded++;
     }
+  },
 
-    if (end >= this.config.total_pokemon) {
+  _unhide_next_batch: function() {
+    var selector = '.' + this.config.cell_class + '.' + this.config.cell_hidden_class;
+    var cells = $(selector).slice(0, this.config.batch_load_size);
+
+    if ( cells.length > 0 ) {
+      cells.each(function(index) {
+        var cell = $(this);
+
+        if ( cell.hasClass('pokemon--kc') ) {
+          var image = cell.find('img:first');
+          image.attr('src', image.data('src')).removeData().removeAttr('data-src');
+          cell.removeClass('hidden');
+
+        } else if ( cell.hasClass('pokemon--sugimori') ) {
+          cell.removeClass('hidden');
+        }
+      });
+
+    } else {
       this._remove_loading_spinner();
       this.$window.unbind('scroll.pokemon');
     }
@@ -90,12 +103,12 @@ var kc_pokemon = {
   },
 
   _cell_for_kc_art: function(dex_number) {
-    return "<div class='pokemon--kc " + this.config.cell_classes + "'>\
+    return "<div class='pokemon--kc " + this.config.cell_class + " " + this.config.cell_hidden_class + "'>\
       <a href='images/kc/" + dex_number + ".png' class='swipebox' title='" + this._pokemon_name(dex_number) + "'>\
-        <img src='images/kc/thumbs/" + dex_number + ".png'\
-        alt='" + this._pokemon_name(dex_number) + "'\
-        width='" + this.config.thumbnail_size + "'\
-        height='" + this.config.thumbnail_size + "'>\
+        <img src='' data-src='images/kc/thumbs/" + dex_number + ".png'\
+          alt='" + this._pokemon_name(dex_number) + "'\
+          width='" + this.config.thumbnail_size + "'\
+          height='" + this.config.thumbnail_size + "' >\
       </a>\
     </div>";
   },
@@ -104,7 +117,7 @@ var kc_pokemon = {
     var spriteset = Math.ceil(dex_number / this.config.spriteset_size) - 1,
         offset_y = ((dex_number - 1) % this.config.spriteset_size) * (1 / (this._images_in_set(spriteset) - 1) * 100);
 
-    return "<div class='pokemon--sugimori " + this.config.cell_classes + "'>\
+    return "<div class='pokemon--sugimori " + this.config.cell_class + " " + this.config.cell_hidden_class + "'>\
       <div style='\
         background-image: url(/images/sugimori/sugimori_" + spriteset + ".jpg);\
         background-position: 0 " + offset_y + "%;
