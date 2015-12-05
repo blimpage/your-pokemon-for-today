@@ -75,8 +75,10 @@ var kc_pokemon = {
         var cell = $(this);
 
         if ( cell.hasClass('pokemon--kc') ) {
-          var image = cell.find('img:first');
-          image.attr('src', image.data('src')).removeData().removeAttr('data-src');
+          var image = cell.find('img').first();
+          var image_src = image.attr('data-src');
+
+          image.attr('src', image_src);
           cell.removeClass('hidden');
 
         } else if ( cell.hasClass('pokemon--sugimori') ) {

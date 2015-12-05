@@ -43,12 +43,12 @@
     min-width: 50%;
     max-width: 200px;
 
-    @media (min-width: 441px) {
-      min-width: 175px;
-    }
-
     &.hidden {
       display: none;
+    }
+
+    @media (min-width: 441px) {
+      min-width: 175px;
     }
   }
 }
@@ -58,6 +58,10 @@
     display: inline-block;
     vertical-align: top;
     max-width: 200px;
+
+    &.hidden {
+      display: none;
+    }
 
     @media (max-width: 440px) {
       width: 50%;
