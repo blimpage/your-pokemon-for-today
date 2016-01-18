@@ -122,7 +122,7 @@ var kc_pokemon = {
     return "<div class='pokemon--sugimori " + this.config.cell_class + " " + this.config.cell_hidden_class + "'>\
       <div style='\
         background-image: url(/images/sugimori/sugimori_" + spriteset + ".jpg);\
-        background-position: 0 " + offset_y + "%;
+        background-position: 0 " + offset_y + "%;\
       '>\
       </div>\
     </div>";
