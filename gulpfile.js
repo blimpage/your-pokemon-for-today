@@ -90,6 +90,10 @@ gulp.task('generate_thumbs', ['clean'], function() {
 gulp.task('optimize_images', ['clean'], function(){
   // Optimize and copy all images
   return gulp.src(paths.non_sugimori_images)
+    .pipe(gm(function(gmfile) {
+      return gmfile.setFormat('png')
+    }))
+    .pipe(rename({extname: '.png'}))
     .pipe(imagemin({optimizationLevel: 4}))
     .pipe(gulp.dest('build/images'));
 });
