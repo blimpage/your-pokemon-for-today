@@ -67,3 +67,5 @@ Maybe you wanna help me do these things???
 - Add a "Last updated" date to index.html (again, would need to add templating)
 
 - Add a favicon
+
+- Don't convert all JPGs to PNGs. Some KC images are JPGs, but for convenience's sake we convert them all to PNG. This results in a larger filesize without any change in image quality, so we should really keep them as JPG.
