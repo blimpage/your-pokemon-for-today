@@ -24,8 +24,8 @@ var paths = {
   scripts: ['js/vendor/*.js', 'js/*.js'],
   styles: ['scss/vendor/*.scss', 'scss/pokemon.scss'],
   sugimori_images: 'images/sugimori/',
-  non_sugimori_images: ['images/*.*', 'images/!(sugimori)/**/*'],
   kc_images: 'images/kc/*',
+  non_pokemon_images: ['images/*.*', 'images/!(sugimori|kc)/**/*'],
   data: 'data/**/*.json',
   index: 'index.html'
 };
@@ -87,13 +87,20 @@ gulp.task('generate_thumbs', ['clean'], function() {
     .pipe(gulp.dest('build/images/kc/thumbs'));
 });
 
-gulp.task('optimize_images', ['clean'], function(){
-  // Optimize and copy all images
-  return gulp.src(paths.non_sugimori_images)
+gulp.task('optimize_kc_images', ['clean'], function(){
+  // Optimize and copy all KC images
+  return gulp.src(paths.kc_images)
     .pipe(gm(function(gmfile) {
       return gmfile.setFormat('png')
     }))
     .pipe(rename({extname: '.png'}))
+    .pipe(imagemin({optimizationLevel: 4}))
+    .pipe(gulp.dest('build/images/kc'));
+});
+
+gulp.task('optimize_site_images', ['clean'], function(){
+  // Optimize and copy all non-KC and non-Sugimori images
+  return gulp.src(paths.non_pokemon_images)
     .pipe(imagemin({optimizationLevel: 4}))
     .pipe(gulp.dest('build/images'));
 });
@@ -151,6 +158,7 @@ gulp.task('default', [
   'scripts',
   'styles',
   'generate_thumbs',
-  'optimize_images',
+  'optimize_kc_images',
+  'optimize_site_images',
   'generate_sprites'
 ]);
