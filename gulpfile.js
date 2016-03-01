@@ -2,8 +2,8 @@ var gulp = require('gulp');
 
 var del = require('del'); // For deletin' files
 var gutil = require('gulp-util'); // For error logging
-var fs = require("fs"); // For filesystem access
-var rename = require("gulp-rename"); // For renaming files
+var fs = require('fs'); // For filesystem access
+var rename = require('gulp-rename'); // For renaming files
 
 // For minifying/concatenating scripts and styles
 var uglifyJS = require('gulp-uglify');
