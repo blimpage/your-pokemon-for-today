@@ -77,7 +77,7 @@ gulp.task('generate_thumbs', ['clean'], function() {
       return gmfile
         .fuzz(5)
         .trim()
-        .resize(160, 160)
+        .resize(145, 145)
         .gravity('Center')
         .extent(200, 200)
         .setFormat('png8')
