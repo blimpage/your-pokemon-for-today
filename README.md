@@ -23,7 +23,7 @@ So you wanna be a Digimon master huh???? Here's how to build a version of this s
 
 4. **Install the project's dependencies:** In your command-line interface, navigate to the project folder and run `npm install`
 
-5. **Build the site from the source files:** In the same folder, run `gulp` (if you get a `command not found` error, try [this solution](http://blog.webbb.be/command-not-found-node-npm/)). The site is done building when you see `Finished 'default'` and you get your command prompt back.
+5. **Build the site from the source files:** In the same folder, run `npm run build`. The site is done building when you see `Finished 'default'` and you get your command prompt back.
 
 6. Look in the "build" folder - there's your site! WOW!
 
