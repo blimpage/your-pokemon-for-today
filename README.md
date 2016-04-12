@@ -70,4 +70,4 @@ Maybe you wanna help me do these things???
 
 - Don't convert all JPGs to PNGs. Some KC images are JPGs, but for convenience's sake we convert them all to PNG. This results in a larger filesize without any change in image quality, so we should really keep them as JPG.
 
-- Incorporate something like `gulp-newer` into the build process so that we don't regenerate every image every time we build
+- ~~Incorporate something like `gulp-newer` into the build process so that we don't regenerate every image every time we build~~
