@@ -6,6 +6,9 @@ var fs     = require('fs'); // For filesystem access
 var rename = require('gulp-rename'); // For renaming files
 var newer  = require('gulp-newer'); // For only regenerating files when necessary
 
+// For HTML templating
+var nunjucksRender = require('gulp-nunjucks-render');
+
 // For minifying/concatenating scripts and styles
 var uglifyJS   = require('gulp-uglify');
 var uglifyJSON = require('gulp-jsonminify');
@@ -35,6 +38,18 @@ var paths = {
 gulp.task('clean', function() {
   // Delete dat build directory
   return del(['build']);
+});
+
+gulp.task('echo_data', function() {
+  var data = JSON.parse(fs.readFileSync('data/kc.json'));
+
+  var pokemons = fs.readdirSync('images/kc')
+    .filter(function(filename) { return /^\d/.test(filename) })
+    .map(function(filename) { return { filename: filename, pokedexNumber: filename.match(/(\d+)/)[1] } })
+    .map(function(pokemon) { return Object.assign(pokemon, { name: data[pokemon.pokedexNumber] }) })
+    .sort(function(a, b) { return a.pokedexNumber - b.pokedexNumber });
+
+  console.log(pokemons);
 });
 
 gulp.task('copy_index', function() {
