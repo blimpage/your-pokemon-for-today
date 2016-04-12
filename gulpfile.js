@@ -1,23 +1,24 @@
 var gulp = require('gulp');
 
-var del = require('del'); // For deletin' files
-var gutil = require('gulp-util'); // For error logging
-var fs = require('fs'); // For filesystem access
+var del    = require('del'); // For deletin' files
+var gutil  = require('gulp-util'); // For error logging
+var fs     = require('fs'); // For filesystem access
 var rename = require('gulp-rename'); // For renaming files
+var newer  = require('gulp-newer'); // For only regenerating files when necessary
 
 // For minifying/concatenating scripts and styles
-var uglifyJS = require('gulp-uglify');
+var uglifyJS   = require('gulp-uglify');
 var uglifyJSON = require('gulp-jsonminify');
-var concat = require('gulp-concat');
+var concat     = require('gulp-concat');
 
 // For dem styles
-var sass = require('gulp-sass');
+var sass         = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
-var uglifyCSS = require('gulp-minify-css');
+var uglifyCSS    = require('gulp-minify-css');
 
 // For images
-var gm = require('gulp-gm'); // GraphicsMagick
-var imagemin = require('gulp-imagemin');
+var gm          = require('gulp-gm'); // GraphicsMagick
+var imagemin    = require('gulp-imagemin');
 var spritesmith = require('gulp.spritesmith');
 
 var paths = {
@@ -36,20 +37,22 @@ gulp.task('clean', function() {
   return del(['build']);
 });
 
-gulp.task('copy_index', ['clean'], function() {
+gulp.task('copy_index', function() {
   // Copy the index file into the build folder
   return gulp.src(paths.index)
+    .pipe(newer('build'))
     .pipe(gulp.dest('build'));
 });
 
-gulp.task('copy_data', ['clean'], function() {
+gulp.task('copy_data', function() {
   // Copy data files into the build folder
   return gulp.src(paths.data)
+    .pipe(newer('build/data'))
     .pipe(uglifyJSON().on('error', gutil.log))
     .pipe(gulp.dest('build/data'));
 });
 
-gulp.task('scripts', ['clean'], function() {
+gulp.task('scripts', function() {
   // Minify and copy all JavaScript
   return gulp.src(paths.scripts)
     .pipe(uglifyJS().on('error', gutil.log))
@@ -57,7 +60,7 @@ gulp.task('scripts', ['clean'], function() {
     .pipe(gulp.dest('build/js'));
 });
 
-gulp.task('styles', ['clean'], function() {
+gulp.task('styles', function() {
   // Minify and copy all JavaScript
   return gulp.src(paths.styles)
     .pipe(sass().on('error', sass.logError))
@@ -70,9 +73,10 @@ gulp.task('styles', ['clean'], function() {
     .pipe(gulp.dest('build/css'));
 });
 
-gulp.task('generate_thumbs', ['clean'], function() {
+gulp.task('generate_thumbs', function() {
   // Generate thumbs for all KC images
   return gulp.src(paths.kc_images)
+    .pipe(newer('build/images/kc/thumbs'))
     .pipe(gm(function(gmfile) {
       return gmfile
         .fuzz(5)
@@ -87,9 +91,10 @@ gulp.task('generate_thumbs', ['clean'], function() {
     .pipe(gulp.dest('build/images/kc/thumbs'));
 });
 
-gulp.task('optimize_kc_images', ['clean'], function(){
+gulp.task('optimize_kc_images', function(){
   // Optimize and copy all KC images
   return gulp.src(paths.kc_images)
+    .pipe(newer('build/images/kc'))
     .pipe(gm(function(gmfile) {
       return gmfile.setFormat('png')
     }))
@@ -98,14 +103,14 @@ gulp.task('optimize_kc_images', ['clean'], function(){
     .pipe(gulp.dest('build/images/kc'));
 });
 
-gulp.task('optimize_site_images', ['clean'], function(){
+gulp.task('optimize_site_images', function(){
   // Optimize and copy all non-KC and non-Sugimori images
   return gulp.src(paths.non_pokemon_images)
     .pipe(imagemin({optimizationLevel: 4}))
     .pipe(gulp.dest('build/images'));
 });
 
-gulp.task('generate_sprites', ['clean'], function () {
+gulp.task('generate_sprites', function () {
   // Generate spritesheets for the fallback Sugimori images.
   // We're using spritesmith, which generates one spritesheet each time we call it.
   // However we want to generate a few batches of spritesheets, so we need to call it multiple times.
@@ -152,7 +157,6 @@ gulp.task('generate_sprites', ['clean'], function () {
 
 // The default task (called when you run `gulp` from cli)
 gulp.task('default', [
-  'clean',
   'copy_index',
   'copy_data',
   'scripts',
