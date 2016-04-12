@@ -24,10 +24,10 @@ var kc_pokemon = {
         self.kc_data = data;
         self._adjust_layout_for_ios();
         self._layout_all_cells();
-        self._unhide_next_batch();
+        self._unhide_next_batch_if_needed({retry_on_success: true});
         self._init_vendor();
 
-        self.$window.bind('scroll.pokemon', $.proxy(_.throttle(self._on_scroll, 500), self));
+        self.$window.bind('scroll.pokemon', $.proxy(_.throttle(self._unhide_next_batch_if_needed, 500), self));
       })
       .fail(function() {
         self._remove_loading_spinner();
@@ -35,7 +35,9 @@ var kc_pokemon = {
       });
   },
 
-  _on_scroll: function() {
+  _unhide_next_batch_if_needed: function(options) {
+    var settings = Object.assign({retry_on_success: false}, options);
+
     var window_bottom = this.$window.scrollTop() + this.$window.innerHeight(),
         loading_top   = this.$loading.position().top,
         diff          = this.config.thumbnail_size * 3;
@@ -44,6 +46,10 @@ var kc_pokemon = {
 
     if (time_to_load_more) {
       this._unhide_next_batch();
+
+      if (settings.retry_on_success) {
+        this._unhide_next_batch_if_needed({retry_on_success: true});
+      }
     }
   },
 
