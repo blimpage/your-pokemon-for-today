@@ -8,6 +8,7 @@ var newer  = require('gulp-newer'); // For only regenerating files when necessar
 
 // For HTML templating
 var nunjucksRender = require('gulp-nunjucks-render');
+var data           = require('gulp-data');
 
 // For minifying/concatenating scripts and styles
 var uglifyJS   = require('gulp-uglify');
@@ -34,6 +35,28 @@ var paths = {
   index: 'index.html'
 };
 
+var parse_kc_data = function() {
+  var data = JSON.parse(fs.readFileSync('data/all_pokemon.json'));
+
+  var filenames = fs.readdirSync('images/kc')
+    .filter(function(filename) { return /^\d/.test(filename) });
+
+  var files_obj = {};
+
+  filenames.forEach(function(filename) {
+    var just_the_number = filename.match(/(\d+)/)[1];
+    files_obj[just_the_number] = filename;
+  });
+
+  for (num in data) {
+    if (files_obj[num]) {
+      data[num].filename = files_obj[num];
+    }
+  };
+
+  return { pokemons: data };
+};
+
 
 gulp.task('clean', function() {
   // Delete dat build directory
@@ -41,15 +64,16 @@ gulp.task('clean', function() {
 });
 
 gulp.task('echo_data', function() {
-  var data = JSON.parse(fs.readFileSync('data/kc.json'));
+  console.log(parse_kc_data());
+});
 
-  var pokemons = fs.readdirSync('images/kc')
-    .filter(function(filename) { return /^\d/.test(filename) })
-    .map(function(filename) { return { filename: filename, pokedexNumber: filename.match(/(\d+)/)[1] } })
-    .map(function(pokemon) { return Object.assign(pokemon, { name: data[pokemon.pokedexNumber] }) })
-    .sort(function(a, b) { return a.pokedexNumber - b.pokedexNumber });
+gulp.task('render_some_stuff', function() {
+  nunjucksRender.nunjucks.configure(['templates/']);
 
-  console.log(pokemons);
+  return gulp.src('templates/*')
+    .pipe(data(parse_kc_data()))
+    .pipe(nunjucksRender())
+    .pipe(gulp.dest('tmp'));
 });
 
 gulp.task('copy_index', function() {

@@ -1,0 +1,16 @@
+{% block gallery %}
+<div class="gallery">
+  <!-- Loops through "pokemons" array -->
+  {% for number, data in pokemons %}
+    {% if data.filename %}
+      <div class="pokemon--kc">
+        <img src="images/kc/thumbs/{{data.filename}}" alt="{{data.name}}">
+      </div>
+    {% else %}
+      <div class="pokemon--sugimori">
+        {{data.name}}
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>
+{% endblock %}
