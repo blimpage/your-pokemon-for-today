@@ -14,11 +14,11 @@ var kc_pokemon = {
   init: function() {
     var self = this;
 
-        self._adjust_layout_for_ios();
-        self._unhide_next_batch_if_needed({retry_on_success: true});
-        self._init_vendor();
+    self._adjust_layout_for_ios();
+    self._unhide_next_batch_if_needed({retry_on_success: true});
+    self._init_vendor();
 
-        self.$window.bind('scroll.pokemon', $.proxy(_.throttle(self._unhide_next_batch_if_needed, 500), self));
+    self.$window.bind('scroll.pokemon', $.proxy(_.throttle(self._unhide_next_batch_if_needed, 500), self));
   },
 
   _unhide_next_batch_if_needed: function(options) {
