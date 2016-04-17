@@ -1,16 +1,19 @@
 {% block gallery %}
-<div class="gallery">
-  <!-- Loops through "pokemons" array -->
-  {% for number, data in pokemons %}
-    {% if data.filename %}
-      <div class="pokemon--kc">
-        <img src="images/kc/thumbs/{{data.filename}}" alt="{{data.name}}">
-      </div>
-    {% else %}
-      <div class="pokemon--sugimori">
-        {{data.name}}
-      </div>
-    {% endif %}
-  {% endfor %}
-</div>
+  <div class='pokemon-container js-pokemon-container'>
+    {% for number, data in pokemons %}
+      {% if data.filename %}
+        <div class='pokemon--kc pokemon hidden'>
+          <a href='images/kc/{{data.filename}}' class='swipebox' title='{{data.name}}'>
+            <img src='images/kc/thumbs/{{data.filename}}' alt='{{data.name}}' width='200' height='200'>
+          </a>
+        </div>
+      {% else %}
+        <div class='pokemon--sugimori pokemon hidden'>
+          <div style='background-image: url(/images/sugimori/sugimori_{{number}}.jpg);'>
+            {{data.name}}
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
 {% endblock %}

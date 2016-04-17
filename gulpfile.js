@@ -32,22 +32,38 @@ var paths = {
   kc_images: 'images/kc/*',
   non_pokemon_images: ['images/*.*', 'images/!(sugimori|kc)/**/*'],
   data: 'data/**/*.json',
-  index: 'index.html'
+  index: 'index.html',
+  templates_dir: 'templates/',
+  templates: 'templates/*',
+  temp_dir: 'tmp/'
+};
+
+var config = {
+  spriteset_size: 50
 };
 
 var parse_kc_data = function() {
+  // Load up the Pokedex numbers and names of all existing Pokemon
   var data = JSON.parse(fs.readFileSync('data/all_pokemon.json'));
 
+  // Get the filenames of all KC images
   var filenames = fs.readdirSync('images/kc')
-    .filter(function(filename) { return /^\d/.test(filename) });
+    .filter(function(filename) { return /^\d/.test(filename) }); // Filter out any filenames that don't start with a number
 
+  // Convert our array of filenames into an object, with the format:
+  // {
+  //  '1'  : '1.png',
+  //  '34' : '34.jpg',
+  //  '151': '151.png'
+  // }
   var files_obj = {};
-
   filenames.forEach(function(filename) {
     var just_the_number = filename.match(/(\d+)/)[1];
     files_obj[just_the_number] = filename;
   });
 
+  // For any of the entries in the "data" object that there exists a KC image for,
+  // insert its filename into the "data" object
   for (num in data) {
     if (files_obj[num]) {
       data[num].filename = files_obj[num];
@@ -67,28 +83,21 @@ gulp.task('echo_data', function() {
   console.log(parse_kc_data());
 });
 
-gulp.task('render_some_stuff', function() {
-  nunjucksRender.nunjucks.configure(['templates/']);
+gulp.task('render_gallery', function() {
+  nunjucksRender.nunjucks.configure([paths.templates_dir]);
 
-  return gulp.src('templates/*')
+  return gulp.src(paths.templates_dir + 'gallery.njk')
     .pipe(data(parse_kc_data()))
     .pipe(nunjucksRender())
-    .pipe(gulp.dest('tmp'));
+    .pipe(gulp.dest(paths.temp_dir));
 });
 
-gulp.task('copy_index', function() {
-  // Copy the index file into the build folder
-  return gulp.src(paths.index)
-    .pipe(newer('build'))
-    .pipe(gulp.dest('build'));
-});
+gulp.task('render_index', ['render_gallery'], function() {
+  nunjucksRender.nunjucks.configure([paths.templates_dir]);
 
-gulp.task('copy_data', function() {
-  // Copy data files into the build folder
-  return gulp.src(paths.data)
-    .pipe(newer('build/data'))
-    .pipe(uglifyJSON().on('error', gutil.log))
-    .pipe(gulp.dest('build/data'));
+  return gulp.src(paths.templates_dir + 'index.njk')
+    .pipe(nunjucksRender())
+    .pipe(gulp.dest('build/'));
 });
 
 gulp.task('scripts', function() {
@@ -165,14 +174,13 @@ gulp.task('generate_sprites', function () {
     });
 
   // Then we need to split them into sets, based on our desired set size.
-  var set_size = 50;
   var spritesets = {};
 
-  for (i = 0; i < (src_files.length / set_size); i++) {
+  for (i = 0; i < (src_files.length / config.spriteset_size); i++) {
     // The Array.slice() method creates a subset starting from the first index,
     // and stopping one short of the second index. So our arguments will be:
-    var first = set_size * i;
-    var last = set_size * (i + 1);
+    var first = config.spriteset_size * i;
+    var last = config.spriteset_size * (i + 1);
 
     // Add this subset to our list of spritesets
     spritesets[i] = src_files.slice(first, last);
@@ -196,8 +204,7 @@ gulp.task('generate_sprites', function () {
 
 // The default task (called when you run `gulp` from cli)
 gulp.task('default', [
-  'copy_index',
-  'copy_data',
+  'render_index',
   'scripts',
   'styles',
   'generate_thumbs',
