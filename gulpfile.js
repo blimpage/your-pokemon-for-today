@@ -31,18 +31,16 @@ var paths = {
   sugimori_images: 'images/sugimori/',
   kc_images: 'images/kc/*',
   non_pokemon_images: ['images/*.*', 'images/!(sugimori|kc)/**/*'],
-  data: 'data/**/*.json',
-  index: 'index.html',
-  templates_dir: 'templates/',
-  templates: 'templates/*',
-  temp_dir: 'tmp/'
+  data: 'data/',
+  templates: 'templates/',
+  build: 'build/'
 };
 
 var config = {
   spriteset_size: 50
 };
 
-var all_pokemon_data = JSON.parse(fs.readFileSync('data/all_pokemon.json'));
+var all_pokemon_data = JSON.parse(fs.readFileSync(paths.data + 'all_pokemon.json'));
 
 var parse_kc_data = function() {
   // Get the filenames of all KC images
@@ -100,16 +98,16 @@ var compile_data = function() {
 
 gulp.task('clean', function() {
   // Delete dat build directory
-  return del(['build']);
+  return del([paths.build]);
 });
 
 gulp.task('render_index', function() {
-  nunjucksRender.nunjucks.configure([paths.templates_dir]);
+  nunjucksRender.nunjucks.configure([paths.templates]);
 
-  return gulp.src(paths.templates_dir + 'index.njk')
+  return gulp.src(paths.templates + 'index.njk')
     .pipe(data({ pokemons: compile_data() }))
     .pipe(nunjucksRender())
-    .pipe(gulp.dest('build/'));
+    .pipe(gulp.dest(paths.build));
 });
 
 gulp.task('scripts', function() {
@@ -117,7 +115,7 @@ gulp.task('scripts', function() {
   return gulp.src(paths.scripts)
     .pipe(uglifyJS().on('error', gutil.log))
     .pipe(concat('scripts.min.js'))
-    .pipe(gulp.dest('build/js'));
+    .pipe(gulp.dest(paths.build + 'js'));
 });
 
 gulp.task('styles', function() {
@@ -130,13 +128,13 @@ gulp.task('styles', function() {
       cascade: false
     }))
     .pipe(concat('style.min.css'))
-    .pipe(gulp.dest('build/css'));
+    .pipe(gulp.dest(paths.build + 'css'));
 });
 
 gulp.task('generate_thumbs', function() {
   // Generate thumbs for all KC images
   return gulp.src(paths.kc_images)
-    .pipe(newer('build/images/kc/thumbs'))
+    .pipe(newer(paths.build + 'images/kc/thumbs'))
     .pipe(gm(function(gmfile) {
       return gmfile
         .fuzz(5)
@@ -144,30 +142,24 @@ gulp.task('generate_thumbs', function() {
         .resize(145, 145)
         .gravity('Center')
         .extent(200, 200)
-    //     .setFormat('png8')
     }))
-    // .pipe(rename({extname: '.png'}))
     .pipe(imagemin({optimizationLevel: 4}))
-    .pipe(gulp.dest('build/images/kc/thumbs'));
+    .pipe(gulp.dest(paths.build + 'images/kc/thumbs'));
 });
 
 gulp.task('optimize_kc_images', function(){
   // Optimize and copy all KC images
   return gulp.src(paths.kc_images)
-    .pipe(newer('build/images/kc'))
-    // .pipe(gm(function(gmfile) {
-    //   return gmfile.setFormat('png')
-    // }))
-    // .pipe(rename({extname: '.png'}))
+    .pipe(newer(paths.build + 'images/kc'))
     .pipe(imagemin({optimizationLevel: 4}))
-    .pipe(gulp.dest('build/images/kc'));
+    .pipe(gulp.dest(paths.build + 'images/kc'));
 });
 
 gulp.task('optimize_site_images', function(){
   // Optimize and copy all non-KC and non-Sugimori images
   return gulp.src(paths.non_pokemon_images)
     .pipe(imagemin({optimizationLevel: 4}))
-    .pipe(gulp.dest('build/images'));
+    .pipe(gulp.dest(paths.build + 'images'));
 });
 
 gulp.task('generate_sprites', function () {
@@ -210,7 +202,7 @@ gulp.task('generate_sprites', function () {
         imgOpts:       { quality: 80 }
       }))
         .img // So that we're only outputting the images, not the CSS
-          .pipe(gulp.dest('build/images/sugimori'));
+          .pipe(gulp.dest(paths.build + 'images/sugimori'));
   }
 });
 
