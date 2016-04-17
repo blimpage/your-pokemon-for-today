@@ -9,7 +9,10 @@
         </div>
       {% else %}
         <div class='pokemon--sugimori pokemon hidden'>
-          <div style='background-image: url(/images/sugimori/sugimori_{{number}}.jpg);'>
+          <div style='
+            background-image: url(/images/sugimori/sugimori_{{data.spriteset}}.jpg);
+            background-position: 0 {{data.y_offset}}%;
+          '>
             {{data.name}}
           </div>
         </div>

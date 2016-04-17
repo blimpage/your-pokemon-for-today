@@ -42,35 +42,47 @@ var config = {
   spriteset_size: 50
 };
 
-var parse_kc_data = function() {
-  // Load up the Pokedex numbers and names of all existing Pokemon
-  var data = JSON.parse(fs.readFileSync('data/all_pokemon.json'));
+var all_pokemon_data = JSON.parse(fs.readFileSync('data/all_pokemon.json'));
 
+var parse_kc_data = function() {
   // Get the filenames of all KC images
   var filenames = fs.readdirSync('images/kc')
     .filter(function(filename) { return /^\d/.test(filename) }); // Filter out any filenames that don't start with a number
 
   // Convert our array of filenames into an object, with the format:
   // {
-  //  '1'  : '1.png',
-  //  '34' : '34.jpg',
-  //  '151': '151.png'
+  //  '1'  : { filename: '1.png' }
+  //  '34' : { filename: '34.jpg' }
+  //  '151': { filename: '151.png' }
   // }
-  var files_obj = {};
+  var kc_data = {};
   filenames.forEach(function(filename) {
     var just_the_number = filename.match(/(\d+)/)[1];
-    files_obj[just_the_number] = filename;
+    kc_data[just_the_number] = { filename: filename };
   });
 
-  // For any of the entries in the "data" object that there exists a KC image for,
-  // insert its filename into the "data" object
-  for (num in data) {
-    if (files_obj[num]) {
-      data[num].filename = files_obj[num];
-    }
-  };
+  return kc_data;
+};
 
-  return { pokemons: data };
+var spriteset_data = function() {
+  var total_pokemon_count = Object.keys(all_pokemon_data).length;
+  var last_spriteset =  Math.floor(total_pokemon_count / config.spriteset_size);
+
+  var spriteset_data = {};
+
+  for (pokemon in all_pokemon_data) {
+    var dex_number = parseInt(pokemon),
+        spriteset = Math.ceil(dex_number / config.spriteset_size) - 1,
+        images_in_set = spriteset < last_spriteset ? config.spriteset_size : total_pokemon_count - (last_spriteset * config.spriteset_size),
+        y_offset = ((dex_number - 1) % config.spriteset_size) * (1 / (images_in_set - 1) * 100);
+
+    spriteset_data[pokemon] = {
+      spriteset: spriteset,
+      y_offset: y_offset
+    };
+  }
+
+  return spriteset_data;
 };
 
 
@@ -86,8 +98,18 @@ gulp.task('echo_data', function() {
 gulp.task('render_gallery', function() {
   nunjucksRender.nunjucks.configure([paths.templates_dir]);
 
+  var kc_data = parse_kc_data();
+  var sprite_data = spriteset_data();
+  var all_data = {};
+
+  for (key in all_pokemon_data) {
+    all_data[key] = Object.assign({}, all_pokemon_data[key], kc_data[key], sprite_data[key]);
+  }
+
+  console.log(all_data);
+
   return gulp.src(paths.templates_dir + 'gallery.njk')
-    .pipe(data(parse_kc_data()))
+    .pipe(data({ pokemons: all_data }))
     .pipe(nunjucksRender())
     .pipe(gulp.dest(paths.temp_dir));
 });
