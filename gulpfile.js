@@ -85,19 +85,7 @@ var spriteset_data = function() {
   return spriteset_data;
 };
 
-
-gulp.task('clean', function() {
-  // Delete dat build directory
-  return del(['build']);
-});
-
-gulp.task('echo_data', function() {
-  console.log(parse_kc_data());
-});
-
-gulp.task('render_gallery', function() {
-  nunjucksRender.nunjucks.configure([paths.templates_dir]);
-
+var compile_data = function() {
   var kc_data = parse_kc_data();
   var sprite_data = spriteset_data();
   var all_data = {};
@@ -106,18 +94,20 @@ gulp.task('render_gallery', function() {
     all_data[key] = Object.assign({}, all_pokemon_data[key], kc_data[key], sprite_data[key]);
   }
 
-  console.log(all_data);
+  return all_data;
+};
 
-  return gulp.src(paths.templates_dir + 'gallery.njk')
-    .pipe(data({ pokemons: all_data }))
-    .pipe(nunjucksRender())
-    .pipe(gulp.dest(paths.temp_dir));
+
+gulp.task('clean', function() {
+  // Delete dat build directory
+  return del(['build']);
 });
 
-gulp.task('render_index', ['render_gallery'], function() {
+gulp.task('render_index', function() {
   nunjucksRender.nunjucks.configure([paths.templates_dir]);
 
   return gulp.src(paths.templates_dir + 'index.njk')
+    .pipe(data({ pokemons: compile_data() }))
     .pipe(nunjucksRender())
     .pipe(gulp.dest('build/'));
 });
@@ -154,9 +144,9 @@ gulp.task('generate_thumbs', function() {
         .resize(145, 145)
         .gravity('Center')
         .extent(200, 200)
-        .setFormat('png8')
+    //     .setFormat('png8')
     }))
-    .pipe(rename({extname: '.png'}))
+    // .pipe(rename({extname: '.png'}))
     .pipe(imagemin({optimizationLevel: 4}))
     .pipe(gulp.dest('build/images/kc/thumbs'));
 });
@@ -165,10 +155,10 @@ gulp.task('optimize_kc_images', function(){
   // Optimize and copy all KC images
   return gulp.src(paths.kc_images)
     .pipe(newer('build/images/kc'))
-    .pipe(gm(function(gmfile) {
-      return gmfile.setFormat('png')
-    }))
-    .pipe(rename({extname: '.png'}))
+    // .pipe(gm(function(gmfile) {
+    //   return gmfile.setFormat('png')
+    // }))
+    // .pipe(rename({extname: '.png'}))
     .pipe(imagemin({optimizationLevel: 4}))
     .pipe(gulp.dest('build/images/kc'));
 });

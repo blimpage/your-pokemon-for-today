@@ -18,21 +18,23 @@ var kc_pokemon = {
 
     var self = this;
 
-    $.getJSON('data/kc.json')
-      .done(function(data) {
+    console.log('buttso!');
 
-        self.kc_data = data;
+    // $.getJSON('data/kc.json')
+    //   .done(function(data) {
+
+    //     self.kc_data = data;
         self._adjust_layout_for_ios();
-        self._layout_all_cells();
+    //    self._layout_all_cells();
         self._unhide_next_batch_if_needed({retry_on_success: true});
         self._init_vendor();
 
         self.$window.bind('scroll.pokemon', $.proxy(_.throttle(self._unhide_next_batch_if_needed, 500), self));
-      })
-      .fail(function() {
-        self._remove_loading_spinner();
-        self.$pokemon_container.prepend('<p class="bg-danger error">Oh nooooo, something went wrong :(</p>');
-      });
+    //  })
+    //  .fail(function() {
+    //    self._remove_loading_spinner();
+    //    self.$pokemon_container.prepend('<p class="bg-danger error">Oh nooooo, something went wrong :(</p>');
+    //  });
   },
 
   _unhide_next_batch_if_needed: function(options) {
