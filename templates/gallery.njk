@@ -2,19 +2,13 @@
   <div class='pokemon-container js-pokemon-container'>
     {% for number, data in pokemons %}
       {% if data.filename %}
-        <div class='pokemon--kc pokemon hidden'>
-          <a href='images/kc/{{data.filename}}' class='swipebox' title='{{data.name}}'>
-            <img src='images/kc/thumbs/{{data.filename}}' alt='{{data.name}}' width='200' height='200'>
+        <div class='pokemon pokemon--kc'>
+          <a href='images/kc/{{data.filename}}' class='swipebox' data-thumb='images/kc/thumbs/{{data.filename}}' title='{{data.name}}'>
+            {{data.name}}
           </a>
         </div>
       {% else %}
-        <div class='pokemon--sugimori pokemon hidden'>
-          <div style='
-            background-image: url(/images/sugimori/sugimori_{{data.spriteset}}.jpg);
-            background-position: 0 {{data.y_offset}}%;
-          '>
-          </div>
-        </div>
+        <div class='pokemon pokemon--sugimori' data-sprite-url='/images/sugimori/sugimori_{{data.spriteset}}.jpg' data-y-offset='{{data.y_offset}}%'></div>
       {% endif %}
     {% endfor %}
   </div>
