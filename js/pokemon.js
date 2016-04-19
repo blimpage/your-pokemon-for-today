@@ -69,10 +69,17 @@ var kc_pokemon = {
   },
 
   _transform_kc_cell: function($cell) {
-    var $link = $cell.find('a');
+    var $link     = $cell.find('a');
+    var $thumb    = $('<img>');
     var thumb_src = $link.attr('data-thumb');
+    var thumb_alt = $link.attr('title');
 
-    $link.html('<img src="' + thumb_src + '">');
+    $thumb.attr('src',    thumb_src);
+    $thumb.attr('alt',    thumb_alt);
+    $thumb.attr('width',  this.config.thumbnail_size);
+    $thumb.attr('height', this.config.thumbnail_size);
+
+    $link.html($thumb);
 
     $cell.addClass(this.config.cell_done_class);
   },
