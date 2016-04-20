@@ -1,14 +1,12 @@
 var kc_pokemon = {
 
   config: {
-    cell_class:        'pokemon',
-    cell_hidden_class: 'hidden',
-    cell_done_class:   'js-done',
-    batch_load_size:   30,
-    thumbnail_size:    200
+    cell_class:      'pokemon',
+    cell_done_class: 'js-done',
+    batch_load_size: 30,
+    thumbnail_size:  200
   },
 
-  $pokemon_container: $('.js-pokemon-container'),
   $loading:           $('.js-loading'),
   $window:            $(window),
   $body:              $('body'),
@@ -93,7 +91,7 @@ var kc_pokemon = {
       'background-position': '0 ' + y_offset
     });
 
-    $cell.append($inner_div);
+    $cell.html($inner_div);
 
     $cell.addClass(this.config.cell_done_class);
   },
