@@ -6,7 +6,7 @@ It doesn't really need to exist, and yet it does!!
 
 On the webby end, it uses [Swipebox](https://github.com/brutaldesign/swipebox) for lightboxy stuff, and bits of [jQuery](https://github.com/jquery/jquery) and [Underscore.js](https://github.com/jashkenas/underscore) for added dev functionality.
 
-On the buildy end, it uses [GraphicsMagick for Node](https://github.com/aheckmann/gm) to generate thumbnails for each illustration, and [gulp](http://gulpjs.com/) (and a whole host of gulp plugins) to rope the whole thing together.
+On the buildy end, it uses [GraphicsMagick for Node](https://github.com/aheckmann/gm) to generate thumbnails for each illustration, [Nunjucks](http://mozilla.github.io/nunjucks) for templating, and [gulp](http://gulpjs.com/) (and a whole host of gulp plugins) to rope the whole thing together.
 
 It's currently hosted on [Surge](http://surge.sh/) because omg that service is amazing.
 
@@ -46,7 +46,7 @@ Maybe you wanna help me do these things???
 
   - ~~Optimise both the full-size image and the thumbnail~~
 
-  - Maybe even generate the JSON file based on what images are present?
+  - ~~Maybe even generate the JSON file based on what images are present?~~
 
   - Maybe even exclude Sugimori images from the spritesheet based on whether or not a KC image is present?? :o
 
@@ -60,14 +60,14 @@ Maybe you wanna help me do these things???
 
 - Add a "watch" task to the gulp config, to automatically rebuild the relevant build files when the source files change
 
-- Combine the data JSON file with the main HTML or JS, so we're not ajax'ing for it after the page loads. One less request, baby!
+- ~~Combine the data JSON file with the main HTML or JS, so we're not ajax'ing for it after the page loads. One less request, baby!~~
 
-- Add a random hash to each build of the CSS and JS files, to ensure cache-busting (would need to add templating to index.html to allow dynamic insertion of the generated filename :/ )
+- Add a random hash to each build of the CSS and JS files, to ensure cache-busting (would need to dynamically insert the generated filename into index.html)
 
-- Add a "Last updated" date to index.html (again, would need to add templating)
+- Add a "Last updated" date to index.html on build
 
-- Add a favicon
+- Add a favicon (waiting for KC to draw Voltorb or Electrode... that'd be perfect!)
 
-- Don't convert all JPGs to PNGs. Some KC images are JPGs, but for convenience's sake we convert them all to PNG. This results in a larger filesize without any change in image quality, so we should really keep them as JPG.
+- ~~Don't convert all JPGs to PNGs. Some KC images are JPGs, but for convenience's sake we convert them all to PNG. This results in a larger filesize without any change in image quality, so we should really keep them as JPG.~~
 
 - ~~Incorporate something like `gulp-newer` into the build process so that we don't regenerate every image every time we build~~
