@@ -10,87 +10,85 @@
   margin-bottom: 20px;
 }
 
-.pokemon--kc img {
-  width: 100%;
-  height: auto;
-}
-
-.pokemon--sugimori > div {
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 0;
-  padding-bottom: 100%; /* http://daverupert.com/2012/04/uncle-daves-ol-padded-box/ */
-}
-
-.loading {
-  background-image: url('/images/loading.gif');
-  background-position: 50% 50%;
-  background-repeat: no-repeat;
-  height: 100px;
-}
-
-.flexbox {
-  .pokemon-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-around;
+.js-initialised {
+  .pokemon:not(.js-done) {
+    display: none;
   }
 
-  .pokemon {
-    flex-grow: 1;
-    min-width: 50%;
-    max-width: 200px;
+  .pokemon--kc img {
+    width: 100%;
+    height: auto;
+  }
 
-    &.hidden {
-      display: none;
+  .pokemon--sugimori > div {
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 0;
+    padding-bottom: 100%; /* http://daverupert.com/2012/04/uncle-daves-ol-padded-box/ */
+  }
+
+  .loading {
+    background-image: url('/images/loading.gif');
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    height: 100px;
+  }
+
+  &.flexbox {
+    .pokemon-container {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-around;
     }
 
-    @media (min-width: 441px) {
-      min-width: 175px;
+    .pokemon {
+      flex-grow: 1;
+      min-width: 50%;
+      max-width: 200px;
+
+      @media (min-width: 441px) {
+        min-width: 175px;
+      }
     }
   }
-}
 
-.no-flexbox {
-  .pokemon {
-    display: inline-block;
-    vertical-align: top;
-    max-width: 200px;
+  &.no-flexbox {
+    .pokemon {
+      display: inline-block;
+      vertical-align: top;
+      max-width: 200px;
 
-    &.hidden {
-      display: none;
-    }
-
-    @media (max-width: 440px) {
-      width: 50%;
-      &:nth-of-type(2n) {
-        margin-bottom: 3px;
+      @media (max-width: 440px) {
+        width: 50%;
+        &:nth-of-type(2n) {
+          margin-bottom: 3px;
+        }
       }
-    }
-    @media (min-width: 441px) and (max-width: 640px) {
-      width: 33.3%;
-      &:nth-of-type(3n) {
-        margin-bottom: 3px;
+      @media (min-width: 441px) and (max-width: 640px) {
+        width: 33.3%;
+        &:nth-of-type(3n) {
+          margin-bottom: 3px;
+        }
       }
-    }
-    @media (min-width: 641px) and (max-width: 840px) {
-      width: 25%;
-      &:nth-of-type(4n) {
-        margin-bottom: 3px;
+      @media (min-width: 641px) and (max-width: 840px) {
+        width: 25%;
+        &:nth-of-type(4n) {
+          margin-bottom: 3px;
+        }
       }
-    }
-    @media (min-width: 841px) and (max-width: 1040px) {
-      width: 20%;
-      &:nth-of-type(5n) {
-        margin-bottom: 3px;
+      @media (min-width: 841px) and (max-width: 1040px) {
+        width: 20%;
+        &:nth-of-type(5n) {
+          margin-bottom: 3px;
+        }
       }
-    }
-    @media (min-width: 1041px) {
-      width: 16.6%;
-      &:nth-of-type(6n) {
-        margin-bottom: 3px;
+      @media (min-width: 1041px) {
+        width: 16.6%;
+        &:nth-of-type(6n) {
+          margin-bottom: 3px;
+        }
       }
     }
   }

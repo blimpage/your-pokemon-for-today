@@ -6,6 +6,10 @@ var fs     = require('fs'); // For filesystem access
 var rename = require('gulp-rename'); // For renaming files
 var newer  = require('gulp-newer'); // For only regenerating files when necessary
 
+// For HTML templating
+var nunjucksRender = require('gulp-nunjucks-render');
+var data           = require('gulp-data');
+
 // For minifying/concatenating scripts and styles
 var uglifyJS   = require('gulp-uglify');
 var uglifyJSON = require('gulp-jsonminify');
@@ -27,29 +31,83 @@ var paths = {
   sugimori_images: 'images/sugimori/',
   kc_images: 'images/kc/*',
   non_pokemon_images: ['images/*.*', 'images/!(sugimori|kc)/**/*'],
-  data: 'data/**/*.json',
-  index: 'index.html'
+  data: 'data/',
+  templates: 'templates/',
+  build: 'build/'
+};
+
+var config = {
+  spriteset_size: 50
+};
+
+var all_pokemon_data = JSON.parse(fs.readFileSync(paths.data + 'all_pokemon.json'));
+
+var parse_kc_data = function() {
+  // Get the filenames of all KC images
+  var filenames = fs.readdirSync('images/kc')
+    .filter(function(filename) { return /^\d/.test(filename) }); // Filter out any filenames that don't start with a number
+
+  // Convert our array of filenames into an object, with the format:
+  // {
+  //  '1'  : { filename: '1.png' }
+  //  '34' : { filename: '34.jpg' }
+  //  '151': { filename: '151.png' }
+  // }
+  var kc_data = {};
+  filenames.forEach(function(filename) {
+    var just_the_number = filename.match(/(\d+)/)[1];
+    kc_data[just_the_number] = { filename: filename };
+  });
+
+  return kc_data;
+};
+
+var spriteset_data = function() {
+  var total_pokemon_count = Object.keys(all_pokemon_data).length;
+  var last_spriteset =  Math.floor(total_pokemon_count / config.spriteset_size);
+
+  var spriteset_data = {};
+
+  for (pokemon in all_pokemon_data) {
+    var dex_number = parseInt(pokemon),
+        spriteset = Math.ceil(dex_number / config.spriteset_size) - 1,
+        images_in_set = spriteset < last_spriteset ? config.spriteset_size : total_pokemon_count - (last_spriteset * config.spriteset_size),
+        y_offset = ((dex_number - 1) % config.spriteset_size) * (1 / (images_in_set - 1) * 100);
+
+    spriteset_data[pokemon] = {
+      spriteset: spriteset,
+      y_offset: y_offset
+    };
+  }
+
+  return spriteset_data;
+};
+
+var compile_data = function() {
+  var kc_data = parse_kc_data();
+  var sprite_data = spriteset_data();
+  var all_data = {};
+
+  for (key in all_pokemon_data) {
+    all_data[key] = Object.assign({}, all_pokemon_data[key], kc_data[key], sprite_data[key]);
+  }
+
+  return all_data;
 };
 
 
 gulp.task('clean', function() {
   // Delete dat build directory
-  return del(['build']);
+  return del([paths.build]);
 });
 
-gulp.task('copy_index', function() {
-  // Copy the index file into the build folder
-  return gulp.src(paths.index)
-    .pipe(newer('build'))
-    .pipe(gulp.dest('build'));
-});
+gulp.task('render_index', function() {
+  nunjucksRender.nunjucks.configure([paths.templates]);
 
-gulp.task('copy_data', function() {
-  // Copy data files into the build folder
-  return gulp.src(paths.data)
-    .pipe(newer('build/data'))
-    .pipe(uglifyJSON().on('error', gutil.log))
-    .pipe(gulp.dest('build/data'));
+  return gulp.src(paths.templates + 'index.njk')
+    .pipe(data({ pokemons: compile_data() }))
+    .pipe(nunjucksRender())
+    .pipe(gulp.dest(paths.build));
 });
 
 gulp.task('scripts', function() {
@@ -57,7 +115,7 @@ gulp.task('scripts', function() {
   return gulp.src(paths.scripts)
     .pipe(uglifyJS().on('error', gutil.log))
     .pipe(concat('scripts.min.js'))
-    .pipe(gulp.dest('build/js'));
+    .pipe(gulp.dest(paths.build + 'js'));
 });
 
 gulp.task('styles', function() {
@@ -70,13 +128,13 @@ gulp.task('styles', function() {
       cascade: false
     }))
     .pipe(concat('style.min.css'))
-    .pipe(gulp.dest('build/css'));
+    .pipe(gulp.dest(paths.build + 'css'));
 });
 
 gulp.task('generate_thumbs', function() {
   // Generate thumbs for all KC images
   return gulp.src(paths.kc_images)
-    .pipe(newer('build/images/kc/thumbs'))
+    .pipe(newer(paths.build + 'images/kc/thumbs'))
     .pipe(gm(function(gmfile) {
       return gmfile
         .fuzz(5)
@@ -84,30 +142,24 @@ gulp.task('generate_thumbs', function() {
         .resize(145, 145)
         .gravity('Center')
         .extent(200, 200)
-        .setFormat('png8')
     }))
-    .pipe(rename({extname: '.png'}))
     .pipe(imagemin({optimizationLevel: 4}))
-    .pipe(gulp.dest('build/images/kc/thumbs'));
+    .pipe(gulp.dest(paths.build + 'images/kc/thumbs'));
 });
 
 gulp.task('optimize_kc_images', function(){
   // Optimize and copy all KC images
   return gulp.src(paths.kc_images)
-    .pipe(newer('build/images/kc'))
-    .pipe(gm(function(gmfile) {
-      return gmfile.setFormat('png')
-    }))
-    .pipe(rename({extname: '.png'}))
+    .pipe(newer(paths.build + 'images/kc'))
     .pipe(imagemin({optimizationLevel: 4}))
-    .pipe(gulp.dest('build/images/kc'));
+    .pipe(gulp.dest(paths.build + 'images/kc'));
 });
 
 gulp.task('optimize_site_images', function(){
   // Optimize and copy all non-KC and non-Sugimori images
   return gulp.src(paths.non_pokemon_images)
     .pipe(imagemin({optimizationLevel: 4}))
-    .pipe(gulp.dest('build/images'));
+    .pipe(gulp.dest(paths.build + 'images'));
 });
 
 gulp.task('generate_sprites', function () {
@@ -126,14 +178,13 @@ gulp.task('generate_sprites', function () {
     });
 
   // Then we need to split them into sets, based on our desired set size.
-  var set_size = 50;
   var spritesets = {};
 
-  for (i = 0; i < (src_files.length / set_size); i++) {
+  for (i = 0; i < (src_files.length / config.spriteset_size); i++) {
     // The Array.slice() method creates a subset starting from the first index,
     // and stopping one short of the second index. So our arguments will be:
-    var first = set_size * i;
-    var last = set_size * (i + 1);
+    var first = config.spriteset_size * i;
+    var last = config.spriteset_size * (i + 1);
 
     // Add this subset to our list of spritesets
     spritesets[i] = src_files.slice(first, last);
@@ -151,14 +202,13 @@ gulp.task('generate_sprites', function () {
         imgOpts:       { quality: 80 }
       }))
         .img // So that we're only outputting the images, not the CSS
-          .pipe(gulp.dest('build/images/sugimori'));
+          .pipe(gulp.dest(paths.build + 'images/sugimori'));
   }
 });
 
 // The default task (called when you run `gulp` from cli)
 gulp.task('default', [
-  'copy_index',
-  'copy_data',
+  'render_index',
   'scripts',
   'styles',
   'generate_thumbs',
