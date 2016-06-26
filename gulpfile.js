@@ -42,6 +42,11 @@ var config = {
 
 var all_pokemon_data = JSON.parse(fs.readFileSync(paths.data + 'all_pokemon.json'));
 
+var build_date = function() {
+  var date = new Date();
+  return date.toDateString();
+}
+
 var parse_kc_data = function() {
   // Get the filenames of all KC images
   var filenames = fs.readdirSync('images/kc')
@@ -105,7 +110,7 @@ gulp.task('render_index', function() {
   nunjucksRender.nunjucks.configure([paths.templates]);
 
   return gulp.src(paths.templates + 'index.njk')
-    .pipe(data({ pokemons: compile_data() }))
+    .pipe(data({ pokemons: compile_data(), build_date: build_date() }))
     .pipe(nunjucksRender())
     .pipe(gulp.dest(paths.build));
 });

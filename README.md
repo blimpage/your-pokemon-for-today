@@ -64,7 +64,7 @@ Maybe you wanna help me do these things???
 
 - Add a random hash to each build of the CSS and JS files, to ensure cache-busting (would need to dynamically insert the generated filename into index.html)
 
-- Add a "Last updated" date to index.html on build
+- ~~Add a "Last updated" date to index.html on build~~
 
 - Add a favicon (waiting for KC to draw Voltorb or Electrode... that'd be perfect!)
 
