@@ -3,6 +3,7 @@ var kc_pokemon = {
   config: {
     cell_class:      'pokemon',
     cell_done_class: 'js-done',
+    container_class: 'pokemon-container',
     batch_load_size: 30,
     thumbnail_size:  200
   },
@@ -67,17 +68,16 @@ var kc_pokemon = {
   },
 
   _transform_kc_cell: function($cell) {
-    var $link     = $cell.find('a');
     var $thumb    = $('<img>');
-    var thumb_src = $link.attr('data-thumb');
-    var thumb_alt = $link.attr('title');
+    var thumb_src = $cell.attr('data-thumb');
+    var thumb_alt = $cell.attr('title');
 
     $thumb.attr('src',    thumb_src);
     $thumb.attr('alt',    thumb_alt);
     $thumb.attr('width',  this.config.thumbnail_size);
     $thumb.attr('height', this.config.thumbnail_size);
 
-    $link.html($thumb);
+    $cell.html($thumb);
 
     $cell.addClass(this.config.cell_done_class);
   },
@@ -97,7 +97,9 @@ var kc_pokemon = {
   },
 
   _init_vendor: function() {
-    // $('.swipebox').swipebox();
+    lightGallery(document.querySelector('.' + this.config.container_class), {
+      selector: '.pokemon--kc'
+    });
   },
 
   _remove_loading_spinner: function() {
