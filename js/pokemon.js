@@ -97,7 +97,7 @@ var kc_pokemon = {
   },
 
   _init_vendor: function() {
-    $('.swipebox').swipebox();
+    // $('.swipebox').swipebox();
   },
 
   _remove_loading_spinner: function() {
