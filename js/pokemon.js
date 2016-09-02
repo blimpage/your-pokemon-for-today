@@ -50,7 +50,7 @@ var kc_pokemon = {
 
     if ( cells.length > 0 ) {
       cells.each(function(index) {
-        self._transform_cell($(this));
+        self._transform_cell(this);
       });
 
     } else {
@@ -59,11 +59,11 @@ var kc_pokemon = {
     }
   },
 
-  _transform_cell: function($cell) {
-    if ( $cell.hasClass('pokemon--kc') ) {
-      this._transform_kc_cell($cell[0]);
-    } else if ( $cell.hasClass('pokemon--sugimori') ) {
-      this._transform_sugimori_cell($cell[0]);
+  _transform_cell: function(cell) {
+    if ( cell.classList.contains('pokemon--kc') ) {
+      this._transform_kc_cell(cell);
+    } else if ( cell.classList.contains('pokemon--sugimori') ) {
+      this._transform_sugimori_cell(cell);
     }
   },
 
