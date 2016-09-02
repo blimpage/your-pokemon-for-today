@@ -33,6 +33,7 @@ var paths = {
   non_pokemon_images: ['images/*.*', 'images/!(sugimori|kc)/**/*'],
   data: 'data/',
   templates: 'templates/',
+  fonts: 'fonts/*',
   build: 'build/'
 };
 
@@ -211,6 +212,12 @@ gulp.task('generate_sprites', function () {
   }
 });
 
+gulp.task('copy_fonts', function() {
+  // Copy all fonts into the build folder
+  return gulp.src(paths.fonts)
+    .pipe(gulp.dest(paths.build + 'fonts'));
+});
+
 // The default task (called when you run `gulp` from cli)
 gulp.task('default', [
   'render_index',
@@ -219,5 +226,6 @@ gulp.task('default', [
   'generate_thumbs',
   'optimize_kc_images',
   'optimize_site_images',
-  'generate_sprites'
+  'generate_sprites',
+  'copy_fonts'
 ]);
