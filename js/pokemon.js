@@ -61,25 +61,29 @@ var kc_pokemon = {
 
   _transform_cell: function($cell) {
     if ( $cell.hasClass('pokemon--kc') ) {
-      this._transform_kc_cell($cell);
+      this._transform_kc_cell($cell[0]);
     } else if ( $cell.hasClass('pokemon--sugimori') ) {
       this._transform_sugimori_cell($cell);
     }
   },
 
-  _transform_kc_cell: function($cell) {
-    var $thumb    = $('<img>');
-    var thumb_src = $cell.attr('data-thumb');
-    var thumb_alt = $cell.attr('title');
+  _transform_kc_cell: function(cell) {
+    var thumb     = document.createElement('img');
+    var thumb_src = cell.dataset.thumb;
+    var thumb_alt = cell.title;
 
-    $thumb.attr('src',    thumb_src);
-    $thumb.attr('alt',    thumb_alt);
-    $thumb.attr('width',  this.config.thumbnail_size);
-    $thumb.attr('height', this.config.thumbnail_size);
+    thumb.src    = thumb_src;
+    thumb.alt    = thumb_alt;
+    thumb.width  = this.config.thumbnail_size;
+    thumb.height = this.config.thumbnail_size;
 
-    $cell.html($thumb);
+    while (cell.firstChild) {
+      cell.removeChild(cell.firstChild);
+    }
 
-    $cell.addClass(this.config.cell_done_class);
+    cell.appendChild(thumb);
+
+    cell.classList.add(this.config.cell_done_class);
   },
 
   _transform_sugimori_cell: function($cell) {
