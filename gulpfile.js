@@ -153,7 +153,7 @@ gulp.task('generate_thumbs', function() {
     .pipe(gulp.dest(paths.build + 'images/kc/thumbs'));
 });
 
-gulp.task('optimize_kc_images', function(){
+gulp.task('optimize_kc_images', function() {
   // Optimize and copy all KC images
   return gulp.src(paths.kc_images)
     .pipe(newer(paths.build + 'images/kc'))
@@ -161,14 +161,14 @@ gulp.task('optimize_kc_images', function(){
     .pipe(gulp.dest(paths.build + 'images/kc'));
 });
 
-gulp.task('optimize_site_images', function(){
+gulp.task('optimize_site_images', function() {
   // Optimize and copy all non-KC and non-Sugimori images
   return gulp.src(paths.non_pokemon_images)
     .pipe(imagemin({optimizationLevel: 4}))
     .pipe(gulp.dest(paths.build + 'images'));
 });
 
-gulp.task('generate_sprites', function () {
+gulp.task('generate_sprites', function() {
   // Generate spritesheets for the fallback Sugimori images.
   // We're using spritesmith, which generates one spritesheet each time we call it.
   // However we want to generate a few batches of spritesheets, so we need to call it multiple times.
