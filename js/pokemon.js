@@ -63,7 +63,7 @@ var kc_pokemon = {
     if ( $cell.hasClass('pokemon--kc') ) {
       this._transform_kc_cell($cell[0]);
     } else if ( $cell.hasClass('pokemon--sugimori') ) {
-      this._transform_sugimori_cell($cell);
+      this._transform_sugimori_cell($cell[0]);
     }
   },
 
@@ -86,18 +86,17 @@ var kc_pokemon = {
     cell.classList.add(this.config.cell_done_class);
   },
 
-  _transform_sugimori_cell: function($cell) {
-    var sprite_url = $cell.attr('data-sprite-url');
-    var y_offset   = $cell.attr('data-y-offset');
+  _transform_sugimori_cell: function(cell) {
+    var sprite_url = cell.dataset.spriteUrl;
+    var y_offset   = cell.dataset.yOffset;
 
-    $inner_div = $("<div></div>").css({
-      'background-image':    'url(' + sprite_url + ')',
-      'background-position': '0 ' + y_offset
-    });
+    var inner_div = document.createElement('div');
+    inner_div.style.backgroundImage = 'url(' + sprite_url + ')';
+    inner_div.style.backgroundPosition = '0 ' + y_offset;
 
-    $cell.html($inner_div);
+    cell.appendChild(inner_div);
 
-    $cell.addClass(this.config.cell_done_class);
+    cell.classList.add(this.config.cell_done_class);
   },
 
   _init_vendor: function() {
