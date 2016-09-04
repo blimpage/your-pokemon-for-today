@@ -45,11 +45,13 @@ var kc_pokemon = {
     var self = this;
 
     var selector = '.' + self.config.cell_class + ':not(.' + self.config.cell_done_class + ')';
-    var cells = $(selector).slice(0, self.config.batch_load_size);
+    var all_cells_nodelist = document.querySelectorAll(selector);
+    var all_cells = Array.prototype.slice.call(all_cells_nodelist);
+    var batch = all_cells.slice(0, self.config.batch_load_size);
 
-    if ( cells.length > 0 ) {
-      cells.each(function(index) {
-        self._transform_cell(this);
+    if ( batch.length > 0 ) {
+      batch.forEach(function(cell) {
+        self._transform_cell(cell);
       });
 
     } else {
