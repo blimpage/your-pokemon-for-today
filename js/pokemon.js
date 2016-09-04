@@ -9,7 +9,6 @@ var kc_pokemon = {
   },
 
   loading: document.querySelector('.js-loading'),
-  $window:            $(window),
 
   init: function() {
     var self = this;
@@ -20,13 +19,14 @@ var kc_pokemon = {
     self._transform_next_batch_if_needed({ retry_on_success: true });
     self._init_vendor();
 
-    self.$window.bind('scroll.pokemon', $.proxy(_.throttle(self._transform_next_batch_if_needed, 500), self));
+    self._throttled_transform = _.throttle(self._transform_next_batch_if_needed, 500).bind(self);
+    window.addEventListener('scroll', self._throttled_transform);
   },
 
   _transform_next_batch_if_needed: function(options) {
     var settings = Object.assign({ retry_on_success: false }, options);
 
-    var window_bottom = this.$window.scrollTop() + this.$window.innerHeight(),
+    var window_bottom = window.scrollY + window.innerHeight,
         loading_top   = this.loading.offsetTop,
         diff          = this.config.thumbnail_size * 3;
 
@@ -54,7 +54,7 @@ var kc_pokemon = {
 
     } else {
       self._remove_loading_spinner();
-      self.$window.unbind('scroll.pokemon');
+      window.removeEventListener('scroll', self._throttled_transform);
     }
   },
 
