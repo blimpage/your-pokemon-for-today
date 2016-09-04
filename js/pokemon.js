@@ -10,12 +10,11 @@ var kc_pokemon = {
 
   loading: document.querySelector('.js-loading'),
   $window:            $(window),
-  $body:              $('body'),
 
   init: function() {
     var self = this;
 
-    self.$body.addClass('js-initialised');
+    document.body.classList.add('js-initialised');
 
     self._adjust_layout_for_ios();
     self._transform_next_batch_if_needed({ retry_on_success: true });
@@ -112,9 +111,9 @@ var kc_pokemon = {
   _adjust_layout_for_ios: function() {
     // User agent sniffing sucks, but parts of flexbox are still broken in mobile Safari as of iOS 9. :(
     if ( /iPad|iPhone|iPod/.test(navigator.platform) ) {
-      this.$body.addClass('no-flexbox');
+      document.body.classList.add('no-flexbox');
     } else {
-      this.$body.addClass('flexbox');
+      document.body.classList.add('flexbox');
     }
   }
 };
