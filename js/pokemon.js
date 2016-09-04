@@ -8,7 +8,7 @@ var kc_pokemon = {
     thumbnail_size:  200
   },
 
-  loading: document.querySelector('.js-loading'),
+  loadingElement: document.querySelector('.js-loading'),
 
   init: function() {
     var self = this;
@@ -27,7 +27,7 @@ var kc_pokemon = {
     var settings = Object.assign({ retry_on_success: false }, options);
 
     var window_bottom = window.scrollY + window.innerHeight,
-        loading_top   = this.loading.offsetTop,
+        loading_top   = this.loadingElement.offsetTop,
         diff          = this.config.thumbnail_size * 3;
 
     var time_to_load_more = (window_bottom + diff >= loading_top);
@@ -105,7 +105,7 @@ var kc_pokemon = {
   },
 
   _remove_loading_spinner: function() {
-    this.loading.parentNode.removeChild(this.loading);
+    this.loadingElement.parentNode.removeChild(this.loadingElement);
   },
 
   _adjust_layout_for_ios: function() {
