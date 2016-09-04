@@ -120,6 +120,4 @@ var kc_pokemon = {
   }
 };
 
-$(function() {
-  kc_pokemon.init();
-});
+document.addEventListener('DOMContentLoaded', kc_pokemon.init.bind(kc_pokemon));
