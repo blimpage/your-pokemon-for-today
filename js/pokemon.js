@@ -3,12 +3,12 @@ var kc_pokemon = {
   config: {
     cell_class:      'pokemon',
     cell_done_class: 'js-done',
-    container_class: 'pokemon-container',
     batch_load_size: 30,
     thumbnail_size:  200
   },
 
-  loadingElement: document.querySelector('.js-loading'),
+  loading_element: document.querySelector('.js-loading'),
+  container_element: document.querySelector('.pokemon-container'),
 
   init: function() {
     var self = this;
@@ -27,7 +27,7 @@ var kc_pokemon = {
     var settings = Object.assign({ retry_on_success: false }, options);
 
     var window_bottom = window.scrollY + window.innerHeight,
-        loading_top   = this.loadingElement.offsetTop,
+        loading_top   = this.loading_element.offsetTop,
         diff          = this.config.thumbnail_size * 3;
 
     var time_to_load_more = (window_bottom + diff >= loading_top);
@@ -101,13 +101,13 @@ var kc_pokemon = {
   },
 
   _init_vendor: function() {
-    lightGallery(document.querySelector('.' + this.config.container_class), {
+    lightGallery(this.container_element, {
       selector: '.pokemon--kc'
     });
   },
 
   _remove_loading_spinner: function() {
-    this.loadingElement.parentNode.removeChild(this.loadingElement);
+    this.loading_element.parentNode.removeChild(this.loading_element);
   },
 
   _adjust_layout_for_ios: function() {
