@@ -4,7 +4,7 @@ This is a nice little gallery site showing off the rad [Your Pokémon for Today]
 
 It doesn't really need to exist, and yet it does!!
 
-On the webby end, it uses [Swipebox](https://github.com/brutaldesign/swipebox) for lightboxy stuff, and bits of [jQuery](https://github.com/jquery/jquery) and [Underscore.js](https://github.com/jashkenas/underscore) for added dev functionality.
+On the webby end, it uses [lightgallery.js](https://github.com/sachinchoolur/lightgallery.js) for lightboxy stuff, and tiny bits of [Underscore.js](https://github.com/jashkenas/underscore) for added dev functionality.
 
 On the buildy end, it uses [GraphicsMagick for Node](https://github.com/aheckmann/gm) to generate thumbnails for each illustration, [Nunjucks](http://mozilla.github.io/nunjucks) for templating, and [gulp](http://gulpjs.com/) (and a whole host of gulp plugins) to rope the whole thing together.
 
@@ -72,4 +72,4 @@ Maybe you wanna help me do these things???
 
 - ~~Incorporate something like `gulp-newer` into the build process so that we don't regenerate every image every time we build~~
 
-- Swap out Swipebox for a non-jQuery-based lightbox, so that we can remove jQuery altogether
+- ~~Swap out Swipebox for a non-jQuery-based lightbox, so that we can remove jQuery altogether~~
