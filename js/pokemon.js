@@ -7,27 +7,27 @@ var kc_pokemon = {
     thumbnail_size:  200
   },
 
-  $loading:           $('.js-loading'),
-  $window:            $(window),
-  $body:              $('body'),
+  loading_element: document.querySelector('.js-loading'),
+  container_element: document.querySelector('.pokemon-container'),
 
   init: function() {
     var self = this;
 
-    self.$body.addClass('js-initialised');
+    document.body.classList.add('js-initialised');
 
     self._adjust_layout_for_ios();
     self._transform_next_batch_if_needed({ retry_on_success: true });
     self._init_vendor();
 
-    self.$window.bind('scroll.pokemon', $.proxy(_.throttle(self._transform_next_batch_if_needed, 500), self));
+    self._throttled_transform = _.throttle(self._transform_next_batch_if_needed, 500).bind(self);
+    window.addEventListener('scroll', self._throttled_transform);
   },
 
   _transform_next_batch_if_needed: function(options) {
     var settings = Object.assign({ retry_on_success: false }, options);
 
-    var window_bottom = this.$window.scrollTop() + this.$window.innerHeight(),
-        loading_top   = this.$loading.position().top,
+    var window_bottom = window.scrollY + window.innerHeight,
+        loading_top   = this.loading_element.offsetTop,
         diff          = this.config.thumbnail_size * 3;
 
     var time_to_load_more = (window_bottom + diff >= loading_top);
@@ -45,75 +45,79 @@ var kc_pokemon = {
     var self = this;
 
     var selector = '.' + self.config.cell_class + ':not(.' + self.config.cell_done_class + ')';
-    var cells = $(selector).slice(0, self.config.batch_load_size);
+    var all_cells_nodelist = document.querySelectorAll(selector);
+    var all_cells = Array.prototype.slice.call(all_cells_nodelist);
+    var batch = all_cells.slice(0, self.config.batch_load_size);
 
-    if ( cells.length > 0 ) {
-      cells.each(function(index) {
-        self._transform_cell($(this));
+    if ( batch.length > 0 ) {
+      batch.forEach(function(cell) {
+        self._transform_cell(cell);
       });
 
     } else {
       self._remove_loading_spinner();
-      self.$window.unbind('scroll.pokemon');
+      window.removeEventListener('scroll', self._throttled_transform);
     }
   },
 
-  _transform_cell: function($cell) {
-    if ( $cell.hasClass('pokemon--kc') ) {
-      this._transform_kc_cell($cell);
-    } else if ( $cell.hasClass('pokemon--sugimori') ) {
-      this._transform_sugimori_cell($cell);
+  _transform_cell: function(cell) {
+    if ( cell.classList.contains('pokemon--kc') ) {
+      this._transform_kc_cell(cell);
+    } else if ( cell.classList.contains('pokemon--sugimori') ) {
+      this._transform_sugimori_cell(cell);
     }
   },
 
-  _transform_kc_cell: function($cell) {
-    var $link     = $cell.find('a');
-    var $thumb    = $('<img>');
-    var thumb_src = $link.attr('data-thumb');
-    var thumb_alt = $link.attr('title');
+  _transform_kc_cell: function(cell) {
+    var thumb     = document.createElement('img');
+    var thumb_src = cell.dataset.thumb;
+    var thumb_alt = cell.title;
 
-    $thumb.attr('src',    thumb_src);
-    $thumb.attr('alt',    thumb_alt);
-    $thumb.attr('width',  this.config.thumbnail_size);
-    $thumb.attr('height', this.config.thumbnail_size);
+    thumb.src    = thumb_src;
+    thumb.alt    = thumb_alt;
+    thumb.width  = this.config.thumbnail_size;
+    thumb.height = this.config.thumbnail_size;
 
-    $link.html($thumb);
+    while (cell.firstChild) {
+      cell.removeChild(cell.firstChild);
+    }
 
-    $cell.addClass(this.config.cell_done_class);
+    cell.appendChild(thumb);
+
+    cell.classList.add(this.config.cell_done_class);
   },
 
-  _transform_sugimori_cell: function($cell) {
-    var sprite_url = $cell.attr('data-sprite-url');
-    var y_offset   = $cell.attr('data-y-offset');
+  _transform_sugimori_cell: function(cell) {
+    var sprite_url = cell.dataset.spriteUrl;
+    var y_offset   = cell.dataset.yOffset;
 
-    $inner_div = $("<div></div>").css({
-      'background-image':    'url(' + sprite_url + ')',
-      'background-position': '0 ' + y_offset
-    });
+    var inner_div = document.createElement('div');
+    inner_div.style.backgroundImage = 'url(' + sprite_url + ')';
+    inner_div.style.backgroundPosition = '0 ' + y_offset;
 
-    $cell.html($inner_div);
+    cell.appendChild(inner_div);
 
-    $cell.addClass(this.config.cell_done_class);
+    cell.classList.add(this.config.cell_done_class);
   },
 
   _init_vendor: function() {
-    $('.swipebox').swipebox();
+    lightGallery(this.container_element, {
+      selector: '.pokemon--kc'
+    });
   },
 
   _remove_loading_spinner: function() {
-    this.$loading.remove();
+    this.loading_element.parentNode.removeChild(this.loading_element);
   },
 
   _adjust_layout_for_ios: function() {
     // User agent sniffing sucks, but parts of flexbox are still broken in mobile Safari as of iOS 9. :(
     if ( /iPad|iPhone|iPod/.test(navigator.platform) ) {
-      this.$body.addClass('no-flexbox');
+      document.body.classList.add('no-flexbox');
     } else {
-      this.$body.addClass('flexbox');
+      document.body.classList.add('flexbox');
     }
   }
 };
 
-$(function() {
-  kc_pokemon.init();
-});
+document.addEventListener('DOMContentLoaded', kc_pokemon.init.bind(kc_pokemon));
