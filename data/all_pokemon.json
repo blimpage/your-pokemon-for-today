@@ -787,5 +787,17 @@
   "786": { "name": "Tapu Lele" },
   "787": { "name": "Tapu Bulu" },
   "788": { "name": "Tapu Fini" },
-  "789": { "name": "Cosmog" }
+  "789": { "name": "Cosmog" },
+  "790": { "name": "Cosmoem" },
+  "791": { "name": "Solgaleo" },
+  "792": { "name": "Lunala" },
+  "793": { "name": "Nihilego" },
+  "794": { "name": "Buzzwole" },
+  "795": { "name": "Pheromosa" },
+  "796": { "name": "Xurkitree" },
+  "797": { "name": "Celesteela" },
+  "798": { "name": "Kartana" },
+  "799": { "name": "Guzzlord" },
+  "800": { "name": "Necrozma" },
+  "801": { "name": "Magearna" }
 }
