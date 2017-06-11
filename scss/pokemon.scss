@@ -11,8 +11,33 @@
 }
 
 .js-initialised {
-  .pokemon:not(.js-done) {
-    display: none;
+  .pokemon {
+    &.js-done {
+      text-decoration: none;
+    }
+
+    &:not(.js-done) {
+      display: none;
+    }
+  }
+
+  .pokemon-card {
+    border: 5px solid rgb(255, 212, 38);
+    border-radius: 5px;
+    background-color: rgb(255, 156, 131);
+    padding: 15px;
+  }
+
+  .pokemon-card__thumb-container {
+    border: 3px solid rgb(255, 212, 38);
+    margin-bottom: 10px;
+  }
+
+  .pokemon-card__text {
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
   }
 
   .pokemon--kc img {

@@ -82,7 +82,20 @@ var kc_pokemon = {
       cell.removeChild(cell.firstChild);
     }
 
-    cell.appendChild(thumb);
+    var outer = document.createElement('div');
+    outer.classList.add('pokemon-card');
+
+    var thumb_container = document.createElement('div');
+    thumb_container.classList.add('pokemon-card__thumb-container');
+
+    var text_container = document.createElement('div');
+    text_container.classList.add('pokemon-card__text');
+    text_container.innerText = cell.title;
+
+    thumb_container.appendChild(thumb);
+    outer.appendChild(thumb_container);
+    outer.appendChild(text_container);
+    cell.appendChild(outer);
 
     cell.classList.add(this.config.cell_done_class);
   },
