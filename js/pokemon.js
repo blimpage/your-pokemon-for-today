@@ -1,10 +1,11 @@
 var kc_pokemon = {
 
   config: {
-    cell_class:      'pokemon',
-    cell_done_class: 'js-done',
-    batch_load_size: 30,
-    thumbnail_size:  200
+    cell_class:       'pokemon',
+    cell_done_class:  'js-done',
+    batch_load_size:  30,
+    thumbnail_width:  245,
+    thumbnail_height: 155
   },
 
   loading_element: document.querySelector('.js-loading'),
@@ -28,7 +29,7 @@ var kc_pokemon = {
 
     var window_bottom = window.scrollY + window.innerHeight,
         loading_top   = this.loading_element.offsetTop,
-        diff          = this.config.thumbnail_size * 3;
+        diff          = this.config.thumbnail_height * 3;
 
     var time_to_load_more = (window_bottom + diff >= loading_top);
 
@@ -75,8 +76,8 @@ var kc_pokemon = {
 
     thumb.src    = thumb_src;
     thumb.alt    = thumb_alt;
-    thumb.width  = this.config.thumbnail_size;
-    thumb.height = this.config.thumbnail_size;
+    thumb.width  = this.config.thumbnail_width;
+    thumb.height = this.config.thumbnail_height;
 
     while (cell.firstChild) {
       cell.removeChild(cell.firstChild);
@@ -84,13 +85,14 @@ var kc_pokemon = {
 
     var outer = document.createElement('div');
     outer.classList.add('pokemon-card', this._rando_rotation_class());
+    outer.style.backgroundColor = 'hsl(' + (Math.ceil(Math.random() * 360)) + ', 90%, 80%)';
 
     var thumb_container = document.createElement('div');
     thumb_container.classList.add('pokemon-card__thumb-container');
 
     var text_container = document.createElement('div');
     text_container.classList.add('pokemon-card__text');
-    text_container.innerText = cell.title;
+    text_container.innerText = cell.dataset.dexNumber + ' ' + cell.title;
 
     thumb_container.appendChild(thumb);
     outer.appendChild(thumb_container);

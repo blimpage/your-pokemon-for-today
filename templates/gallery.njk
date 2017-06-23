@@ -2,7 +2,7 @@
   <div class='pokemon-container'>
     {% for number, data in pokemons %}
       {% if data.filename %}
-        <a href='images/kc/{{data.filename}}' class='pokemon pokemon--kc' data-thumb='images/kc/thumbs/{{data.filename}}' title='{{data.name}}'>
+        <a href='images/kc/{{data.filename}}' class='pokemon pokemon--kc' data-thumb='images/kc/thumbs/{{data.filename}}' title='{{data.name}}' data-dex-number='#{{data.dex_number}}'>
           {{data.name}}
         </a>
       {% else %}

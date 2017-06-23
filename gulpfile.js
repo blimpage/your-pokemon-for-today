@@ -48,6 +48,21 @@ var build_date = function() {
   return date.toDateString();
 }
 
+var padded_number = function(number) {
+  var stringed_number = Number(number).toString();
+
+  switch (stringed_number.length) {
+    case 1:
+      return '00' + stringed_number;
+    case 2:
+      return '0' + stringed_number;
+    case 3:
+      return stringed_number;
+    default:
+      throw new Error(stringed_number + ' is not a 1-3 digit number!');
+  }
+};
+
 var parse_kc_data = function() {
   // Get the filenames of all KC images
   var filenames = fs.readdirSync('images/kc')
@@ -62,7 +77,10 @@ var parse_kc_data = function() {
   var kc_data = {};
   filenames.forEach(function(filename) {
     var just_the_number = filename.match(/(\d+)/)[1];
-    kc_data[just_the_number] = { filename: filename };
+    kc_data[just_the_number] = {
+      filename: filename,
+      dex_number: padded_number(just_the_number)
+    };
   });
 
   return kc_data;
@@ -147,7 +165,7 @@ gulp.task('generate_thumbs', function() {
         .trim()
         .resize(145, 145)
         .gravity('Center')
-        .extent(200, 200)
+        .extent(245, 155)
     }))
     .pipe(imagemin({optimizationLevel: 4}))
     .pipe(gulp.dest(paths.build + 'images/kc/thumbs'));

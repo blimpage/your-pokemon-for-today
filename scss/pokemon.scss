@@ -23,13 +23,21 @@
 
   .pokemon-card {
     border: 5px solid rgb(255, 212, 38);
-    border-radius: 5px;
+    border-radius: 18px;
     background-color: rgb(255, 156, 131);
-    padding: 15px;
+    padding: 15px 15px 45px;
+    box-shadow: rgba(black, 0.1) -3px 3px;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
   }
 
   .pokemon-card__thumb-container {
     border: 3px solid rgb(255, 212, 38);
+    border-radius: 10px;
+    overflow: hidden; // Make sure the image's square corners don't overlap this container's rounded corners
     margin-bottom: 10px;
   }
 
@@ -43,6 +51,7 @@
   .pokemon--kc img {
     width: 100%;
     height: auto;
+    display: block;
   }
 
   .pokemon--sugimori > div {
