@@ -83,7 +83,7 @@ var kc_pokemon = {
     }
 
     var outer = document.createElement('div');
-    outer.classList.add('pokemon-card');
+    outer.classList.add('pokemon-card', this._rando_rotation_class());
 
     var thumb_container = document.createElement('div');
     thumb_container.classList.add('pokemon-card__thumb-container');
@@ -130,6 +130,10 @@ var kc_pokemon = {
     } else {
       document.body.classList.add('flexbox');
     }
+  },
+
+  _rando_rotation_class: function() {
+    return 'rando-rotation--' + Math.ceil(Math.random() * 10);
   }
 };
 
