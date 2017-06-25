@@ -28,9 +28,11 @@
     padding: 15px 15px 45px;
     box-shadow: rgba(black, 0.1) -3px 3px;
     transition: transform 0.2s ease;
+    position: relative; // Just to make z-index work on hover
 
     &:hover {
       transform: scale(1.1);
+      z-index: 1; // Put it in front of all other cards
     }
   }
 
