@@ -34,6 +34,36 @@
       transform: scale(1.1);
       z-index: 1; // Put it in front of all other cards
     }
+
+    &.rando-rotation--1 { transform: rotate(1deg); }
+    &.rando-rotation--2 { transform: rotate(2deg); }
+    &.rando-rotation--3 { transform: rotate(3deg); }
+    &.rando-rotation--4 { transform: rotate(4deg); }
+    &.rando-rotation--5 { transform: rotate(5deg); }
+    &.rando-rotation--6 { transform: rotate(-1deg); }
+    &.rando-rotation--7 { transform: rotate(-2deg); }
+    &.rando-rotation--8 { transform: rotate(-3deg); }
+    &.rando-rotation--9 { transform: rotate(-4deg); }
+    &.rando-rotation--10 { transform: rotate(-5deg); }
+
+    &.type--bug      { background-color: hsl( 66, 90%, 80%); }
+    &.type--dark     { background-color: hsl( 24, 90%, 80%); }
+    &.type--dragon   { background-color: hsl(257, 90%, 80%); }
+    &.type--electric { background-color: hsl( 48, 90%, 80%); }
+    &.type--fairy    { background-color: hsl(347, 90%, 80%); }
+    &.type--fighting { background-color: hsl(  3, 90%, 80%); }
+    &.type--fire     { background-color: hsl( 25, 90%, 80%); }
+    &.type--flying   { background-color: hsl(255, 90%, 80%); }
+    &.type--ghost    { background-color: hsl(263, 90%, 80%); }
+    &.type--grass    { background-color: hsl(100, 90%, 80%); }
+    &.type--ground   { background-color: hsl( 44, 90%, 80%); }
+    &.type--ice      { background-color: hsl(180, 90%, 80%); }
+    &.type--normal   { background-color: hsl( 60, 90%, 80%); }
+    &.type--poison   { background-color: hsl(300, 90%, 80%); }
+    &.type--psychic  { background-color: hsl(342, 90%, 80%); }
+    &.type--rock     { background-color: hsl( 49, 90%, 80%); }
+    &.type--steel    { background-color: hsl(240, 90%, 80%); }
+    &.type--water    { background-color: hsl(222, 90%, 80%); }
   }
 
   .pokemon-card__thumb-container {
@@ -129,14 +159,3 @@
     }
   }
 }
-
-.rando-rotation--1 { transform: rotate(1deg); }
-.rando-rotation--2 { transform: rotate(2deg); }
-.rando-rotation--3 { transform: rotate(3deg); }
-.rando-rotation--4 { transform: rotate(4deg); }
-.rando-rotation--5 { transform: rotate(5deg); }
-.rando-rotation--6 { transform: rotate(-1deg); }
-.rando-rotation--7 { transform: rotate(-2deg); }
-.rando-rotation--8 { transform: rotate(-3deg); }
-.rando-rotation--9 { transform: rotate(-4deg); }
-.rando-rotation--10 { transform: rotate(-5deg); }

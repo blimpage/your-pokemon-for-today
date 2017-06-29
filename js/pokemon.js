@@ -84,8 +84,7 @@ var kc_pokemon = {
     }
 
     var outer = document.createElement('div');
-    outer.classList.add('pokemon-card', this._rando_rotation_class());
-    outer.style.backgroundColor = 'hsl(' + (Math.ceil(Math.random() * 360)) + ', 90%, 80%)';
+    outer.classList.add('pokemon-card', this._rando_rotation_class(), 'type--' + cell.dataset.type);
 
     var thumb_container = document.createElement('div');
     thumb_container.classList.add('pokemon-card__thumb-container');
