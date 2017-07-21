@@ -1,5 +1,14 @@
 @import 'base';
 
+@mixin pokemon-card-colors($hue, $border-saturation: 80%, $background-saturation: 90%) {
+  background-color: hsl($hue, $background-saturation, 80%);
+  border-color: hsl($hue, $border-saturation, 60%);
+
+  .pokemon-card__thumb-container {
+    border-color: hsl($hue, $border-saturation, 60%);
+  }
+}
+
 .page-container {
   max-width: 1240px;
   margin: 0 auto;
@@ -46,24 +55,24 @@
     &.rando-rotation--9 { transform: rotate(-4deg); }
     &.rando-rotation--10 { transform: rotate(-5deg); }
 
-    &.type--bug      { background-color: hsl( 66, 90%, 80%); }
-    &.type--dark     { background-color: hsl( 24, 90%, 80%); }
-    &.type--dragon   { background-color: hsl(257, 90%, 80%); }
-    &.type--electric { background-color: hsl( 48, 90%, 80%); }
-    &.type--fairy    { background-color: hsl(347, 90%, 80%); }
-    &.type--fighting { background-color: hsl(  3, 90%, 80%); }
-    &.type--fire     { background-color: hsl( 25, 90%, 80%); }
-    &.type--flying   { background-color: hsl(255, 90%, 80%); }
-    &.type--ghost    { background-color: hsl(263, 90%, 80%); }
-    &.type--grass    { background-color: hsl(100, 90%, 80%); }
-    &.type--ground   { background-color: hsl( 44, 90%, 80%); }
-    &.type--ice      { background-color: hsl(180, 90%, 80%); }
-    &.type--normal   { background-color: hsl( 60, 90%, 80%); }
-    &.type--poison   { background-color: hsl(300, 90%, 80%); }
-    &.type--psychic  { background-color: hsl(342, 90%, 80%); }
-    &.type--rock     { background-color: hsl( 49, 90%, 80%); }
-    &.type--steel    { background-color: hsl(240, 90%, 80%); }
-    &.type--water    { background-color: hsl(222, 90%, 80%); }
+    &.type--bug      { @include pokemon-card-colors(66, 80%); }
+    &.type--dark     { @include pokemon-card-colors(24); }
+    &.type--dragon   { @include pokemon-card-colors(257, 60%); }
+    &.type--electric { @include pokemon-card-colors(48); }
+    &.type--fairy    { @include pokemon-card-colors(347, 50%, 100%); }
+    &.type--fighting { @include pokemon-card-colors(3, 60%); }
+    &.type--fire     { @include pokemon-card-colors(25, 80%); }
+    &.type--flying   { @include pokemon-card-colors(255); }
+    &.type--ghost    { @include pokemon-card-colors(263, 40%); }
+    &.type--grass    { @include pokemon-card-colors(100); }
+    &.type--ground   { @include pokemon-card-colors(44); }
+    &.type--ice      { @include pokemon-card-colors(180); }
+    &.type--normal   { @include pokemon-card-colors(60, 60%, 60%); }
+    &.type--poison   { @include pokemon-card-colors(300, 60%, 70%); }
+    &.type--psychic  { @include pokemon-card-colors(342, 60%); }
+    &.type--rock     { @include pokemon-card-colors(49); }
+    &.type--steel    { @include pokemon-card-colors(240, 20%, 20%); }
+    &.type--water    { @include pokemon-card-colors(222); }
   }
 
   .pokemon-card__thumb-container {
