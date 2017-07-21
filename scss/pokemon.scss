@@ -39,11 +39,6 @@
     transition: transform 0.2s ease;
     position: relative; // Just to make z-index work on hover
 
-    &:hover {
-      transform: scale(1.1);
-      z-index: 1; // Put it in front of all other cards
-    }
-
     &.rando-rotation--1 { transform: rotate(1deg); }
     &.rando-rotation--2 { transform: rotate(2deg); }
     &.rando-rotation--3 { transform: rotate(3deg); }
@@ -89,10 +84,19 @@
     font-weight: bold;
   }
 
-  .pokemon--kc img {
-    width: 100%;
-    height: auto;
-    display: block;
+  .pokemon--kc {
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: scale(1.1);
+      z-index: 1; // Put it in front of all other cards
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
   }
 
   .pokemon--sugimori > div {
