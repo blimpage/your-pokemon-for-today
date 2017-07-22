@@ -247,3 +247,20 @@ gulp.task('default', [
   'generate_sprites',
   'copy_fonts'
 ]);
+
+gulp.task('threshold', function() {
+  return gulp.src(`${paths.sugimori_images}/*.jpg`)
+    .pipe(gm(function(gmfile) {
+      return gmfile
+        .resize(1000, 1000)
+        .blur(10, 50)
+        .threshold('99%')
+        .fill('#aaaaaa')
+        .opaque('#000000')
+        .resize(145, 145)
+        .trim()
+        .gravity('Center')
+        .extent(245, 155)
+    }))
+    .pipe(gulp.dest('tmp/'));
+})
