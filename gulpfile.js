@@ -109,13 +109,22 @@ var spriteset_data = function() {
 
 var compile_data = function() {
   var kc_data = parse_kc_data();
-  var sprite_data = spriteset_data();
+  // var sprite_data = spriteset_data();
+
   var all_data = {};
 
+  // console.log(all_pokemon_data);
+
   for (key in all_pokemon_data) {
-    all_data[key] = Object.assign({}, all_pokemon_data[key], kc_data[key], sprite_data[key]);
+    all_data[key] = Object.assign(
+      { sugimori_filename: `images/sugimori/${key}.png`},
+      all_pokemon_data[key],
+      kc_data[key]
+      // sprite_data[key]
+    );
   }
 
+  console.log(all_data);
   return all_data;
 };
 

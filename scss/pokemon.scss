@@ -31,24 +31,30 @@
   }
 
   .pokemon-card {
-    border: 5px solid rgb(255, 212, 38);
+    border: 5px solid hsl(0, 0%, 80%);
     border-radius: 18px;
-    background-color: rgb(255, 156, 131);
-    padding: 15px 15px 45px;
+    background-color: hsl(0, 0%, 60%);
+    padding: 15px 15px 75px;
     box-shadow: rgba(black, 0.1) -3px 3px;
     transition: transform 0.2s ease;
     position: relative; // Just to make z-index work on hover
 
-    &.rando-rotation--1 { transform: rotate(1deg); }
-    &.rando-rotation--2 { transform: rotate(2deg); }
-    &.rando-rotation--3 { transform: rotate(3deg); }
-    &.rando-rotation--4 { transform: rotate(4deg); }
-    &.rando-rotation--5 { transform: rotate(5deg); }
-    &.rando-rotation--6 { transform: rotate(-1deg); }
-    &.rando-rotation--7 { transform: rotate(-2deg); }
-    &.rando-rotation--8 { transform: rotate(-3deg); }
-    &.rando-rotation--9 { transform: rotate(-4deg); }
-    &.rando-rotation--10 { transform: rotate(-5deg); }
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    &.rando-rotation--1 { transform: rotate(1deg) translate(1px, -5px); }
+    &.rando-rotation--2 { transform: rotate(2deg) translate(2px, -4px); }
+    &.rando-rotation--3 { transform: rotate(3deg) translate(3px, -3px); }
+    &.rando-rotation--4 { transform: rotate(4deg) translate(4px, -2px); }
+    &.rando-rotation--5 { transform: rotate(5deg) translate(5px, -1px); }
+    &.rando-rotation--6 { transform: rotate(-1deg) translate(-1px, 5px); }
+    &.rando-rotation--7 { transform: rotate(-2deg) translate(-2px, 4px); }
+    &.rando-rotation--8 { transform: rotate(-3deg) translate(-3px, 3px); }
+    &.rando-rotation--9 { transform: rotate(-4deg) translate(-4px, 2px); }
+    &.rando-rotation--10 { transform: rotate(-5deg) translate(-5px, 1px); }
 
     &.type--bug      { @include pokemon-card-colors(66, 80%); }
     &.type--dark     { @include pokemon-card-colors(24); }
@@ -71,7 +77,7 @@
   }
 
   .pokemon-card__thumb-container {
-    border: 3px solid rgb(255, 212, 38);
+    border: 5px solid hsl(0, 0%, 80%);
     border-radius: 10px;
     overflow: hidden; // Make sure the image's square corners don't overlap this container's rounded corners
     margin-bottom: 10px;
@@ -91,19 +97,11 @@
       transform: scale(1.1);
       z-index: 1; // Put it in front of all other cards
     }
-
-    img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
   }
 
-  .pokemon--sugimori > div {
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 0;
-    padding-bottom: 100%; /* http://daverupert.com/2012/04/uncle-daves-ol-padded-box/ */
+  .pokemon--sugimori {
+    transform: scale(0.9);
+    z-index: -1;
   }
 
   .loading {

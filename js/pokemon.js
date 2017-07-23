@@ -102,17 +102,48 @@ var kc_pokemon = {
   },
 
   _transform_sugimori_cell: function(cell) {
-    var sprite_url = cell.dataset.spriteUrl;
-    var y_offset   = cell.dataset.yOffset;
+    var thumb     = document.createElement('img');
+    var thumb_src = cell.dataset.thumb;
 
-    var inner_div = document.createElement('div');
-    inner_div.style.backgroundImage = 'url(' + sprite_url + ')';
-    inner_div.style.backgroundPosition = '0 ' + y_offset;
+    thumb.src    = thumb_src;
+    thumb.alt    = '???';
+    thumb.width  = this.config.thumbnail_width;
+    thumb.height = this.config.thumbnail_height;
 
-    cell.appendChild(inner_div);
+    while (cell.firstChild) {
+      cell.removeChild(cell.firstChild);
+    }
+
+    var outer = document.createElement('div');
+    outer.classList.add('pokemon-card', this._rando_rotation_class());
+
+    var thumb_container = document.createElement('div');
+    thumb_container.classList.add('pokemon-card__thumb-container');
+
+    var text_container = document.createElement('div');
+    text_container.classList.add('pokemon-card__text');
+    text_container.innerText = '???';
+
+    thumb_container.appendChild(thumb);
+    outer.appendChild(thumb_container);
+    outer.appendChild(text_container);
+    cell.appendChild(outer);
 
     cell.classList.add(this.config.cell_done_class);
   },
+
+  // _transform_sugimori_cell: function(cell) {
+  //   var sprite_url = cell.dataset.spriteUrl;
+  //   var y_offset   = cell.dataset.yOffset;
+
+  //   var inner_div = document.createElement('div');
+  //   inner_div.style.backgroundImage = 'url(' + sprite_url + ')';
+  //   inner_div.style.backgroundPosition = '0 ' + y_offset;
+
+  //   cell.appendChild(inner_div);
+
+  //   cell.classList.add(this.config.cell_done_class);
+  // },
 
   _init_vendor: function() {
     lightGallery(this.container_element, {

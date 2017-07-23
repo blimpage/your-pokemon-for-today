@@ -6,7 +6,7 @@
           {{data.name}}
         </a>
       {% else %}
-        <div class='pokemon pokemon--sugimori' data-sprite-url='/images/sugimori/sugimori_{{data.spriteset}}.jpg' data-y-offset='{{data.y_offset}}%'></div>
+        <div class='pokemon pokemon--sugimori' data-thumb='{{data.sugimori_filename}}'></div>
       {% endif %}
     {% endfor %}
   </div>
