@@ -249,7 +249,7 @@ gulp.task('default', [
 ]);
 
 gulp.task('silhouette', function() {
-  return gulp.src('tmp/sugimori_png/1.png')
+  return gulp.src(paths.sugimori_images + '*.png')
     .pipe(gm(function(gmfile) {
       return gmfile
         .threshold('100%')
@@ -260,5 +260,5 @@ gulp.task('silhouette', function() {
         .gravity('Center')
         .extent(245, 155)
     }))
-    .pipe(gulp.dest('tmp/out/'));
+    .pipe(gulp.dest(paths.build + 'images/sugimori'));
 });
