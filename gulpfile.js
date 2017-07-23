@@ -247,3 +247,18 @@ gulp.task('default', [
   'generate_sprites',
   'copy_fonts'
 ]);
+
+gulp.task('silhouette', function() {
+  return gulp.src('tmp/sugimori_png/1.png')
+    .pipe(gm(function(gmfile) {
+      return gmfile
+        .threshold('100%')
+        .fill('#aaaaaa')
+        .opaque('#000000')
+        .resize(145, 145)
+        .trim()
+        .gravity('Center')
+        .extent(245, 155)
+    }))
+    .pipe(gulp.dest('tmp/out/'));
+});
