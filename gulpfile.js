@@ -149,6 +149,21 @@ gulp.task('generate_thumbs', function() {
     .pipe(gulp.dest(paths.build + 'images/kc/thumbs'));
 });
 
+gulp.task('silhouette', function() {
+  return gulp.src(paths.sugimori_images + '*.png')
+    .pipe(gm(function(gmfile) {
+      return gmfile
+        .threshold('100%')
+        .fill('#aaaaaa')
+        .opaque('#000000')
+        .resize(145, 145)
+        .trim()
+        .gravity('Center')
+        .extent(245, 155)
+    }))
+    .pipe(gulp.dest(paths.build + 'images/sugimori'));
+});
+
 gulp.task('optimize_kc_images', function() {
   // Optimize and copy all KC images
   return gulp.src(paths.kc_images)
@@ -176,22 +191,8 @@ gulp.task('default', [
   'scripts',
   'styles',
   'generate_thumbs',
+  'silhouette',
   'optimize_kc_images',
   'optimize_site_images',
   'copy_fonts'
 ]);
-
-gulp.task('silhouette', function() {
-  return gulp.src(paths.sugimori_images + '*.png')
-    .pipe(gm(function(gmfile) {
-      return gmfile
-        .threshold('100%')
-        .fill('#aaaaaa')
-        .opaque('#000000')
-        .resize(145, 145)
-        .trim()
-        .gravity('Center')
-        .extent(245, 155)
-    }))
-    .pipe(gulp.dest(paths.build + 'images/sugimori'));
-});
