@@ -151,6 +151,7 @@ gulp.task('generate_thumbs', function() {
 
 gulp.task('silhouette', function() {
   return gulp.src(paths.sugimori_images + '*.png')
+    .pipe(newer(paths.build + 'images/sugimori'))
     .pipe(gm(function(gmfile) {
       return gmfile
         .threshold('100%')
