@@ -23,7 +23,6 @@ var uglifyCSS    = require('gulp-minify-css');
 // For images
 var gm          = require('gulp-gm'); // GraphicsMagick
 var imagemin    = require('gulp-imagemin');
-var spritesmith = require('gulp.spritesmith');
 
 var paths = {
   scripts: ['js/vendor/*.js', 'js/*.js'],
@@ -35,10 +34,6 @@ var paths = {
   templates: 'templates/',
   fonts: 'fonts/*',
   build: 'build/'
-};
-
-var config = {
-  spriteset_size: 50
 };
 
 var all_pokemon_data = JSON.parse(fs.readFileSync(paths.data + 'all_pokemon.json'));
@@ -86,45 +81,19 @@ var parse_kc_data = function() {
   return kc_data;
 };
 
-var spriteset_data = function() {
-  var total_pokemon_count = Object.keys(all_pokemon_data).length;
-  var last_spriteset =  Math.floor(total_pokemon_count / config.spriteset_size);
-
-  var spriteset_data = {};
-
-  for (pokemon in all_pokemon_data) {
-    var dex_number = parseInt(pokemon),
-        spriteset = Math.ceil(dex_number / config.spriteset_size) - 1,
-        images_in_set = spriteset < last_spriteset ? config.spriteset_size : total_pokemon_count - (last_spriteset * config.spriteset_size),
-        y_offset = ((dex_number - 1) % config.spriteset_size) * (1 / (images_in_set - 1) * 100);
-
-    spriteset_data[pokemon] = {
-      spriteset: spriteset,
-      y_offset: y_offset
-    };
-  }
-
-  return spriteset_data;
-};
-
 var compile_data = function() {
   var kc_data = parse_kc_data();
-  // var sprite_data = spriteset_data();
 
   var all_data = {};
-
-  // console.log(all_pokemon_data);
 
   for (key in all_pokemon_data) {
     all_data[key] = Object.assign(
       { sugimori_filename: `images/sugimori/${key}.png`},
       all_pokemon_data[key],
       kc_data[key]
-      // sprite_data[key]
     );
   }
 
-  console.log(all_data);
   return all_data;
 };
 
@@ -195,50 +164,6 @@ gulp.task('optimize_site_images', function() {
     .pipe(gulp.dest(paths.build + 'images'));
 });
 
-gulp.task('generate_sprites', function() {
-  // Generate spritesheets for the fallback Sugimori images.
-  // We're using spritesmith, which generates one spritesheet each time we call it.
-  // However we want to generate a few batches of spritesheets, so we need to call it multiple times.
-
-  // First we need a list of all of our files.
-  var src_files = fs.readdirSync(paths.sugimori_images)
-    .filter(function(filename) {
-      // Remove any files that aren't JPGs (e.g. .DS_Store)
-      return filename.match(/(\.jpg)$/);
-    }).map(function(filename) {
-      // Append the source path to the start of each filename
-      return paths.sugimori_images + filename;
-    });
-
-  // Then we need to split them into sets, based on our desired set size.
-  var spritesets = {};
-
-  for (i = 0; i < (src_files.length / config.spriteset_size); i++) {
-    // The Array.slice() method creates a subset starting from the first index,
-    // and stopping one short of the second index. So our arguments will be:
-    var first = config.spriteset_size * i;
-    var last = config.spriteset_size * (i + 1);
-
-    // Add this subset to our list of spritesets
-    spritesets[i] = src_files.slice(first, last);
-  }
-
-  // Generate a spritesheet for each set we've defined!
-  for (set in spritesets) {
-    gulp.src(spritesets[set])
-      .pipe(spritesmith({
-        algorithm:     'top-down',
-        algorithmOpts: { sort: false },
-        engine:        'gmsmith',
-        imgName:       'sugimori_' + set + '.jpg',
-        cssName:       'we_wont_even_output_this',
-        imgOpts:       { quality: 80 }
-      }))
-        .img // So that we're only outputting the images, not the CSS
-          .pipe(gulp.dest(paths.build + 'images/sugimori'));
-  }
-});
-
 gulp.task('copy_fonts', function() {
   // Copy all fonts into the build folder
   return gulp.src(paths.fonts)
@@ -253,7 +178,6 @@ gulp.task('default', [
   'generate_thumbs',
   'optimize_kc_images',
   'optimize_site_images',
-  'generate_sprites',
   'copy_fonts'
 ]);
 
