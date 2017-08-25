@@ -17,11 +17,20 @@ var kc_pokemon = {
     document.body.classList.add('js-initialised');
 
     self._adjust_layout_for_ios();
-    self._transform_next_batch_if_needed({ retry_on_success: true });
+    self._transform_all_cells();
     self._init_vendor();
+  },
 
-    self._throttled_transform = _.throttle(self._transform_next_batch_if_needed, 500).bind(self);
-    window.addEventListener('scroll', self._throttled_transform);
+  _transform_all_cells: function() {
+    var self = this;
+
+    var selector = '.' + self.config.cell_class + ':not(.' + self.config.cell_done_class + ')';
+    var all_cells_nodelist = document.querySelectorAll(selector);
+    var all_cells = Array.prototype.slice.call(all_cells_nodelist);
+
+    all_cells.forEach(function(cell) {
+      self._transform_cell(cell);
+    });
   },
 
   _transform_next_batch_if_needed: function(options) {
