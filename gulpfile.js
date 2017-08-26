@@ -36,8 +36,6 @@ var paths = {
   build: 'build/'
 };
 
-var all_pokemon_data = JSON.parse(fs.readFileSync(paths.data + 'all_pokemon.json'));
-
 var build_date = function() {
   var date = new Date();
   return date.toDateString();
@@ -58,6 +56,42 @@ var padded_number = function(number) {
   }
 };
 
+parse_json_data = function() {
+  var json_data = JSON.parse(fs.readFileSync(paths.data + 'all_pokemon.json'));
+
+  // The key for each property is the Pokemon's Pokedex number, in an unpadded
+  // stringified form (e.g. "1", "42", "307").
+  // For display purposes we also need the dex number in three-digit padded
+  // form (e.g. "001", "042", "307"), so let's add that for each Pokemon.
+  for (number in json_data) {
+    json_data[number].dex_number = padded_number(number)
+  }
+
+  return json_data;
+}
+
+var parse_sugimori_data = function() {
+  // Get the filenames of all sugimori images
+  var filenames = fs.readdirSync('images/sugimori')
+    .filter(function(filename) { return /^\d/.test(filename) }); // Filter out any filenames that don't start with a number
+
+  // Convert our array of filenames into an object, with the format:
+  // {
+  //  '1'  : { filename: '1.png' }
+  //  '34' : { filename: '34.jpg' }
+  //  '151': { filename: '151.png' }
+  // }
+  var sugimori_data = {};
+  filenames.forEach(function(filename) {
+    var just_the_number = filename.match(/(\d+)/)[1];
+    sugimori_data[just_the_number] = {
+      thumb_filepath: `images/sugimori/${filename}`,
+    };
+  });
+
+  return sugimori_data;
+};
+
 var parse_kc_data = function() {
   // Get the filenames of all KC images
   var filenames = fs.readdirSync('images/kc')
@@ -73,8 +107,9 @@ var parse_kc_data = function() {
   filenames.forEach(function(filename) {
     var just_the_number = filename.match(/(\d+)/)[1];
     kc_data[just_the_number] = {
-      filename: filename,
-      dex_number: padded_number(just_the_number)
+      has_kc_image: true,
+      full_filepath: `images/kc/${filename}`,
+      thumb_filepath: `images/kc/thumbs/${filename}`,
     };
   });
 
@@ -82,14 +117,18 @@ var parse_kc_data = function() {
 };
 
 var compile_data = function() {
+  var all_pokemon_data = parse_json_data();
+
+  var sugimori_data = parse_sugimori_data();
+
   var kc_data = parse_kc_data();
 
   var all_data = {};
 
   for (key in all_pokemon_data) {
     all_data[key] = Object.assign(
-      { sugimori_filename: `images/sugimori/${key}.png`},
       all_pokemon_data[key],
+      sugimori_data[key],
       kc_data[key]
     );
   }
