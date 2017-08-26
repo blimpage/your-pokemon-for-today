@@ -59,12 +59,21 @@ var padded_number = function(number) {
 parse_json_data = function() {
   var json_data = JSON.parse(fs.readFileSync(paths.data + 'all_pokemon.json'));
 
-  // The key for each property is the Pokemon's Pokedex number, in an unpadded
-  // stringified form (e.g. "1", "42", "307").
-  // For display purposes we also need the dex number in three-digit padded
-  // form (e.g. "001", "042", "307"), so let's add that for each Pokemon.
   for (number in json_data) {
-    json_data[number].dex_number = padded_number(number)
+    var this_pokemon = json_data[number];
+
+    // The key for each property is the Pokemon's Pokedex number, in an unpadded
+    // stringified form (e.g. "1", "42", "307").
+    // For display purposes we also need the dex number in three-digit padded
+    // form (e.g. "001", "042", "307"), so let's add that for each Pokemon.
+    this_pokemon.dex_number = padded_number(number);
+
+    // There are a lot of Pokemon who are Normal/Flying type, and very very few
+    // Pokemon who have Flying as their primary type. Those Normal/Flying Pokemon
+    // should be shown as Flying-type imo, so we get to see that beautiful purple!
+    if (this_pokemon.type_1 == "normal" && this_pokemon.type_2 == "flying") {
+      this_pokemon.type_1 = "flying";
+    }
   }
 
   return json_data;
