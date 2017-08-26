@@ -1,13 +1,21 @@
 {% block gallery %}
   <div class='pokemon-container'>
     {% for number, data in pokemons %}
-      {% if data.has_kc_image %}
-        <a href='{{data.full_filepath}}' class='pokemon pokemon--kc' data-thumb='{{data.thumb_filepath}}' title='{{data.name}}' data-dex-number='#{{data.dex_number}}' data-type='{{data.type_1}}'>
-          {{data.name}}
-        </a>
-      {% else %}
-        <div class='pokemon pokemon--sugimori' data-thumb='{{data.thumb_filepath}}'></div>
-      {% endif %}
+      <div
+        class='pokemon'
+        data-name='{{data.name}}'
+        data-has-kc-image='{{data.has_kc_image}}'
+        data-thumb-url='{{data.thumb_filepath}}'
+        data-dex-number='{{data.dex_number}}'
+        data-type='{{data.type_1}}'>
+
+        {% if data.has_kc_image %}
+          <a href='{{data.full_filepath}}' title='{{data.name}}'>
+            {{data.name}}
+          </a>
+        {% endif %}
+
+      </div>
     {% endfor %}
   </div>
 {% endblock %}

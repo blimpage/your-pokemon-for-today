@@ -1,10 +1,12 @@
 var kc_pokemon = {
 
   config: {
-    cell_class:       'pokemon',
-    cell_done_class:  'js-done',
-    thumbnail_width:  245,
-    thumbnail_height: 155
+    cell_class:          'pokemon',
+    kc_cell_class:       'pokemon--kc',
+    sugimori_cell_class: 'pokemon--sugimori',
+    cell_done_class:     'js-done',
+    thumbnail_width:     245,
+    thumbnail_height:    155
   },
 
   container_element: document.querySelector('.pokemon-container'),
@@ -32,79 +34,53 @@ var kc_pokemon = {
   },
 
   _transform_cell: function(cell) {
-    if ( cell.classList.contains('pokemon--kc') ) {
-      this._transform_kc_cell(cell);
-    } else if ( cell.classList.contains('pokemon--sugimori') ) {
-      this._transform_sugimori_cell(cell);
+    var has_kc_image = cell.dataset.hasKcImage;
+
+    var name = has_kc_image ? cell.dataset.name : '';
+    var dex_number = has_kc_image ? '#' + cell.dataset.dexNumber : '???'
+    var authorClass = has_kc_image ? this.config.kc_cell_class : this.config.sugimori_cell_class;
+    var typeClass = has_kc_image ? 'type--' + cell.dataset.type : 'type--unknown';
+
+    // The "target" element that we're going to drop our new elements into
+    // should be the innermost child element of the cell element.
+    // And we wanna remove any text that's in there.
+    var target = cell;
+    while (target.firstElementChild) {
+      target = target.firstElementChild;
+      target.innerText = null;
     }
-  },
 
-  _transform_kc_cell: function(cell) {
-    var thumb     = document.createElement('img');
-    var thumb_src = cell.dataset.thumb;
-    var thumb_alt = cell.title;
-
-    thumb.src    = thumb_src;
-    thumb.alt    = thumb_alt;
+    var thumb    = document.createElement('img');
+    thumb.src    = cell.dataset.thumbUrl;
+    thumb.alt    = name;
     thumb.width  = this.config.thumbnail_width;
     thumb.height = this.config.thumbnail_height;
 
-    while (cell.firstChild) {
-      cell.removeChild(cell.firstChild);
-    }
-
     var outer = document.createElement('div');
-    outer.classList.add('pokemon-card', this._rando_rotation_class(), 'type--' + cell.dataset.type);
+    outer.classList.add(
+      'pokemon-card',
+      this._rando_rotation_class(),
+      typeClass
+    );
 
     var thumb_container = document.createElement('div');
     thumb_container.classList.add('pokemon-card__thumb-container');
 
     var text_container = document.createElement('div');
     text_container.classList.add('pokemon-card__text');
-    text_container.innerText = cell.dataset.dexNumber + ' ' + cell.title;
+    text_container.innerText = dex_number + ' ' + name;
 
     thumb_container.appendChild(thumb);
     outer.appendChild(thumb_container);
     outer.appendChild(text_container);
-    cell.appendChild(outer);
+    target.appendChild(outer);
 
-    cell.classList.add(this.config.cell_done_class);
-  },
-
-  _transform_sugimori_cell: function(cell) {
-    var thumb     = document.createElement('img');
-    var thumb_src = cell.dataset.thumb;
-
-    thumb.src    = thumb_src;
-    thumb.alt    = '???';
-    thumb.width  = this.config.thumbnail_width;
-    thumb.height = this.config.thumbnail_height;
-
-    while (cell.firstChild) {
-      cell.removeChild(cell.firstChild);
-    }
-
-    var outer = document.createElement('div');
-    outer.classList.add('pokemon-card', this._rando_rotation_class());
-
-    var thumb_container = document.createElement('div');
-    thumb_container.classList.add('pokemon-card__thumb-container');
-
-    var text_container = document.createElement('div');
-    text_container.classList.add('pokemon-card__text');
-    text_container.innerText = '???';
-
-    thumb_container.appendChild(thumb);
-    outer.appendChild(thumb_container);
-    outer.appendChild(text_container);
-    cell.appendChild(outer);
-
-    cell.classList.add(this.config.cell_done_class);
+    cell.classList.add(this.config.cell_done_class, authorClass);
   },
 
   _init_vendor: function() {
     lightGallery(this.container_element, {
-      selector: '.pokemon--kc'
+      selector: 'a'
     });
   },
 

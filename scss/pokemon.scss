@@ -22,7 +22,9 @@
 .js-initialised {
   .pokemon {
     &.js-done {
-      text-decoration: none;
+      a {
+        text-decoration: none;
+      }
     }
 
     &:not(.js-done) {
