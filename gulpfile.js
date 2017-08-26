@@ -27,7 +27,7 @@ var imagemin    = require('gulp-imagemin');
 var paths = {
   scripts: ['js/vendor/*.js', 'js/*.js'],
   styles: ['scss/vendor/*.scss', 'scss/pokemon.scss'],
-  sugimori_images: 'images/sugimori/',
+  sugimori_images: 'images/sugimori/*',
   kc_images: 'images/kc/*',
   non_pokemon_images: ['images/*.*', 'images/!(sugimori|kc)/**/*'],
   data: 'data/',
@@ -150,7 +150,7 @@ gulp.task('generate_thumbs', function() {
 });
 
 gulp.task('silhouette', function() {
-  return gulp.src(paths.sugimori_images + '*.png')
+  return gulp.src(paths.sugimori_images)
     .pipe(newer(paths.build + 'images/sugimori'))
     .pipe(gm(function(gmfile) {
       return gmfile
@@ -162,6 +162,7 @@ gulp.task('silhouette', function() {
         .gravity('Center')
         .extent(245, 155)
     }))
+    .pipe(imagemin({optimizationLevel: 4}))
     .pipe(gulp.dest(paths.build + 'images/sugimori'));
 });
 
