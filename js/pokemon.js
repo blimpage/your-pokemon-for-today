@@ -50,11 +50,11 @@ var kc_pokemon = {
       target.innerText = null;
     }
 
-    var thumb    = document.createElement('img');
-    thumb.src    = cell.dataset.thumbUrl;
-    thumb.alt    = name;
-    thumb.width  = this.config.thumbnail_width;
-    thumb.height = this.config.thumbnail_height;
+    var thumb              = document.createElement('img');
+    thumb.dataset.original = cell.dataset.thumbUrl;
+    thumb.alt              = name;
+    thumb.width            = this.config.thumbnail_width;
+    thumb.height           = this.config.thumbnail_height;
 
     var outer = document.createElement('div');
     outer.classList.add(
@@ -81,6 +81,10 @@ var kc_pokemon = {
   _init_vendor: function() {
     lightGallery(this.container_element, {
       selector: 'a'
+    });
+
+    new LazyLoad({
+      elements_selector: '.pokemon-card img'
     });
   },
 
