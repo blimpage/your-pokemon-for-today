@@ -52,7 +52,6 @@ var kc_pokemon = {
 
     var thumb              = document.createElement('img');
     thumb.dataset.original = cell.dataset.thumbUrl;
-    thumb.alt              = name;
     thumb.width            = this.config.thumbnail_width;
     thumb.height           = this.config.thumbnail_height;
 
