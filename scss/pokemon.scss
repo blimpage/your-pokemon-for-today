@@ -45,6 +45,7 @@
       width: 100%;
       height: auto;
       display: block;
+      position: absolute; // Relative to the thumb container, to make the ol' padded box work
     }
 
     &.rando-rotation--1 { transform: rotate(1deg) translate(1px, -5px); }
@@ -83,6 +84,10 @@
     border-radius: 10px;
     overflow: hidden; // Make sure the image's square corners don't overlap this container's rounded corners
     margin-bottom: 10px;
+    position: relative;    // \
+    height: 0;             //  | The ol' padded box, to set image dimensions before the image loads.
+    padding-bottom: 59.5%; // /
+    background-color: white;
   }
 
   .pokemon-card__text {
