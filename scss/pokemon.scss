@@ -19,8 +19,14 @@
   margin-bottom: 20px;
 }
 
+.pokemon {
+  margin-bottom: 10px;
+}
+
 .js-initialised {
   .pokemon {
+    margin-bottom: 0;
+
     &.js-done {
       a {
         text-decoration: none;
