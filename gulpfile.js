@@ -27,7 +27,7 @@ var imagemin    = require('gulp-imagemin');
 var paths = {
   scripts: ['js/vendor/*.js', 'js/*.js'],
   styles: ['scss/vendor/*.scss', 'scss/pokemon.scss'],
-  sugimori_images: 'images/sugimori/*',
+  sugimori_images: 'images/sugimori/',
   kc_images: 'images/kc/*',
   non_pokemon_images: ['images/*.*', 'images/!(sugimori|kc)/**/*'],
   data: 'data/',
@@ -198,7 +198,23 @@ gulp.task('generate_thumbs', function() {
 });
 
 gulp.task('silhouette', function() {
-  return gulp.src(paths.sugimori_images)
+  var sugimori_data = parse_sugimori_data();
+  var kc_data = parse_kc_data();
+  var images_to_silhouette = [];
+
+  // Select Sugimori images for which there is no corresponding KC image
+  for (key in sugimori_data) {
+    if (kc_data[key] === undefined) {
+      // The "thumb_filepath" is actually the path to where we'll put the image
+      // in the "build" directory for the finished site to access, but it's
+      // coincidentally the same path from here to the source image.
+      // That's a happy convenient coincidence - we'll need some smarter logic
+      // here if that ever changes.
+      images_to_silhouette.push(sugimori_data[key].thumb_filepath);
+    }
+  }
+
+  return gulp.src(images_to_silhouette)
     .pipe(newer(paths.build + 'images/sugimori'))
     .pipe(gm(function(gmfile) {
       return gmfile
