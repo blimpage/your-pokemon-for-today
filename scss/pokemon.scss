@@ -128,9 +128,13 @@
     }
 
     .pokemon {
-      flex-grow: 1;
-      min-width: 50%;
+      flex: 1 1 180px;
+      min-width: 200px;
       max-width: 200px;
+
+      @media (min-width: 350px) {
+        min-width: 50%;
+      }
 
       @media (min-width: 441px) {
         min-width: 175px;
