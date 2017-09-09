@@ -66,7 +66,7 @@
     &.rando-rotation--10 { transform: rotate(-5deg) translate(-5px, 2px); }
 
     &.type--bug      { @include pokemon-card-colors(66, 80%); }
-    &.type--dark     { @include pokemon-card-colors(24); }
+    &.type--dark     { @include pokemon-card-colors(24, 30%, 30%); }
     &.type--dragon   { @include pokemon-card-colors(257, 60%); }
     &.type--electric { @include pokemon-card-colors(48); }
     &.type--fairy    { @include pokemon-card-colors(347, 50%, 100%); }
@@ -75,12 +75,12 @@
     &.type--flying   { @include pokemon-card-colors(255); }
     &.type--ghost    { @include pokemon-card-colors(263, 40%); }
     &.type--grass    { @include pokemon-card-colors(100); }
-    &.type--ground   { @include pokemon-card-colors(44); }
+    &.type--ground   { @include pokemon-card-colors(44, 50%, 60%); }
     &.type--ice      { @include pokemon-card-colors(180); }
     &.type--normal   { @include pokemon-card-colors(60, 60%, 60%); }
     &.type--poison   { @include pokemon-card-colors(300, 60%, 70%); }
     &.type--psychic  { @include pokemon-card-colors(342, 60%); }
-    &.type--rock     { @include pokemon-card-colors(49); }
+    &.type--rock     { @include pokemon-card-colors(49, 30%, 30%); }
     &.type--steel    { @include pokemon-card-colors(240, 20%, 20%); }
     &.type--water    { @include pokemon-card-colors(222); }
   }
