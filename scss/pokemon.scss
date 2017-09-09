@@ -54,16 +54,16 @@
       position: absolute; // Relative to the thumb container, to make the ol' padded box work
     }
 
-    &.rando-rotation--1 { transform: rotate(1deg) translate(1px, -5px); }
-    &.rando-rotation--2 { transform: rotate(2deg) translate(2px, -4px); }
-    &.rando-rotation--3 { transform: rotate(3deg) translate(3px, -3px); }
-    &.rando-rotation--4 { transform: rotate(4deg) translate(4px, -2px); }
-    &.rando-rotation--5 { transform: rotate(5deg) translate(5px, -1px); }
-    &.rando-rotation--6 { transform: rotate(-1deg) translate(-1px, 5px); }
-    &.rando-rotation--7 { transform: rotate(-2deg) translate(-2px, 4px); }
-    &.rando-rotation--8 { transform: rotate(-3deg) translate(-3px, 3px); }
-    &.rando-rotation--9 { transform: rotate(-4deg) translate(-4px, 2px); }
-    &.rando-rotation--10 { transform: rotate(-5deg) translate(-5px, 1px); }
+    &.rando-rotation--1 { transform: rotate(1deg) translate(1px, -10px); }
+    &.rando-rotation--2 { transform: rotate(2deg) translate(2px, -8px); }
+    &.rando-rotation--3 { transform: rotate(3deg) translate(3px, -6px); }
+    &.rando-rotation--4 { transform: rotate(4deg) translate(4px, -4px); }
+    &.rando-rotation--5 { transform: rotate(5deg) translate(5px, -2px); }
+    &.rando-rotation--6 { transform: rotate(-1deg) translate(-1px, 10px); }
+    &.rando-rotation--7 { transform: rotate(-2deg) translate(-2px, 8px); }
+    &.rando-rotation--8 { transform: rotate(-3deg) translate(-3px, 6px); }
+    &.rando-rotation--9 { transform: rotate(-4deg) translate(-4px, 4px); }
+    &.rando-rotation--10 { transform: rotate(-5deg) translate(-5px, 2px); }
 
     &.type--bug      { @include pokemon-card-colors(66, 80%); }
     &.type--dark     { @include pokemon-card-colors(24); }
