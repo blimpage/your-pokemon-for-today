@@ -93,7 +93,7 @@
     position: relative;    // \
     height: 0;             //  | The ol' padded box, to set image dimensions before the image loads.
     padding-bottom: 59.5%; // /
-    background-color: white;
+    background: white url('/images/poke_loading.gif') 50% 50% / 30% no-repeat;
   }
 
   .pokemon-card__text {
