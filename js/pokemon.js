@@ -5,6 +5,7 @@ var kc_pokemon = {
     kc_cell_class:       'pokemon--kc',
     sugimori_cell_class: 'pokemon--sugimori',
     cell_done_class:     'js-done',
+    what_is_kc_class:    'what-is-kc',
     thumbnail_width:     245,
     thumbnail_height:    155
   },
@@ -18,6 +19,7 @@ var kc_pokemon = {
 
     self._adjust_layout_for_ios();
     self._transform_all_cells();
+    self._decide_what_kc_is();
     self._init_vendor();
   },
 
@@ -94,6 +96,32 @@ var kc_pokemon = {
     } else {
       document.body.classList.add('flexbox');
     }
+  },
+
+  _decide_what_kc_is: function() {
+    // Adjusts the text in the intro section to clarify who or what KC is.
+    document.querySelector('.' + this.config.what_is_kc_class).innerText = this._something_kc_might_be();
+  },
+
+  _something_kc_might_be: function() {
+    var things_kc_might_be = [
+      "a malevolent spirit",
+      "somebody's uncle",
+      "a heavy metal guitarist",
+      "a distinguished tastemaker",
+      "an ancient evil",
+      "a Donkey Kong enthusiast",
+      "a cheesemaker of much acclaim",
+      "clearly a legend",
+      "a good friend",
+      "a forest dweller",
+      "some guy I met at a gas station",
+      "a gift from the heavens",
+      "the meme dog guy, but also a very talented artist with a large library of work",
+      "just a guy",
+    ];
+
+    return things_kc_might_be[Math.floor(Math.random() * things_kc_might_be.length)];
   },
 
   _rando_rotation_class: function() {
