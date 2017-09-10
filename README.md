@@ -1,15 +1,14 @@
-# [Your Pokémon for Today](http://your-pokemon-for-today.surge.sh/)
+# [Your Pokémon for Today](https://yourpokemonfor.today/)
 
 This is a nice little gallery site showing off the rad [Your Pokémon for Today](http://midnitesurprise.com/tagged/yourpokemonfortoday) illustrations that the rad [KC Green](http://kcgreendotcom.com/) has been posting on his Twitter and Tumblrs.
 
 It doesn't really need to exist, and yet it does!!
 
-On the webby end, it uses [lightgallery.js](https://github.com/sachinchoolur/lightgallery.js) for lightboxy stuff, and tiny bits of [Underscore.js](https://github.com/jashkenas/underscore) for added dev functionality.
+On the webby end, it uses [lightgallery.js](https://github.com/sachinchoolur/lightgallery.js) for lightboxy stuff.
 
 On the buildy end, it uses [GraphicsMagick for Node](https://github.com/aheckmann/gm) to generate thumbnails for each illustration, [Nunjucks](http://mozilla.github.io/nunjucks) for templating, and [gulp](http://gulpjs.com/) (and a whole host of gulp plugins) to rope the whole thing together.
 
-It's currently hosted on [Surge](http://surge.sh/) because omg that service is amazing.
-
+The repository is kind of stupidly huge because it contains a lot of image data (both present and past). Sorry about that.
 
 ## To build it yourself
 
