@@ -29,7 +29,8 @@ var paths = {
   styles: ['scss/vendor/*.scss', 'scss/pokemon.scss'],
   sugimori_images: 'images/sugimori/',
   kc_images: 'images/kc/*',
-  non_pokemon_images: ['images/*.*', 'images/!(sugimori|kc)/**/*'],
+  favicon: 'images/favicon.png',
+  all_other_images: ['images/!(favicon)*.*', 'images/!(sugimori|kc)/**/*'],
   data: 'data/',
   templates: 'templates/',
   fonts: 'fonts/*',
@@ -240,9 +241,16 @@ gulp.task('optimize_kc_images', function() {
 
 gulp.task('optimize_site_images', function() {
   // Optimize and copy all non-KC and non-Sugimori images
-  return gulp.src(paths.non_pokemon_images)
+  return gulp.src(paths.all_other_images)
     .pipe(imagemin({optimizationLevel: 4}))
     .pipe(gulp.dest(paths.build + 'images'));
+});
+
+gulp.task('copy_favicon', function() {
+  // Optimize and copy all non-KC and non-Sugimori images
+  return gulp.src(paths.favicon)
+    .pipe(imagemin({optimizationLevel: 4}))
+    .pipe(gulp.dest(paths.build));
 });
 
 gulp.task('copy_fonts', function() {
@@ -260,5 +268,6 @@ gulp.task('default', [
   'silhouette',
   'optimize_kc_images',
   'optimize_site_images',
+  'copy_favicon',
   'copy_fonts'
 ]);
