@@ -87,9 +87,7 @@ var parse_sugimori_data = function() {
 
   // Convert our array of filenames into an object, with the format:
   // {
-  //  '1'  : { filename: '1.png' }
-  //  '34' : { filename: '34.jpg' }
-  //  '151': { filename: '151.png' }
+  //   '34': { thumb_filepath: 'images/sugimori/34.jpg' },
   // }
   var sugimori_data = {};
   filenames.forEach(function(filename) {
@@ -109,9 +107,11 @@ var parse_kc_data = function() {
 
   // Convert our array of filenames into an object, with the format:
   // {
-  //  '1'  : { filename: '1.png' }
-  //  '34' : { filename: '34.jpg' }
-  //  '151': { filename: '151.png' }
+  //   '34': {
+  //     has_kc_image: true,
+  //     full_filepath: 'images/kc/34.jpg',
+  //     thumb_filepath: 'images/kc/thumbs/34.jpg'
+  //   },
   // }
   var kc_data = {};
   filenames.forEach(function(filename) {
