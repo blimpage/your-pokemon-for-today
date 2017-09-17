@@ -36,7 +36,7 @@ var kc_pokemon = {
   },
 
   _transform_cell: function(cell) {
-    var has_kc_image = cell.dataset.hasKcImage;
+    var has_kc_image = !!cell.dataset.hasKcImage;
 
     var name = has_kc_image ? cell.dataset.name : '';
     var dex_number = has_kc_image ? '#' + cell.dataset.dexNumber : '???'
