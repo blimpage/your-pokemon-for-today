@@ -9,6 +9,7 @@ var newer  = require('gulp-newer'); // For only regenerating files when necessar
 // For HTML templating
 var nunjucksRender = require('gulp-nunjucks-render');
 var data           = require('gulp-data');
+var htmlmin        = require('gulp-htmlmin');
 
 // For minifying/concatenating scripts and styles
 var uglifyJS   = require('gulp-uglify');
@@ -158,6 +159,7 @@ gulp.task('render_index', function() {
   return gulp.src(paths.templates + 'index.njk')
     .pipe(data({ pokemons: compile_data(), build_date: build_date() }))
     .pipe(nunjucksRender())
+    .pipe(htmlmin({collapseWhitespace: true, removeAttributeQuotes: true}))
     .pipe(gulp.dest(paths.build));
 });
 
