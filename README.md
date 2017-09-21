@@ -8,6 +8,8 @@ On the webby end, it uses [lightgallery.js](https://github.com/sachinchoolur/lig
 
 On the buildy end, it uses [GraphicsMagick for Node](https://github.com/aheckmann/gm) to generate thumbnails for each illustration, [Nunjucks](http://mozilla.github.io/nunjucks) for templating, and [gulp](http://gulpjs.com/) (and a whole host of gulp plugins) to rope the whole thing together.
 
+The site itself is available for your browsing pleasure at [https://yourpokemonfor.today/](https://yourpokemonfor.today/).
+
 The repository is kind of stupidly huge because it contains a lot of image data (both present and past). Sorry about that.
 
 ## To build it yourself
