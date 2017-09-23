@@ -138,6 +138,7 @@ var compile_data = function() {
 
   for (key in all_pokemon_data) {
     all_data[key] = Object.assign(
+      {},
       all_pokemon_data[key],
       sugimori_data[key],
       kc_data[key]
