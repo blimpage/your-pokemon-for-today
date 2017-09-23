@@ -5,16 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Your Pokémon for Today</title>
     <link href='css/style.min.css' rel='stylesheet'>
+    <link rel="icon" href="favicon.png">
   </head>
 
   <body>
-    
+
     <div class='page-container'>
 
       <div class='intro-container'>
         <h1>Your Pokémon for Today</h1>
 
-        <p><a href='http://kcgreendotcom.com/'>KC Green</a> is a crazy person who keeps drawing Pokémon. Many have tried to stop him, but none have succeeded.</p>
+        <p><a href='http://kcgreendotcom.com/'>KC Green</a> is <span class="what-is-kc">a very talented artist</span> who keeps drawing Pokémon. Many have tried to stop him, but none have succeeded.</p>
 
         <p>Follow KC on <a href='http://twitter.com/kcgreenn'>Twitter</a> and <a href='http://midnitesurprise.com/'>Tumblr</a> and patronise him on <a href='http://www.patreon.com/kcgreen'>Patreon</a>.</p>
 
@@ -22,8 +23,6 @@
       </div>
 
       {% include "templates/gallery.njk" %}
-
-      <div class='loading js-loading'></div>
 
     </div>
 

@@ -683,7 +683,7 @@
             subHtml = currentEle.getAttribute('data-sub-html');
             if (this.s.getCaptionFromTitleOrAlt && !subHtml) {
                 subHtml = currentEle.getAttribute('title');
-                if (subHtml && currentEle.querySelector('img')) {
+                if (!subHtml && currentEle.querySelector('img')) { // Pat changed this line - switched "subHtml" to "!subHtml".
                     subHtml = currentEle.querySelector('img').getAttribute('alt');
                 }
             }

@@ -1,38 +1,122 @@
 @import 'base';
 
+@mixin pokemon-card-colors($hue, $border-saturation: 80%, $background-saturation: 90%) {
+  background-color: hsl($hue, $background-saturation, 80%);
+  border-color: hsl($hue, $border-saturation, 60%);
+
+  .pokemon-card__thumb-container {
+    border-color: hsl($hue, $border-saturation, 60%);
+  }
+}
+
 .page-container {
   max-width: 1240px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 20px 40px;
 }
 
 .intro-container {
   margin-bottom: 20px;
 }
 
+.pokemon {
+  margin-bottom: 10px;
+}
+
 .js-initialised {
-  .pokemon:not(.js-done) {
-    display: none;
+  .pokemon {
+    margin-bottom: 0;
+
+    &.js-done {
+      a {
+        text-decoration: none;
+      }
+    }
+
+    &:not(.js-done) {
+      display: none;
+    }
   }
 
-  .pokemon--kc img {
-    width: 100%;
-    height: auto;
+  .pokemon-card {
+    border: 5px solid hsl(0, 0%, 80%);
+    border-radius: 18px;
+    background-color: hsl(0, 0%, 60%);
+    padding: 15px 15px 75px;
+    box-shadow: rgba(black, 0.1) -3px 3px;
+    transition: transform 0.2s ease;
+    position: relative; // Just to make z-index work on hover
+
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
+      position: absolute; // Relative to the thumb container, to make the ol' padded box work
+    }
+
+    &.rando-rotation--1 { transform: rotate(1deg) translate(1px, -10px); }
+    &.rando-rotation--2 { transform: rotate(2deg) translate(2px, -8px); }
+    &.rando-rotation--3 { transform: rotate(3deg) translate(3px, -6px); }
+    &.rando-rotation--4 { transform: rotate(4deg) translate(4px, -4px); }
+    &.rando-rotation--5 { transform: rotate(5deg) translate(5px, -2px); }
+    &.rando-rotation--6 { transform: rotate(-1deg) translate(-1px, 10px); }
+    &.rando-rotation--7 { transform: rotate(-2deg) translate(-2px, 8px); }
+    &.rando-rotation--8 { transform: rotate(-3deg) translate(-3px, 6px); }
+    &.rando-rotation--9 { transform: rotate(-4deg) translate(-4px, 4px); }
+    &.rando-rotation--10 { transform: rotate(-5deg) translate(-5px, 2px); }
+
+    &.type--bug      { @include pokemon-card-colors(66, 80%); }
+    &.type--dark     { @include pokemon-card-colors(24, 30%, 30%); }
+    &.type--dragon   { @include pokemon-card-colors(257, 60%); }
+    &.type--electric { @include pokemon-card-colors(48); }
+    &.type--fairy    { @include pokemon-card-colors(347, 50%, 100%); }
+    &.type--fighting { @include pokemon-card-colors(3, 60%); }
+    &.type--fire     { @include pokemon-card-colors(25, 80%); }
+    &.type--flying   { @include pokemon-card-colors(255); }
+    &.type--ghost    { @include pokemon-card-colors(263, 40%); }
+    &.type--grass    { @include pokemon-card-colors(100); }
+    &.type--ground   { @include pokemon-card-colors(44, 50%, 60%); }
+    &.type--ice      { @include pokemon-card-colors(180); }
+    &.type--normal   { @include pokemon-card-colors(60, 60%, 60%); }
+    &.type--poison   { @include pokemon-card-colors(300, 60%, 70%); }
+    &.type--psychic  { @include pokemon-card-colors(342, 60%); }
+    &.type--rock     { @include pokemon-card-colors(49, 30%, 30%); }
+    &.type--steel    { @include pokemon-card-colors(240, 20%, 20%); }
+    &.type--water    { @include pokemon-card-colors(222); }
   }
 
-  .pokemon--sugimori > div {
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 0;
-    padding-bottom: 100%; /* http://daverupert.com/2012/04/uncle-daves-ol-padded-box/ */
+  .pokemon-card__thumb-container {
+    border: 5px solid hsl(0, 0%, 80%);
+    border-radius: 10px;
+    overflow: hidden; // Make sure the image's square corners don't overlap this container's rounded corners
+    margin-bottom: 10px;
+    position: relative;    // \
+    height: 0;             //  | The ol' padded box, to set image dimensions before the image loads.
+    padding-bottom: 59.5%; // /
+    background: white url('/images/poke_loading.gif') 50% 50% / 30% no-repeat;
   }
 
-  .loading {
-    background-image: url('/images/loading.gif');
-    background-position: 50% 50%;
-    background-repeat: no-repeat;
-    height: 100px;
+  .pokemon-card__text {
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
   }
+
+  .pokemon--kc {
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: scale(1.1);
+      z-index: 1; // Put it in front of all other cards
+    }
+  }
+
+  .pokemon--sugimori {
+    transform: scale(0.9);
+    z-index: -1;
+  }
+
 
   &.flexbox {
     .pokemon-container {
@@ -44,9 +128,13 @@
     }
 
     .pokemon {
-      flex-grow: 1;
-      min-width: 50%;
+      flex: 1 1 180px;
+      min-width: 200px;
       max-width: 200px;
+
+      @media (min-width: 350px) {
+        min-width: 50%;
+      }
 
       @media (min-width: 441px) {
         min-width: 175px;

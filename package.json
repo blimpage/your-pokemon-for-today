@@ -1,6 +1,6 @@
 {
   "name": "your-pokemon-for-today",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": "Pat McKenna <pat@mckenna.rocks>",
   "repository": {
     "type": "git",
@@ -18,6 +18,7 @@
     "gulp-concat": "^2.6.0",
     "gulp-data": "^1.2.1",
     "gulp-gm": "0.0.8",
+    "gulp-htmlmin": "^3.0.0",
     "gulp-imagemin": "^2.3.0",
     "gulp-jsonminify": "^1.0.0",
     "gulp-minify-css": "^1.2.1",
@@ -26,7 +27,6 @@
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.1.0",
     "gulp-uglify": "^1.4.2",
-    "gulp-util": "^3.0.7",
-    "gulp.spritesmith": "^4.2.2"
+    "gulp-util": "^3.0.7"
   }
 }

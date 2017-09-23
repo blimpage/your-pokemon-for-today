@@ -1,13 +1,15 @@
 var kc_pokemon = {
 
   config: {
-    cell_class:      'pokemon',
-    cell_done_class: 'js-done',
-    batch_load_size: 30,
-    thumbnail_size:  200
+    cell_class:          'pokemon',
+    kc_cell_class:       'pokemon--kc',
+    sugimori_cell_class: 'pokemon--sugimori',
+    cell_done_class:     'js-done',
+    what_is_kc_class:    'what-is-kc',
+    thumbnail_width:     245,
+    thumbnail_height:    155
   },
 
-  loading_element: document.querySelector('.js-loading'),
   container_element: document.querySelector('.pokemon-container'),
 
   init: function() {
@@ -16,98 +18,75 @@ var kc_pokemon = {
     document.body.classList.add('js-initialised');
 
     self._adjust_layout_for_ios();
-    self._transform_next_batch_if_needed({ retry_on_success: true });
+    self._transform_all_cells();
+    self._decide_what_kc_is();
     self._init_vendor();
-
-    self._throttled_transform = _.throttle(self._transform_next_batch_if_needed, 500).bind(self);
-    window.addEventListener('scroll', self._throttled_transform);
   },
 
-  _transform_next_batch_if_needed: function(options) {
-    var settings = Object.assign({ retry_on_success: false }, options);
-
-    var window_bottom = window.scrollY + window.innerHeight,
-        loading_top   = this.loading_element.offsetTop,
-        diff          = this.config.thumbnail_size * 3;
-
-    var time_to_load_more = (window_bottom + diff >= loading_top);
-
-    if (time_to_load_more) {
-      this._transform_next_batch();
-
-      if (settings.retry_on_success) {
-        this._transform_next_batch_if_needed({ retry_on_success: true });
-      }
-    }
-  },
-
-  _transform_next_batch: function() {
+  _transform_all_cells: function() {
     var self = this;
 
     var selector = '.' + self.config.cell_class + ':not(.' + self.config.cell_done_class + ')';
     var all_cells_nodelist = document.querySelectorAll(selector);
     var all_cells = Array.prototype.slice.call(all_cells_nodelist);
-    var batch = all_cells.slice(0, self.config.batch_load_size);
 
-    if ( batch.length > 0 ) {
-      batch.forEach(function(cell) {
-        self._transform_cell(cell);
-      });
-
-    } else {
-      self._remove_loading_spinner();
-      window.removeEventListener('scroll', self._throttled_transform);
-    }
+    all_cells.forEach(function(cell) {
+      self._transform_cell(cell);
+    });
   },
 
   _transform_cell: function(cell) {
-    if ( cell.classList.contains('pokemon--kc') ) {
-      this._transform_kc_cell(cell);
-    } else if ( cell.classList.contains('pokemon--sugimori') ) {
-      this._transform_sugimori_cell(cell);
-    }
-  },
+    var has_kc_image = !!cell.dataset.hasKcImage;
 
-  _transform_kc_cell: function(cell) {
-    var thumb     = document.createElement('img');
-    var thumb_src = cell.dataset.thumb;
-    var thumb_alt = cell.title;
+    var name = has_kc_image ? cell.dataset.name : '';
+    var dex_number = has_kc_image ? '#' + cell.dataset.dexNumber : '???'
+    var authorClass = has_kc_image ? this.config.kc_cell_class : this.config.sugimori_cell_class;
+    var typeClass = has_kc_image ? 'type--' + cell.dataset.type : 'type--unknown';
 
-    thumb.src    = thumb_src;
-    thumb.alt    = thumb_alt;
-    thumb.width  = this.config.thumbnail_size;
-    thumb.height = this.config.thumbnail_size;
-
-    while (cell.firstChild) {
-      cell.removeChild(cell.firstChild);
+    // The "target" element that we're going to drop our new elements into
+    // should be the innermost child element of the cell element.
+    // And we wanna remove any text that's in there.
+    var target = cell;
+    while (target.firstElementChild) {
+      target = target.firstElementChild;
+      target.innerText = null;
     }
 
-    cell.appendChild(thumb);
+    var thumb              = document.createElement('img');
+    thumb.dataset.original = cell.dataset.thumbUrl; // This sets up lazy loading for the image
+    thumb.width            = this.config.thumbnail_width;
+    thumb.height           = this.config.thumbnail_height;
 
-    cell.classList.add(this.config.cell_done_class);
-  },
+    var outer = document.createElement('div');
+    outer.classList.add(
+      'pokemon-card',
+      this._rando_rotation_class(),
+      typeClass
+    );
 
-  _transform_sugimori_cell: function(cell) {
-    var sprite_url = cell.dataset.spriteUrl;
-    var y_offset   = cell.dataset.yOffset;
+    var thumb_container = document.createElement('div');
+    thumb_container.classList.add('pokemon-card__thumb-container');
 
-    var inner_div = document.createElement('div');
-    inner_div.style.backgroundImage = 'url(' + sprite_url + ')';
-    inner_div.style.backgroundPosition = '0 ' + y_offset;
+    var text_container = document.createElement('div');
+    text_container.classList.add('pokemon-card__text');
+    text_container.innerText = dex_number + ' ' + name;
 
-    cell.appendChild(inner_div);
+    thumb_container.appendChild(thumb);
+    outer.appendChild(thumb_container);
+    outer.appendChild(text_container);
+    target.appendChild(outer);
 
-    cell.classList.add(this.config.cell_done_class);
+    cell.classList.add(this.config.cell_done_class, authorClass);
   },
 
   _init_vendor: function() {
     lightGallery(this.container_element, {
-      selector: '.pokemon--kc'
+      selector: 'a'
     });
-  },
 
-  _remove_loading_spinner: function() {
-    this.loading_element.parentNode.removeChild(this.loading_element);
+    new LazyLoad({
+      elements_selector: '.pokemon-card img'
+    });
   },
 
   _adjust_layout_for_ios: function() {
@@ -117,6 +96,36 @@ var kc_pokemon = {
     } else {
       document.body.classList.add('flexbox');
     }
+  },
+
+  _decide_what_kc_is: function() {
+    // Adjusts the text in the intro section to clarify who or what KC is.
+    document.querySelector('.' + this.config.what_is_kc_class).innerText = this._something_kc_might_be();
+  },
+
+  _something_kc_might_be: function() {
+    var things_kc_might_be = [
+      "a malevolent spirit",
+      "somebody's uncle",
+      "a heavy metal guitarist",
+      "a distinguished tastemaker",
+      "an ancient evil",
+      "a Donkey Kong enthusiast",
+      "a cheesemaker of much acclaim",
+      "clearly a legend",
+      "a good friend",
+      "a forest dweller",
+      "some guy I met at a gas station",
+      "a gift from the heavens",
+      "the meme dog guy, but also a very talented artist with a large library of work",
+      "just a guy",
+    ];
+
+    return things_kc_might_be[Math.floor(Math.random() * things_kc_might_be.length)];
+  },
+
+  _rando_rotation_class: function() {
+    return 'rando-rotation--' + Math.ceil(Math.random() * 10);
   }
 };
 
