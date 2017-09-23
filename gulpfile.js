@@ -242,18 +242,18 @@ gulp.task('optimize_kc_images', function() {
     .pipe(gulp.dest(paths.build + 'images/kc'));
 });
 
-gulp.task('optimize_site_images', function() {
-  // Optimize and copy all non-KC and non-Sugimori images
-  return gulp.src(paths.all_other_images)
-    .pipe(imagemin({optimizationLevel: 4}))
-    .pipe(gulp.dest(paths.build + 'images'));
-});
-
 gulp.task('copy_favicon', function() {
-  // Optimize and copy all non-KC and non-Sugimori images
+  // Optimize and copy our beautiful favicon
   return gulp.src(paths.favicon)
     .pipe(imagemin({optimizationLevel: 4}))
     .pipe(gulp.dest(paths.build));
+});
+
+gulp.task('optimize_site_images', function() {
+  // Optimize and copy all other site images
+  return gulp.src(paths.all_other_images)
+    .pipe(imagemin({optimizationLevel: 4}))
+    .pipe(gulp.dest(paths.build + 'images'));
 });
 
 gulp.task('copy_fonts', function() {
