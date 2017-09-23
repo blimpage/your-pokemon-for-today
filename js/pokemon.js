@@ -53,7 +53,7 @@ var kc_pokemon = {
     }
 
     var thumb              = document.createElement('img');
-    thumb.dataset.original = cell.dataset.thumbUrl;
+    thumb.dataset.original = cell.dataset.thumbUrl; // This sets up lazy loading for the image
     thumb.width            = this.config.thumbnail_width;
     thumb.height           = this.config.thumbnail_height;
 
