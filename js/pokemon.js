@@ -119,6 +119,7 @@ var kc_pokemon = {
       "a gift from the heavens",
       "the meme dog guy, but also a very talented artist with a large library of work",
       "just a guy",
+      "a wandering dreamer",
     ];
 
     return things_kc_might_be[Math.floor(Math.random() * things_kc_might_be.length)];
