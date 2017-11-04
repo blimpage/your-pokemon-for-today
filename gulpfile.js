@@ -245,6 +245,7 @@ gulp.task('optimize_kc_images', function() {
 gulp.task('copy_favicon', function() {
   // Optimize and copy our beautiful favicon
   return gulp.src(paths.favicon)
+    .pipe(newer(paths.build))
     .pipe(imagemin({optimizationLevel: 4}))
     .pipe(gulp.dest(paths.build));
 });
@@ -252,6 +253,7 @@ gulp.task('copy_favicon', function() {
 gulp.task('optimize_site_images', function() {
   // Optimize and copy all other site images
   return gulp.src(paths.all_other_images)
+    .pipe(newer(paths.build + 'images'))
     .pipe(imagemin({optimizationLevel: 4}))
     .pipe(gulp.dest(paths.build + 'images'));
 });
@@ -259,6 +261,7 @@ gulp.task('optimize_site_images', function() {
 gulp.task('copy_fonts', function() {
   // Copy all fonts into the build folder
   return gulp.src(paths.fonts)
+    .pipe(newer(paths.build + 'fonts'))
     .pipe(gulp.dest(paths.build + 'fonts'));
 });
 
