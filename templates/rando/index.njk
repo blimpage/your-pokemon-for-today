@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Your Pokémon for Tomorrow</title>
+    <link href='../css/style.min.css' rel='stylesheet'>
+    <link rel="icon" href="favicon.png">
+  </head>
+
+  <body>
+
+    <div class='page-container'>
+
+      <div class='intro-container'>
+        <h1>Your Pokémon for Tomorrow</h1>
+
+        <p>Hey gimme a potion!</p>
+
+        <p>
+          <strong>Done:</strong> {{stats.done}}
+          <br>
+          <strong>Remaining:</strong> {{stats.remaining}}
+        </p>
+
+        <p class='text-muted'><small>Last updated {{build_date}}.</small></p>
+      </div>
+
+      <script>
+        var rando_data = {{ rando_pokemons_json | safe }}
+      </script>
+
+    </div>
+
+    <script src='../js/scripts.min.js'></script>
+  </body>
+</html>

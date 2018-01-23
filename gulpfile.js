@@ -35,7 +35,8 @@ var paths = {
   data: 'data/',
   templates: 'templates/',
   fonts: 'fonts/*',
-  build: 'build/'
+  build: 'build/',
+  build_rando: 'build/rando/',
 };
 
 var build_date = function() {
@@ -148,6 +149,38 @@ var compile_data = function() {
   return all_data;
 };
 
+var randomizer_data = function() {
+  var all_data = compile_data();
+  var non_kc_data = [];
+
+  for (key in all_data) {
+    if (!all_data[key].has_kc_image) {
+      non_kc_data.push(all_data[key]);
+    }
+  }
+
+  return non_kc_data;
+}
+
+var stats = function() {
+  var all_data = compile_data();
+
+  var stats = {
+    done: 0,
+    remaining: 0
+  };
+
+  for (key in all_data) {
+    if (all_data[key].has_kc_image) {
+      stats.done += 1;
+    } else {
+      stats.remaining += 1;
+    }
+  }
+
+  return stats;
+}
+
 
 gulp.task('clean', function() {
   // Delete dat build directory
@@ -162,6 +195,20 @@ gulp.task('render_index', function() {
     .pipe(nunjucksRender())
     .pipe(htmlmin({collapseWhitespace: true, removeAttributeQuotes: true}))
     .pipe(gulp.dest(paths.build));
+});
+
+gulp.task('render_rando', function() {
+  nunjucksRender.nunjucks.configure([paths.templates]);
+
+  return gulp.src(paths.templates + 'rando/index.njk')
+    .pipe(data({
+      rando_pokemons_json: JSON.stringify(randomizer_data()),
+      stats: stats(),
+      build_date: build_date(),
+    }))
+    .pipe(nunjucksRender())
+    .pipe(htmlmin({collapseWhitespace: true, removeAttributeQuotes: true}))
+    .pipe(gulp.dest(paths.build_rando));
 });
 
 gulp.task('scripts', function() {
