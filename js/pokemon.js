@@ -31,10 +31,10 @@ var kc_pokemon = {
     self._adjust_layout_for_ios();
     self._transform_all_cells();
     self._init_vendor();
-    self._display_random_poke();
+    self.display_random_poke();
   },
 
-  _display_random_poke: function() {
+  display_random_poke: function() {
     this._unchoose_all_chosen_ones();
 
     var all_cells = document.querySelectorAll(".pokemon");
@@ -165,5 +165,12 @@ document.addEventListener("DOMContentLoaded", function() {
     kc_pokemon.init_index();
   } else if (document.querySelector(".randomizer-container")) {
     kc_pokemon.init_randomizer();
+  }
+
+  if (document.querySelector("[data-role='button-randomize']")) {
+    document.querySelector("[data-role='button-randomize']").addEventListener("click", function(event) {
+      event.preventDefault();
+      kc_pokemon.display_random_poke();
+    });
   }
 });
