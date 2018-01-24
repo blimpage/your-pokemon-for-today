@@ -36,7 +36,7 @@ var paths = {
   templates: 'templates/',
   fonts: 'fonts/*',
   build: 'build/',
-  build_rando: 'build/rando/',
+  build_rando: 'build/tomorrow/',
 };
 
 var build_date = function() {
@@ -205,7 +205,7 @@ gulp.task('render_index', function() {
 gulp.task('render_rando', function() {
   nunjucksRender.nunjucks.configure([paths.templates]);
 
-  return gulp.src(paths.templates + 'rando/index.njk')
+  return gulp.src(paths.templates + 'tomorrow/index.njk')
     .pipe(data({
       pokemons: randomizer_data(),
       stats: stats(),
