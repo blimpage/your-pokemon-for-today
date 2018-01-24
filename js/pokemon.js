@@ -42,6 +42,8 @@ var kc_pokemon = {
     var chosen_one = all_cells[Math.floor(Math.random() * (all_cells.length - 1))];
 
     chosen_one.classList.add("chosen-one");
+
+    this._update_bulbapedia_link(chosen_one);
   },
 
   _unchoose_all_chosen_ones: function() {
@@ -51,6 +53,19 @@ var kc_pokemon = {
     all_cells.forEach(function(cell) {
       cell.classList.remove("chosen-one");
     });
+  },
+
+  _update_bulbapedia_link: function(cell) {
+    var pokemon_name = cell.dataset.name;
+    var url = this._generate_bulbapedia_url(pokemon_name);
+
+    document.querySelector("[data-role='button-bulbapedia']").href = url;
+  },
+
+  _generate_bulbapedia_url: function(pokemon_name) {
+    var sanitised_name = pokemon_name.replace(/\s/g, "_");
+
+    return "https://bulbapedia.bulbagarden.net/wiki/" + sanitised_name + "_(Pok%C3%A9mon)";
   },
 
   _transform_all_cells: function() {
