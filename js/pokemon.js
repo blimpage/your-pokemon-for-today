@@ -12,7 +12,7 @@ var kc_pokemon = {
 
   container_element: document.querySelector('.pokemon-container'),
 
-  init: function() {
+  init_index: function() {
     var self = this;
 
     document.body.classList.add('js-initialised');
@@ -20,6 +20,16 @@ var kc_pokemon = {
     self._adjust_layout_for_ios();
     self._transform_all_cells();
     self._decide_what_kc_is();
+    self._init_vendor();
+  },
+
+  init_randomizer: function() {
+    var self = this;
+
+    document.body.classList.add('js-initialised');
+
+    self._adjust_layout_for_ios();
+    self._transform_all_cells();
     self._init_vendor();
   },
 
@@ -38,8 +48,8 @@ var kc_pokemon = {
   _transform_cell: function(cell) {
     var has_kc_image = !!cell.dataset.hasKcImage;
 
-    var name = has_kc_image ? cell.dataset.name : '';
-    var dex_number = has_kc_image ? '#' + cell.dataset.dexNumber : '???'
+    var name = cell.dataset.name || '';
+    var dex_number = cell.dataset.dexNumber ? '#' + cell.dataset.dexNumber : '???'
     var authorClass = has_kc_image ? this.config.kc_cell_class : this.config.sugimori_cell_class;
     var typeClass = has_kc_image ? 'type--' + cell.dataset.type : 'type--unknown';
 
@@ -130,4 +140,10 @@ var kc_pokemon = {
   }
 };
 
-document.addEventListener('DOMContentLoaded', kc_pokemon.init.bind(kc_pokemon));
+document.addEventListener("DOMContentLoaded", function() {
+  if (document.querySelector(".pokemon-container")) {
+    kc_pokemon.init_index();
+  } else if (document.querySelector(".randomizer-container")) {
+    kc_pokemon.init_randomizer();
+  }
+});

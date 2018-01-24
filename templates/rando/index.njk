@@ -26,9 +26,9 @@
         <p class='text-muted'><small>Last updated {{build_date}}.</small></p>
       </div>
 
-      <script>
-        var rando_data = {{ rando_pokemons_json | safe }}
-      </script>
+      <div class="randomizer-container">
+        {% include "templates/gallery.njk" %}
+      </div>
 
     </div>
 

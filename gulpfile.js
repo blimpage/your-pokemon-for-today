@@ -151,11 +151,12 @@ var compile_data = function() {
 
 var randomizer_data = function() {
   var all_data = compile_data();
-  var non_kc_data = [];
+
+  var non_kc_data = {};
 
   for (key in all_data) {
     if (!all_data[key].has_kc_image) {
-      non_kc_data.push(all_data[key]);
+      non_kc_data[key] = all_data[key];
     }
   }
 
@@ -191,7 +192,11 @@ gulp.task('render_index', function() {
   nunjucksRender.nunjucks.configure([paths.templates]);
 
   return gulp.src(paths.templates + 'index.njk')
-    .pipe(data({ pokemons: compile_data(), build_date: build_date() }))
+    .pipe(data({
+      pokemons: compile_data(),
+      build_date: build_date(),
+      render_names_for_non_kc: false,
+    }))
     .pipe(nunjucksRender())
     .pipe(htmlmin({collapseWhitespace: true, removeAttributeQuotes: true}))
     .pipe(gulp.dest(paths.build));
@@ -202,9 +207,10 @@ gulp.task('render_rando', function() {
 
   return gulp.src(paths.templates + 'rando/index.njk')
     .pipe(data({
-      rando_pokemons_json: JSON.stringify(randomizer_data()),
+      pokemons: randomizer_data(),
       stats: stats(),
       build_date: build_date(),
+      render_names_for_non_kc: true,
     }))
     .pipe(nunjucksRender())
     .pipe(htmlmin({collapseWhitespace: true, removeAttributeQuotes: true}))
@@ -315,6 +321,7 @@ gulp.task('copy_fonts', function() {
 // The default task (called when you run `gulp` from cli)
 gulp.task('default', [
   'render_index',
+  'render_rando',
   'scripts',
   'styles',
   'generate_thumbs',
