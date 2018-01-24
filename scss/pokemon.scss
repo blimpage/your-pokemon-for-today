@@ -118,19 +118,41 @@
   }
 
   .randomizer-container {
+    margin-bottom: 15px;
+
     .pokemon:not(.chosen-one) {
       display: none;
     }
   }
 
+  .randomizer-button {
+    display: inline-block;
+    border-radius: 5px;
+    padding: 10px 15px;
+    background-color: hsl(172, 74%, 25%);
+    color: hsl(172, 74%, 91%);
+    text-decoration: none;
+    margin: 7px;
+
+    &:hover, &:focus {
+      background-color: hsl(172, 74%, 35%);
+    }
+  }
+
 
   &.flexbox {
-    .pokemon-container {
+    .pokemon-container,
+    .randomizer-container,
+    .randomizer-buttons {
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-around;
+    }
+
+    .randomizer-buttons {
+      justify-content: center;
     }
 
     .pokemon {
