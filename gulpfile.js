@@ -35,7 +35,8 @@ var paths = {
   data: 'data/',
   templates: 'templates/',
   fonts: 'fonts/*',
-  build: 'build/'
+  build: 'build/',
+  build_rando: 'build/tomorrow/',
 };
 
 var build_date = function() {
@@ -88,13 +89,13 @@ var parse_sugimori_data = function() {
 
   // Convert our array of filenames into an object, with the format:
   // {
-  //   '34': { thumb_filepath: 'images/sugimori/34.jpg' },
+  //   '34': { thumb_filepath: '/images/sugimori/34.jpg' },
   // }
   var sugimori_data = {};
   filenames.forEach(function(filename) {
     var just_the_number = filename.match(/(\d+)/)[1];
     sugimori_data[just_the_number] = {
-      thumb_filepath: `images/sugimori/${filename}`,
+      thumb_filepath: `/images/sugimori/${filename}`,
     };
   });
 
@@ -110,8 +111,8 @@ var parse_kc_data = function() {
   // {
   //   '34': {
   //     has_kc_image: true,
-  //     full_filepath: 'images/kc/34.jpg',
-  //     thumb_filepath: 'images/kc/thumbs/34.jpg'
+  //     full_filepath: '/images/kc/34.jpg',
+  //     thumb_filepath: '/images/kc/thumbs/34.jpg'
   //   },
   // }
   var kc_data = {};
@@ -119,8 +120,8 @@ var parse_kc_data = function() {
     var just_the_number = filename.match(/(\d+)/)[1];
     kc_data[just_the_number] = {
       has_kc_image: true,
-      full_filepath: `images/kc/${filename}`,
-      thumb_filepath: `images/kc/thumbs/${filename}`,
+      full_filepath: `/images/kc/${filename}`,
+      thumb_filepath: `/images/kc/thumbs/${filename}`,
     };
   });
 
@@ -148,6 +149,39 @@ var compile_data = function() {
   return all_data;
 };
 
+var randomizer_data = function() {
+  var all_data = compile_data();
+
+  var non_kc_data = {};
+
+  for (key in all_data) {
+    if (!all_data[key].has_kc_image) {
+      non_kc_data[key] = all_data[key];
+    }
+  }
+
+  return non_kc_data;
+}
+
+var stats = function() {
+  var all_data = compile_data();
+
+  var stats = {
+    done: 0,
+    remaining: 0
+  };
+
+  for (key in all_data) {
+    if (all_data[key].has_kc_image) {
+      stats.done += 1;
+    } else {
+      stats.remaining += 1;
+    }
+  }
+
+  return stats;
+}
+
 
 gulp.task('clean', function() {
   // Delete dat build directory
@@ -158,10 +192,29 @@ gulp.task('render_index', function() {
   nunjucksRender.nunjucks.configure([paths.templates]);
 
   return gulp.src(paths.templates + 'index.njk')
-    .pipe(data({ pokemons: compile_data(), build_date: build_date() }))
+    .pipe(data({
+      pokemons: compile_data(),
+      build_date: build_date(),
+      render_names_for_non_kc: false,
+    }))
     .pipe(nunjucksRender())
     .pipe(htmlmin({collapseWhitespace: true, removeAttributeQuotes: true}))
     .pipe(gulp.dest(paths.build));
+});
+
+gulp.task('render_rando', function() {
+  nunjucksRender.nunjucks.configure([paths.templates]);
+
+  return gulp.src(paths.templates + 'tomorrow/index.njk')
+    .pipe(data({
+      pokemons: randomizer_data(),
+      stats: stats(),
+      build_date: build_date(),
+      render_names_for_non_kc: true,
+    }))
+    .pipe(nunjucksRender())
+    .pipe(htmlmin({collapseWhitespace: true, removeAttributeQuotes: true}))
+    .pipe(gulp.dest(paths.build_rando));
 });
 
 gulp.task('scripts', function() {
@@ -268,6 +321,7 @@ gulp.task('copy_fonts', function() {
 // The default task (called when you run `gulp` from cli)
 gulp.task('default', [
   'render_index',
+  'render_rando',
   'scripts',
   'styles',
   'generate_thumbs',

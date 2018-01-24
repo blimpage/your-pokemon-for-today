@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Your Pokémon for Today</title>
-    <link href='css/style.min.css' rel='stylesheet'>
-    <link rel="icon" href="favicon.png">
+    <link href='/css/style.min.css' rel='stylesheet'>
+    <link rel="icon" href="/favicon.png">
   </head>
 
   <body>
@@ -19,13 +19,17 @@
 
         <p>Follow KC on <a href='http://twitter.com/kcgreenn'>Twitter</a> and <a href='http://midnitesurprise.com/'>Tumblr</a> and patronise him on <a href='http://www.patreon.com/kcgreen'>Patreon</a>.</p>
 
+        <p>Wanna see what Pokémon might appear here tomorrow? Check out <a href="/tomorrow/">Your Pokémon For Tomorrow</a>!</p>
+
         <p class='text-muted'><small>Site by <a href='http://twitter.com/blimpage'>Pat McKenna</a>. Code's <a href='http://github.com/blimpage/your-pokemon-for-today'>on GitHub</a> if you want it. Last updated {{build_date}}.</small></p>
       </div>
 
-      {% include "templates/gallery.njk" %}
+      <div class='pokemon-container'>
+        {% include "templates/gallery.njk" %}
+      </div>
 
     </div>
 
-    <script src='js/scripts.min.js'></script>
+    <script src='/js/scripts.min.js'></script>
   </body>
 </html>

@@ -1,24 +1,24 @@
 {% block gallery %}
-  <div class='pokemon-container'>
-    {% for number, data in pokemons %}
-      <div
-        class='pokemon'
-        data-thumb-url='{{data.thumb_filepath}}'
-        {% if data.has_kc_image %}
-          data-has-kc-image='{{data.has_kc_image}}'
-          data-dex-number='{{data.dex_number}}'
-          data-name='{{data.name}}'
-          data-type='{{data.type_1}}'
-        {% endif %}
-        >
+  {% for number, data in pokemons %}
+    <div
+      class='pokemon'
+      data-thumb-url='{{data.thumb_filepath}}'
+      {% if data.has_kc_image %}
+        data-has-kc-image='{{data.has_kc_image}}'
+        data-type='{{data.type_1}}'
+      {% endif %}
+      {% if data.has_kc_image or render_names_for_non_kc %}
+        data-name='{{data.name}}'
+        data-dex-number='{{data.dex_number}}'
+      {% endif %}
+      >
 
-        {% if data.has_kc_image %}
-          <a href='{{data.full_filepath}}' title='{{data.name}}'>
-            {{data.name}}
-          </a>
-        {% endif %}
+      {% if data.has_kc_image %}
+        <a href='{{data.full_filepath}}' title='{{data.name}}'>
+          {{data.name}}
+        </a>
+      {% endif %}
 
-      </div>
-    {% endfor %}
-  </div>
+    </div>
+  {% endfor %}
 {% endblock %}

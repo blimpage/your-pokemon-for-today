@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Your Pokémon for Tomorrow</title>
+    <link href='/css/style.min.css' rel='stylesheet'>
+    <link rel="icon" href="/favicon.png">
+  </head>
+
+  <body>
+
+    <div class='page-container'>
+
+      <div class='intro-container'>
+        <h1>Your Pokémon for Tomorrow</h1>
+
+        <p>Wow KC has drawn <a href="/">a lot of Pokémon</a>! There are some still out there in the wild though... here's a random one just for you!</p>
+
+        <p>
+          <strong>Drawn:</strong> {{stats.done}}
+          <br>
+          <strong>Remaining:</strong> {{stats.remaining}}
+        </p>
+
+        <p class='text-muted'><small>This might be a few days out of date sometimes. Last updated {{build_date}}.</small></p>
+      </div>
+
+      <div class="randomizer-container">
+        {% include "templates/gallery.njk" %}
+      </div>
+
+      <div class="randomizer-buttons">
+        <a class="randomizer-button" data-role="button-bulbapedia" href="#">View on Bulbapedia</a>
+        <a class="randomizer-button" data-role="button-randomize" href="/tomorrow/">Gimme another!</a>
+      </div>
+
+    </div>
+
+    <script src='/js/scripts.min.js'></script>
+  </body>
+</html>

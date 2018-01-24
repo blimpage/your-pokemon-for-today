@@ -12,7 +12,7 @@ var kc_pokemon = {
 
   container_element: document.querySelector('.pokemon-container'),
 
-  init: function() {
+  init_index: function() {
     var self = this;
 
     document.body.classList.add('js-initialised');
@@ -21,6 +21,58 @@ var kc_pokemon = {
     self._transform_all_cells();
     self._decide_what_kc_is();
     self._init_vendor();
+  },
+
+  init_randomizer: function() {
+    var self = this;
+
+    document.body.classList.add('js-initialised');
+
+    self._adjust_layout_for_ios();
+    self._transform_all_cells();
+    self._init_vendor();
+    self.display_random_poke();
+  },
+
+  display_random_poke: function() {
+    this._unchoose_all_chosen_ones();
+
+    var all_cells = document.querySelectorAll(".pokemon");
+
+    var chosen_one = all_cells[Math.floor(Math.random() * (all_cells.length - 1))];
+
+    chosen_one.classList.add("chosen-one");
+
+    this._force_image_load(chosen_one);
+    this._update_bulbapedia_link(chosen_one);
+  },
+
+  _unchoose_all_chosen_ones: function() {
+    var all_cells_nodelist = document.querySelectorAll(".chosen-one");
+    var all_cells = Array.prototype.slice.call(all_cells_nodelist);
+
+    all_cells.forEach(function(cell) {
+      cell.classList.remove("chosen-one");
+    });
+  },
+
+  _force_image_load: function(cell) {
+    var thumb = cell.querySelector("img");
+
+    thumb.src = thumb.dataset.original;
+  },
+
+  _update_bulbapedia_link: function(cell) {
+    var pokemon_name = cell.dataset.name;
+    var url = this._generate_bulbapedia_url(pokemon_name);
+
+    document.querySelector("[data-role='button-bulbapedia']").href = url;
+  },
+
+  _generate_bulbapedia_url: function(pokemon_name) {
+    var sanitised_name = pokemon_name.replace(/\s/g, "_");
+
+    return "https://bulbapedia.bulbagarden.net/wiki/" + sanitised_name + "_(Pok%C3%A9mon)";
   },
 
   _transform_all_cells: function() {
@@ -38,8 +90,8 @@ var kc_pokemon = {
   _transform_cell: function(cell) {
     var has_kc_image = !!cell.dataset.hasKcImage;
 
-    var name = has_kc_image ? cell.dataset.name : '';
-    var dex_number = has_kc_image ? '#' + cell.dataset.dexNumber : '???'
+    var name = cell.dataset.name || '';
+    var dex_number = cell.dataset.dexNumber ? '#' + cell.dataset.dexNumber : '???'
     var authorClass = has_kc_image ? this.config.kc_cell_class : this.config.sugimori_cell_class;
     var typeClass = has_kc_image ? 'type--' + cell.dataset.type : 'type--unknown';
 
@@ -130,4 +182,17 @@ var kc_pokemon = {
   }
 };
 
-document.addEventListener('DOMContentLoaded', kc_pokemon.init.bind(kc_pokemon));
+document.addEventListener("DOMContentLoaded", function() {
+  if (document.querySelector(".pokemon-container")) {
+    kc_pokemon.init_index();
+  } else if (document.querySelector(".randomizer-container")) {
+    kc_pokemon.init_randomizer();
+  }
+
+  if (document.querySelector("[data-role='button-randomize']")) {
+    document.querySelector("[data-role='button-randomize']").addEventListener("click", function(event) {
+      event.preventDefault();
+      kc_pokemon.display_random_poke();
+    });
+  }
+});
