@@ -89,13 +89,13 @@ var parse_sugimori_data = function() {
 
   // Convert our array of filenames into an object, with the format:
   // {
-  //   '34': { thumb_filepath: 'images/sugimori/34.jpg' },
+  //   '34': { thumb_filepath: '/images/sugimori/34.jpg' },
   // }
   var sugimori_data = {};
   filenames.forEach(function(filename) {
     var just_the_number = filename.match(/(\d+)/)[1];
     sugimori_data[just_the_number] = {
-      thumb_filepath: `images/sugimori/${filename}`,
+      thumb_filepath: `/images/sugimori/${filename}`,
     };
   });
 
@@ -111,8 +111,8 @@ var parse_kc_data = function() {
   // {
   //   '34': {
   //     has_kc_image: true,
-  //     full_filepath: 'images/kc/34.jpg',
-  //     thumb_filepath: 'images/kc/thumbs/34.jpg'
+  //     full_filepath: '/images/kc/34.jpg',
+  //     thumb_filepath: '/images/kc/thumbs/34.jpg'
   //   },
   // }
   var kc_data = {};
@@ -120,8 +120,8 @@ var parse_kc_data = function() {
     var just_the_number = filename.match(/(\d+)/)[1];
     kc_data[just_the_number] = {
       has_kc_image: true,
-      full_filepath: `images/kc/${filename}`,
-      thumb_filepath: `images/kc/thumbs/${filename}`,
+      full_filepath: `/images/kc/${filename}`,
+      thumb_filepath: `/images/kc/thumbs/${filename}`,
     };
   });
 
