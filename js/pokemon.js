@@ -31,6 +31,26 @@ var kc_pokemon = {
     self._adjust_layout_for_ios();
     self._transform_all_cells();
     self._init_vendor();
+    self._display_random_poke();
+  },
+
+  _display_random_poke: function() {
+    this._unchoose_all_chosen_ones();
+
+    var all_cells = document.querySelectorAll(".pokemon");
+
+    var chosen_one = all_cells[Math.floor(Math.random() * (all_cells.length - 1))];
+
+    chosen_one.classList.add("chosen-one");
+  },
+
+  _unchoose_all_chosen_ones: function() {
+    var all_cells_nodelist = document.querySelectorAll(".chosen-one");
+    var all_cells = Array.prototype.slice.call(all_cells_nodelist);
+
+    all_cells.forEach(function(cell) {
+      cell.classList.remove("chosen-one");
+    });
   },
 
   _transform_all_cells: function() {

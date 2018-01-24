@@ -117,6 +117,12 @@
     z-index: -1;
   }
 
+  .randomizer-container {
+    .pokemon:not(.chosen-one) {
+      display: none;
+    }
+  }
+
 
   &.flexbox {
     .pokemon-container {
