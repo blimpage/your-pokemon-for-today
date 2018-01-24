@@ -171,11 +171,22 @@
   }
 
   &.no-flexbox {
+    .randomizer-container,
+    .randomizer-buttons {
+      text-align: center;
+    }
+
     .pokemon {
       display: inline-block;
       vertical-align: top;
       max-width: 200px;
+    }
 
+    .randomizer-container .pokemon {
+      width: 200px;
+    }
+
+    .pokemon-container .pokemon {
       @media (max-width: 440px) {
         width: 50%;
         &:nth-of-type(2n) {
