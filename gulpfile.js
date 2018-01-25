@@ -35,6 +35,7 @@ var paths = {
   data: 'data/',
   templates: 'templates/',
   fonts: 'fonts/*',
+  htaccess: '.htaccess',
   build: 'build/',
   build_rando: 'build/tomorrow/',
 };
@@ -318,6 +319,13 @@ gulp.task('copy_fonts', function() {
     .pipe(gulp.dest(paths.build + 'fonts'));
 });
 
+gulp.task('copy_htaccess', function() {
+  // Copy our .htaccess file
+  return gulp.src(paths.htaccess)
+    .pipe(newer(paths.build))
+    .pipe(gulp.dest(paths.build));
+});
+
 // The default task (called when you run `gulp` from cli)
 gulp.task('default', [
   'render_index',
@@ -329,5 +337,6 @@ gulp.task('default', [
   'optimize_kc_images',
   'optimize_site_images',
   'copy_favicon',
-  'copy_fonts'
+  'copy_fonts',
+  'copy_htaccess',
 ]);
