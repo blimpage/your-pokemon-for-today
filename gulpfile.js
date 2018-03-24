@@ -45,6 +45,10 @@ var build_date = function() {
   return date.toDateString();
 }
 
+var app_version = function() {
+  return JSON.parse(fs.readFileSync('package.json')).version;
+}
+
 var padded_number = function(number) {
   var stringed_number = Number(number).toString();
 
@@ -197,6 +201,7 @@ gulp.task('render_index', function() {
       pokemons: compile_data(),
       stats: stats(),
       build_date: build_date(),
+      app_version: app_version(),
       render_names_for_non_kc: false,
     }))
     .pipe(nunjucksRender())
@@ -212,6 +217,7 @@ gulp.task('render_rando', function() {
       pokemons: randomizer_data(),
       stats: stats(),
       build_date: build_date(),
+      app_version: app_version(),
       render_names_for_non_kc: true,
     }))
     .pipe(nunjucksRender())
@@ -221,14 +227,18 @@ gulp.task('render_rando', function() {
 
 gulp.task('scripts', function() {
   // Minify and copy all JavaScript
+  del([paths.build + 'js'])
+
   return gulp.src(paths.scripts)
     .pipe(uglifyJS().on('error', gutil.log))
-    .pipe(concat('scripts.min.js'))
+    .pipe(concat(`scripts-${app_version()}.min.js`))
     .pipe(gulp.dest(paths.build + 'js'));
 });
 
 gulp.task('styles', function() {
-  // Minify and copy all JavaScript
+  // Minify and copy all styles
+  del([paths.build + 'css'])
+
   return gulp.src(paths.styles)
     .pipe(sass().on('error', sass.logError))
     .pipe(uglifyCSS().on('error', gutil.log))
@@ -236,7 +246,7 @@ gulp.task('styles', function() {
       browsers: ['last 5 versions'],
       cascade: false
     }))
-    .pipe(concat('style.min.css'))
+    .pipe(concat(`style-${app_version()}.min.css`))
     .pipe(gulp.dest(paths.build + 'css'));
 });
 

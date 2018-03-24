@@ -42,5 +42,3 @@ Maybe you wanna help me do these things???
 - Add an option to sort by date
 
 - Add a "watch" task to the gulp config, to automatically rebuild the relevant build files when the source files change
-
-- Add a random hash to each build of the CSS and JS files, to ensure cache-busting (would need to dynamically insert the generated filename into index.html)
