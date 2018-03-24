@@ -195,6 +195,7 @@ gulp.task('render_index', function() {
   return gulp.src(paths.templates + 'index.njk')
     .pipe(data({
       pokemons: compile_data(),
+      stats: stats(),
       build_date: build_date(),
       render_names_for_non_kc: false,
     }))
