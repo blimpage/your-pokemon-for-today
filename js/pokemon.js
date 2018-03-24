@@ -184,6 +184,12 @@ var kc_pokemon = {
       "the meme dog guy, but also a very talented artist with a large library of work",
       "just a guy",
       "a wandering dreamer",
+      "a Mega Man boss",
+      "a lovely fellow",
+      "a cut character from The Goonies",
+      "a world-class kiwifruit juggler",
+      "a seven-foot-tall talking taco",
+      "a successful beard model",
     ];
 
     return things_kc_might_be[Math.floor(Math.random() * things_kc_might_be.length)];
