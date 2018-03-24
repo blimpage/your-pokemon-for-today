@@ -136,9 +136,17 @@ var kc_pokemon = {
       selector: 'a'
     });
 
-    new LazyLoad({
-      elements_selector: '.pokemon-card img'
+    this._lazy_load_instance = new LazyLoad({
+      elements_selector: '.pokemon-card img',
+      callback_error: this._retry_failed_lazy_load.bind(this),
     });
+  },
+
+  _retry_failed_lazy_load: function(image_element) {
+    image_element.removeAttribute("src");
+    image_element.removeAttribute("data-was-processed");
+    image_element.classList.remove("error");
+    this._lazy_load_instance.update();
   },
 
   _adjust_layout_for_ios: function() {
