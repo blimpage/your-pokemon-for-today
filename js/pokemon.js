@@ -35,12 +35,16 @@ var kc_pokemon = {
   },
 
   display_random_poke: function() {
-    this._unchoose_all_chosen_ones();
-
     var all_cells = document.querySelectorAll(".pokemon");
 
     var chosen_one = all_cells[Math.floor(Math.random() * (all_cells.length - 1))];
 
+    if (chosen_one.classList.contains("chosen-one")) {
+      this.display_random_poke();
+      return;
+    }
+
+    this._unchoose_all_chosen_ones();
     chosen_one.classList.add("chosen-one");
 
     this._force_image_load(chosen_one);

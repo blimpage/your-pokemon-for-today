@@ -33,8 +33,15 @@
 
         <div class="randomizer-buttons">
           <a class="randomizer-button" data-role="button-bulbapedia" href="#">View on Bulbapedia</a>
-          <a class="randomizer-button" data-role="button-randomize" href="/tomorrow/">Gimme another!</a>
+          {% if stats.remaining > 1 %}
+            <a class="randomizer-button" data-role="button-randomize" href="/tomorrow/">Gimme another!</a>
+          {% endif %}
         </div>
+
+        {% if stats.remaining == 1 %}
+          <p class="randomizer-congrats">Holy crap this is the last one. You did it, buddy. Just one more and then you can sleep.</p>
+        {% endif %}
+
       {% else %}
         <p>Wow KC went and drew <a href="/">all the Pokémon</a>!!! Tomorrow he can do whatever he likes. He's earned it.</p>
       {% endif %}
