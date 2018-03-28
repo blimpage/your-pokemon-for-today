@@ -37,7 +37,7 @@ var kc_pokemon = {
   display_random_poke: function() {
     var all_cells = document.querySelectorAll(".pokemon");
 
-    var chosen_one = all_cells[Math.floor(Math.random() * (all_cells.length - 1))];
+    var chosen_one = all_cells[Math.floor(Math.random() * all_cells.length)];
 
     if (chosen_one.classList.contains("chosen-one")) {
       this.display_random_poke();
