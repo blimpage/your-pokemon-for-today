@@ -26,6 +26,8 @@ So you wanna be a Digimon master huh???? Here's how to build a version of this s
 
 5. **Build the site from the source files:** In the same folder, run `npm run build`. The site is done building when you see `Finished 'default'` and you get your command prompt back.
 
+  - This command builds the site and processes all of the site's images, so it can take a while (anywhere up to ten minutes) the first time it runs. Subsequent builds will be quicker.
+
 6. Look in the "build" folder - there's your site! WOW!
 
 7. To open the site in a web browser, you'll need to be running a web server in the "build" folder - [here's my favourite simple way to do that on a Mac](http://osxdaily.com/2010/05/07/create-an-instant-web-server-via-terminal-command-line/).
