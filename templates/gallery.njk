@@ -11,6 +11,9 @@
         data-name='{{data.name}}'
         data-dex-number='{{data.dex_number}}'
       {% endif %}
+      {% if data.dex_number == "093" or data.dex_number == "756" %}
+        data-image-bg='black'
+      {% endif %}
       >
 
       {% if data.has_kc_image %}

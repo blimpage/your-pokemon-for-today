@@ -255,11 +255,19 @@ gulp.task('generate_thumbs', function() {
   return gulp.src(paths.kc_images)
     .pipe(newer(paths.build + 'images/kc/thumbs'))
     .pipe(gm(function(gmfile) {
+      // Most images have a white background, but some have different colours.
+      // Test for the special cases and set their background colour appropriately.
+      var backgroundColour = "#FFFFFF";
+      if (/\/(93\.jpg|756\.png)$/.test(gmfile.source)) {
+        backgroundColour = "#000000";
+      }
+
       return gmfile
         .fuzz(5)
         .trim()
         .resize(145, 145)
         .gravity('Center')
+        .background(backgroundColour)
         .extent(245, 155)
     }))
     .pipe(imagemin({optimizationLevel: 4}))
