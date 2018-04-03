@@ -4008,5 +4008,25 @@
     "name": "Marshadow",
     "type_1": "fighting",
     "type_2": "ghost"
+  },
+  "803": {
+    "name": "Poipole",
+    "type_1": "poison",
+    "type_2": null
+  },
+  "804": {
+    "name": "Naganadel",
+    "type_1": "poison",
+    "type_2": "dragon"
+  },
+  "805": {
+    "name": "Stakataka",
+    "type_1": "rock",
+    "type_2": "steel"
+  },
+  "806": {
+    "name": "Blacephalon",
+    "type_1": "fire",
+    "type_2": "ghost"
   }
 }
