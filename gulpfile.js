@@ -287,7 +287,7 @@ gulp.task('silhouette', function() {
       // coincidentally the same path from here to the source image.
       // That's a happy convenient coincidence - we'll need some smarter logic
       // here if that ever changes.
-      images_to_silhouette.push(sugimori_data[key].thumb_filepath);
+      images_to_silhouette.push("." + sugimori_data[key].thumb_filepath);
     }
   }
 

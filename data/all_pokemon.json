@@ -4028,5 +4028,10 @@
     "name": "Blacephalon",
     "type_1": "fire",
     "type_2": "ghost"
+  },
+  "807": {
+    "name": "Zeraora",
+    "type_1": "electric",
+    "type_2": null
   }
 }
