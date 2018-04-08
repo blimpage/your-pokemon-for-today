@@ -258,7 +258,7 @@ gulp.task('generate_thumbs', function() {
       // Most images have a white background, but some have different colours.
       // Test for the special cases and set their background colour appropriately.
       var backgroundColour = "#FFFFFF";
-      if (/\/(93\.jpg|756\.png)$/.test(gmfile.source)) {
+      if (/\/(93\.jpg|756\.png|687\.png)$/.test(gmfile.source)) {
         backgroundColour = "#000000";
       }
 
