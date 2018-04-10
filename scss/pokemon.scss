@@ -96,6 +96,10 @@
     background: white url('/images/poke_loading.gif') 50% 50% / 30% no-repeat;
   }
 
+  .pokemon-card__thumb-container img:not(.loaded) {
+    visibility: hidden;
+  }
+
   .pokemon[data-image-bg='black'] .pokemon-card__thumb-container {
     background-color: black;
   }
