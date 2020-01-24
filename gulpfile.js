@@ -188,7 +188,7 @@ var stats = function() {
 
 gulp.task('clean', function() {
   // Delete dat build directory
-  return del([paths.build]);
+  return del.sync([paths.build]);
 });
 
 gulp.task('render_index', function() {
@@ -225,7 +225,7 @@ gulp.task('render_rando', function() {
 
 gulp.task('scripts', function() {
   // Minify and copy all JavaScript
-  del([paths.build + 'js'])
+  del.sync([paths.build + 'js'])
 
   return gulp.src(paths.scripts)
     .pipe(uglifyJS().on('error', log))
@@ -235,7 +235,7 @@ gulp.task('scripts', function() {
 
 gulp.task('styles', function() {
   // Minify and copy all styles
-  del([paths.build + 'css'])
+  del.sync([paths.build + 'css'])
 
   return gulp.src(paths.styles)
     .pipe(sass().on('error', sass.logError))
