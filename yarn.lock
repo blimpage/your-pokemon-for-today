@@ -2044,15 +2044,6 @@ gulp-imagemin@^2.4.0:
     pretty-bytes "^2.0.1"
     through2-concurrent "^1.1.0"
 
-gulp-jsonminify@^1.0.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/gulp-jsonminify/-/gulp-jsonminify-1.1.0.tgz#3b3c787f252ab42bbd7f355c7629665357e88d1a"
-  integrity sha512-nkqH5aRajfCGD8HB2yN+QSEQG0SMEpS7UyOp3HS966Og4DqUX0y8sPF5SU8uSsGLLLXbnHwyHbDkxauYO/pSpQ==
-  dependencies:
-    jsonminify "~0.2.3"
-    plugin-error "^0.1.2"
-    through2 "~0.6.5"
-
 gulp-minify-css@^1.2.1:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/gulp-minify-css/-/gulp-minify-css-1.2.4.tgz#b6164957602ea27f9e5ad88227695dd205778c06"
@@ -2816,11 +2807,6 @@ json-stringify-safe@~5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/json-stringify-safe/-/json-stringify-safe-5.0.1.tgz#1296a2d58fd45f19a0f6ce01d65701e2c735b6eb"
   integrity sha1-Epai1Y/UXxmg9s4B1lcB4sc1tus=
-
-jsonminify@~0.2.3:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/jsonminify/-/jsonminify-0.2.3.tgz#4b842c8a3fe5d6aa48b2f8f95a1cf9a80c019d8e"
-  integrity sha1-S4Qsij/l1qpIsvj5Whz5qAwBnY4=
 
 jsprim@^1.2.2:
   version "1.4.1"
@@ -4728,7 +4714,7 @@ through2@^0.5.0:
     readable-stream "~1.0.17"
     xtend "~3.0.0"
 
-through2@^0.6.0, through2@^0.6.1, through2@~0.6.5:
+through2@^0.6.0, through2@^0.6.1:
   version "0.6.5"
   resolved "https://registry.yarnpkg.com/through2/-/through2-0.6.5.tgz#41ab9c67b29d57209071410e1d7a7a968cd3ad48"
   integrity sha1-QaucZ7KdVyCQcUEOHXp6lozTrUg=

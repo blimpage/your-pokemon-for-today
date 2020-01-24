@@ -13,7 +13,6 @@ var htmlmin        = require('gulp-htmlmin');
 
 // For minifying/concatenating scripts and styles
 var uglifyJS   = require('gulp-uglify');
-var uglifyJSON = require('gulp-jsonminify');
 var concat     = require('gulp-concat');
 
 // For dem styles
