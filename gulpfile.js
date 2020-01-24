@@ -1,7 +1,7 @@
 var gulp = require('gulp');
 
 var del    = require('del'); // For deletin' files
-var gutil  = require('gulp-util'); // For error logging
+var log    = require('fancy-log'); // For error logging
 var fs     = require('fs'); // For filesystem access
 var rename = require('gulp-rename'); // For renaming files
 var newer  = require('gulp-newer'); // For only regenerating files when necessary
@@ -230,7 +230,7 @@ gulp.task('scripts', function() {
   del([paths.build + 'js'])
 
   return gulp.src(paths.scripts)
-    .pipe(uglifyJS().on('error', gutil.log))
+    .pipe(uglifyJS().on('error', log))
     .pipe(concat(`scripts-${app_version()}.min.js`))
     .pipe(gulp.dest(paths.build + 'js'));
 });
@@ -241,7 +241,7 @@ gulp.task('styles', function() {
 
   return gulp.src(paths.styles)
     .pipe(sass().on('error', sass.logError))
-    .pipe(uglifyCSS().on('error', gutil.log))
+    .pipe(uglifyCSS().on('error', log))
     .pipe(autoprefixer({
       browsers: ['last 5 versions'],
       cascade: false
@@ -274,7 +274,7 @@ gulp.task('generate_thumbs', function() {
     .pipe(gulp.dest(paths.build + 'images/kc/thumbs'));
 });
 
-gulp.task('silhouette', function() {
+gulp.task('silhouette', function(callback) {
   var sugimori_data = parse_sugimori_data();
   var kc_data = parse_kc_data();
   var images_to_silhouette = [];
@@ -290,6 +290,9 @@ gulp.task('silhouette', function() {
       images_to_silhouette.push("." + sugimori_data[key].thumb_filepath);
     }
   }
+
+  // No images to silhouette? Return early!
+  if (images_to_silhouette.length === 0) return callback();
 
   return gulp.src(images_to_silhouette)
     .pipe(newer(paths.build + 'images/sugimori'))
@@ -346,16 +349,18 @@ gulp.task('copy_htaccess', function() {
 });
 
 // The default task (called when you run `gulp` from cli)
-gulp.task('default', [
-  'render_index',
-  'render_rando',
-  'scripts',
-  'styles',
-  'generate_thumbs',
-  'silhouette',
-  'optimize_kc_images',
-  'optimize_site_images',
-  'copy_favicon',
-  'copy_fonts',
-  'copy_htaccess',
-]);
+gulp.task('default',
+  gulp.parallel(
+    'render_index',
+    'render_rando',
+    'scripts',
+    'styles',
+    'generate_thumbs',
+    'silhouette',
+    'optimize_kc_images',
+    'optimize_site_images',
+    'copy_favicon',
+    'copy_fonts',
+    'copy_htaccess',
+  )
+);
