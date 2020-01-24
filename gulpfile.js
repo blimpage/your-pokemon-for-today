@@ -241,7 +241,6 @@ gulp.task('styles', function() {
     .pipe(sass().on('error', sass.logError))
     .pipe(uglifyCSS().on('error', log))
     .pipe(autoprefixer({
-      browsers: ['last 5 versions'],
       cascade: false
     }))
     .pipe(concat(`style-${app_version()}.min.css`))
