@@ -267,7 +267,7 @@ gulp.task('generate_thumbs', function() {
         .background(backgroundColour)
         .extent(245, 155)
     }))
-    .pipe(imagemin({optimizationLevel: 4}))
+    .pipe(imagemin())
     .pipe(gulp.dest(paths.build + 'images/kc/thumbs'));
 });
 
@@ -303,7 +303,7 @@ gulp.task('silhouette', function(callback) {
         .gravity('Center')
         .extent(245, 155)
     }))
-    .pipe(imagemin({optimizationLevel: 4}))
+    .pipe(imagemin())
     .pipe(gulp.dest(paths.build + 'images/sugimori'));
 });
 
@@ -311,7 +311,7 @@ gulp.task('optimize_kc_images', function() {
   // Optimize and copy all KC images
   return gulp.src(paths.kc_images)
     .pipe(newer(paths.build + 'images/kc'))
-    .pipe(imagemin({optimizationLevel: 4}))
+    .pipe(imagemin())
     .pipe(gulp.dest(paths.build + 'images/kc'));
 });
 
@@ -319,7 +319,7 @@ gulp.task('copy_favicon', function() {
   // Optimize and copy our beautiful favicon
   return gulp.src(paths.favicon)
     .pipe(newer(paths.build))
-    .pipe(imagemin({optimizationLevel: 4}))
+    .pipe(imagemin())
     .pipe(gulp.dest(paths.build));
 });
 
@@ -327,7 +327,7 @@ gulp.task('optimize_site_images', function() {
   // Optimize and copy all other site images
   return gulp.src(paths.all_other_images)
     .pipe(newer(paths.build + 'images'))
-    .pipe(imagemin({optimizationLevel: 4}))
+    .pipe(imagemin())
     .pipe(gulp.dest(paths.build + 'images'));
 });
 
