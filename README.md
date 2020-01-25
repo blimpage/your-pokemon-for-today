@@ -18,13 +18,13 @@ So you wanna be a Digimon master huh???? Here's how to build a version of this s
 
 1. Get a copy of this repository (either by [cloning it](https://help.github.com/articles/cloning-a-repository/) or [downloading a ZIP copy](https://github.com/blimpage/your-pokemon-for-today/archive/master.zip) and unzipping it)
 
-2. Make sure you've [got Node.js and npm installed](https://docs.npmjs.com/getting-started/installing-node), as well as [Homebrew](http://brew.sh/)
+2. Make sure you've [got Node.js and Yarn installed](https://legacy.yarnpkg.com/lang/en/docs/install/) (Check in `package.json` under `engines` for the required versions), as well as [Homebrew](http://brew.sh/)
 
 3. **Install GraphicsMagick:** Open a command-line interface and run `brew install graphicsmagick`
 
-4. **Install the project's dependencies:** In your command-line interface, navigate to the project folder and run `npm install`
+4. **Install the project's dependencies:** In your command-line interface, navigate to the project folder and run `yarn`
 
-5. **Build the site from the source files:** In the same folder, run `npm run build`. The site is done building when you see `Finished 'default'` and you get your command prompt back.
+5. **Build the site from the source files:** In the same folder, run `yarn build`. The site is done building when you see `Finished 'default'` and you get your command prompt back.
 
   - This command builds the site and processes all of the site's images, so it can take a while (anywhere up to ten minutes) the first time it runs. Subsequent builds will be quicker.
 
