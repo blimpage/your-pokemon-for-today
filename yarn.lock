@@ -2227,7 +2227,7 @@ gulp-newer@^1.4.0:
     kew "^0.7.0"
     plugin-error "^0.1.2"
 
-gulp-nunjucks-render@^2.0.0:
+gulp-nunjucks-render@^2.2.3:
   version "2.2.3"
   resolved "https://registry.yarnpkg.com/gulp-nunjucks-render/-/gulp-nunjucks-render-2.2.3.tgz#e42b5d8e107a9ac56aa900c2def00003e06e8990"
   integrity sha512-YHrmwiwPw2DN16WJVj8S2tgUanB1ssZE8e5rRF6rH1T41mhO7r59iAqw92Yz5WSZXYB9G+uYXDTCODgixYPIRw==
