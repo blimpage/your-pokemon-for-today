@@ -1,7 +1,6 @@
 var gulp = require('gulp');
 
 var del    = require('del'); // For deletin' files
-var log    = require('fancy-log'); // For error logging
 var fs     = require('fs'); // For filesystem access
 var newer  = require('gulp-newer'); // For only regenerating files when necessary
 
@@ -232,7 +231,7 @@ gulp.task('scripts', function() {
 
   return gulp.src(paths.scripts)
     .pipe(newer(fullPathToOutputFile))
-    .pipe(uglifyJS().on('error', log))
+    .pipe(uglifyJS())
     .pipe(concat(outputFileName))
     .pipe(gulp.dest(outputDirectory));
 });
