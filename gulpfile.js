@@ -188,7 +188,7 @@ var stats = function() {
 
 gulp.task('clean', function() {
   // Delete dat build directory
-  return del.sync([paths.build]);
+  return del([paths.build]);
 });
 
 gulp.task('render_index', function() {
