@@ -1,9 +1,7 @@
 var gulp = require('gulp');
 
 var del    = require('del'); // For deletin' files
-var gutil  = require('gulp-util'); // For error logging
 var fs     = require('fs'); // For filesystem access
-var rename = require('gulp-rename'); // For renaming files
 var newer  = require('gulp-newer'); // For only regenerating files when necessary
 
 // For HTML templating
@@ -13,13 +11,12 @@ var htmlmin        = require('gulp-htmlmin');
 
 // For minifying/concatenating scripts and styles
 var uglifyJS   = require('gulp-uglify');
-var uglifyJSON = require('gulp-jsonminify');
 var concat     = require('gulp-concat');
 
 // For dem styles
 var sass         = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
-var uglifyCSS    = require('gulp-minify-css');
+var cleanCSS     = require('gulp-clean-css');
 
 // For images
 var gm          = require('gulp-gm'); // GraphicsMagick
@@ -28,6 +25,7 @@ var imagemin    = require('gulp-imagemin');
 var paths = {
   scripts: ['js/vendor/*.js', 'js/*.js'],
   styles: ['scss/vendor/*.scss', 'scss/pokemon.scss'],
+  styles_extra: ['scss/_base.scss'], // Styles that aren't directly compiled, but should still trigger a rebuild
   sugimori_images: 'images/sugimori/',
   kc_images: 'images/kc/*',
   favicon: 'images/favicon.png',
@@ -227,27 +225,32 @@ gulp.task('render_rando', function() {
 
 gulp.task('scripts', function() {
   // Minify and copy all JavaScript
-  del([paths.build + 'js'])
+  const outputDirectory = `${paths.build}js`
+  const outputFileName = `scripts-${app_version()}.min.js`
+  const fullPathToOutputFile = `${outputDirectory}/${outputFileName}`
 
   return gulp.src(paths.scripts)
-    .pipe(uglifyJS().on('error', gutil.log))
-    .pipe(concat(`scripts-${app_version()}.min.js`))
-    .pipe(gulp.dest(paths.build + 'js'));
+    .pipe(newer(fullPathToOutputFile))
+    .pipe(uglifyJS())
+    .pipe(concat(outputFileName))
+    .pipe(gulp.dest(outputDirectory));
 });
 
 gulp.task('styles', function() {
   // Minify and copy all styles
-  del([paths.build + 'css'])
+  const outputDirectory = `${paths.build}css`
+  const outputFileName = `style-${app_version()}.min.css`
+  const fullPathToOutputFile = `${outputDirectory}/${outputFileName}`
 
   return gulp.src(paths.styles)
+    .pipe(newer({ dest: fullPathToOutputFile, extra: paths.styles_extra }))
     .pipe(sass().on('error', sass.logError))
-    .pipe(uglifyCSS().on('error', gutil.log))
+    .pipe(cleanCSS())
     .pipe(autoprefixer({
-      browsers: ['last 5 versions'],
       cascade: false
     }))
-    .pipe(concat(`style-${app_version()}.min.css`))
-    .pipe(gulp.dest(paths.build + 'css'));
+    .pipe(concat(outputFileName))
+    .pipe(gulp.dest(outputDirectory));
 });
 
 gulp.task('generate_thumbs', function() {
@@ -270,11 +273,11 @@ gulp.task('generate_thumbs', function() {
         .background(backgroundColour)
         .extent(245, 155)
     }))
-    .pipe(imagemin({optimizationLevel: 4}))
+    .pipe(imagemin())
     .pipe(gulp.dest(paths.build + 'images/kc/thumbs'));
 });
 
-gulp.task('silhouette', function() {
+gulp.task('silhouette', function(callback) {
   var sugimori_data = parse_sugimori_data();
   var kc_data = parse_kc_data();
   var images_to_silhouette = [];
@@ -291,6 +294,9 @@ gulp.task('silhouette', function() {
     }
   }
 
+  // No images to silhouette? Return early!
+  if (images_to_silhouette.length === 0) return callback();
+
   return gulp.src(images_to_silhouette)
     .pipe(newer(paths.build + 'images/sugimori'))
     .pipe(gm(function(gmfile) {
@@ -303,7 +309,7 @@ gulp.task('silhouette', function() {
         .gravity('Center')
         .extent(245, 155)
     }))
-    .pipe(imagemin({optimizationLevel: 4}))
+    .pipe(imagemin())
     .pipe(gulp.dest(paths.build + 'images/sugimori'));
 });
 
@@ -311,7 +317,7 @@ gulp.task('optimize_kc_images', function() {
   // Optimize and copy all KC images
   return gulp.src(paths.kc_images)
     .pipe(newer(paths.build + 'images/kc'))
-    .pipe(imagemin({optimizationLevel: 4}))
+    .pipe(imagemin())
     .pipe(gulp.dest(paths.build + 'images/kc'));
 });
 
@@ -319,7 +325,7 @@ gulp.task('copy_favicon', function() {
   // Optimize and copy our beautiful favicon
   return gulp.src(paths.favicon)
     .pipe(newer(paths.build))
-    .pipe(imagemin({optimizationLevel: 4}))
+    .pipe(imagemin())
     .pipe(gulp.dest(paths.build));
 });
 
@@ -327,7 +333,7 @@ gulp.task('optimize_site_images', function() {
   // Optimize and copy all other site images
   return gulp.src(paths.all_other_images)
     .pipe(newer(paths.build + 'images'))
-    .pipe(imagemin({optimizationLevel: 4}))
+    .pipe(imagemin())
     .pipe(gulp.dest(paths.build + 'images'));
 });
 
@@ -346,16 +352,18 @@ gulp.task('copy_htaccess', function() {
 });
 
 // The default task (called when you run `gulp` from cli)
-gulp.task('default', [
-  'render_index',
-  'render_rando',
-  'scripts',
-  'styles',
-  'generate_thumbs',
-  'silhouette',
-  'optimize_kc_images',
-  'optimize_site_images',
-  'copy_favicon',
-  'copy_fonts',
-  'copy_htaccess',
-]);
+gulp.task('default',
+  gulp.parallel(
+    'render_index',
+    'render_rando',
+    'scripts',
+    'styles',
+    'generate_thumbs',
+    'silhouette',
+    'optimize_kc_images',
+    'optimize_site_images',
+    'copy_favicon',
+    'copy_fonts',
+    'copy_htaccess',
+  )
+);

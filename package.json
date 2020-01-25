@@ -1,6 +1,6 @@
 {
   "name": "your-pokemon-for-today",
-  "version": "0.4.8",
+  "version": "0.5.0",
   "author": "Pat McKenna <pat@mckenna.rocks>",
   "repository": {
     "type": "git",
@@ -11,22 +11,25 @@
     "build": "gulp"
   },
   "devDependencies": {
-    "del": "^2.0.2",
-    "gmsmith": "^0.6.0",
-    "gulp": "~3.9.0",
-    "gulp-autoprefixer": "^3.1.0",
-    "gulp-concat": "^2.6.0",
-    "gulp-data": "^1.2.1",
-    "gulp-gm": "0.0.8",
-    "gulp-htmlmin": "^3.0.0",
-    "gulp-imagemin": "^2.3.0",
-    "gulp-jsonminify": "^1.0.0",
-    "gulp-minify-css": "^1.2.1",
-    "gulp-newer": "^1.1.0",
-    "gulp-nunjucks-render": "^2.0.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-sass": "^2.1.0",
-    "gulp-uglify": "^1.4.2",
-    "gulp-util": "^3.0.7"
-  }
+    "del": "^5.1.0",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-clean-css": "^4.2.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-data": "^1.3.1",
+    "gulp-gm": "0.0.9",
+    "gulp-htmlmin": "^5.0.1",
+    "gulp-imagemin": "^7.1.0",
+    "gulp-newer": "^1.4.0",
+    "gulp-nunjucks-render": "^2.2.3",
+    "gulp-sass": "^4.0.2",
+    "gulp-uglify": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=12.14.1",
+    "yarn": ">=1.21.1"
+  },
+  "browserslist": [
+    "last 5 versions"
+  ]
 }
