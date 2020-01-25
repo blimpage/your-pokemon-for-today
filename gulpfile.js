@@ -26,6 +26,7 @@ var imagemin    = require('gulp-imagemin');
 var paths = {
   scripts: ['js/vendor/*.js', 'js/*.js'],
   styles: ['scss/vendor/*.scss', 'scss/pokemon.scss'],
+  styles_extra: ['scss/_base.scss'], // Styles that aren't directly compiled, but should still trigger a rebuild
   sugimori_images: 'images/sugimori/',
   kc_images: 'images/kc/*',
   favicon: 'images/favicon.png',
@@ -225,26 +226,32 @@ gulp.task('render_rando', function() {
 
 gulp.task('scripts', function() {
   // Minify and copy all JavaScript
-  del.sync([paths.build + 'js'])
+  const outputDirectory = `${paths.build}js`
+  const outputFileName = `scripts-${app_version()}.min.js`
+  const fullPathToOutputFile = `${outputDirectory}/${outputFileName}`
 
   return gulp.src(paths.scripts)
+    .pipe(newer(fullPathToOutputFile))
     .pipe(uglifyJS().on('error', log))
-    .pipe(concat(`scripts-${app_version()}.min.js`))
-    .pipe(gulp.dest(paths.build + 'js'));
+    .pipe(concat(outputFileName))
+    .pipe(gulp.dest(outputDirectory));
 });
 
 gulp.task('styles', function() {
   // Minify and copy all styles
-  del.sync([paths.build + 'css'])
+  const outputDirectory = `${paths.build}css`
+  const outputFileName = `style-${app_version()}.min.css`
+  const fullPathToOutputFile = `${outputDirectory}/${outputFileName}`
 
   return gulp.src(paths.styles)
+    .pipe(newer({ dest: fullPathToOutputFile, extra: paths.styles_extra }))
     .pipe(sass().on('error', sass.logError))
     .pipe(cleanCSS())
     .pipe(autoprefixer({
       cascade: false
     }))
-    .pipe(concat(`style-${app_version()}.min.css`))
-    .pipe(gulp.dest(paths.build + 'css'));
+    .pipe(concat(outputFileName))
+    .pipe(gulp.dest(outputDirectory));
 });
 
 gulp.task('generate_thumbs', function() {
