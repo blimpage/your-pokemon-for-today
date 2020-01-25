@@ -17,7 +17,7 @@ var concat     = require('gulp-concat');
 // For dem styles
 var sass         = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
-var uglifyCSS    = require('gulp-minify-css');
+var cleanCSS     = require('gulp-clean-css');
 
 // For images
 var gm          = require('gulp-gm'); // GraphicsMagick
@@ -239,7 +239,7 @@ gulp.task('styles', function() {
 
   return gulp.src(paths.styles)
     .pipe(sass().on('error', sass.logError))
-    .pipe(uglifyCSS().on('error', log))
+    .pipe(cleanCSS())
     .pipe(autoprefixer({
       cascade: false
     }))
