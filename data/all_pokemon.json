@@ -4033,5 +4033,420 @@
     "name": "Zeraora",
     "type_1": "electric",
     "type_2": null
+  },
+  "808": {
+    "name": "Meltan",
+    "type_1": "steel",
+    "type_2": null
+  },
+  "809": {
+    "name": "Melmetal",
+    "type_1": "steel",
+    "type_2": null
+  },
+  "810": {
+    "name": "Grookey",
+    "type_1": "grass",
+    "type_2": null
+  },
+  "811": {
+    "name": "Thwackey",
+    "type_1": "grass",
+    "type_2": null
+  },
+  "812": {
+    "name": "Rillaboom",
+    "type_1": "grass",
+    "type_2": null
+  },
+  "813": {
+    "name": "Scorbunny",
+    "type_1": "fire",
+    "type_2": null
+  },
+  "814": {
+    "name": "Raboot",
+    "type_1": "fire",
+    "type_2": null
+  },
+  "815": {
+    "name": "Cinderace",
+    "type_1": "fire",
+    "type_2": null
+  },
+  "816": {
+    "name": "Sobble",
+    "type_1": "water",
+    "type_2": null
+  },
+  "817": {
+    "name": "Drizzile",
+    "type_1": "water",
+    "type_2": null
+  },
+  "818": {
+    "name": "Inteleon",
+    "type_1": "water",
+    "type_2": null
+  },
+  "819": {
+    "name": "Skwovet",
+    "type_1": "normal",
+    "type_2": null
+  },
+  "820": {
+    "name": "Greedent",
+    "type_1": "normal",
+    "type_2": null
+  },
+  "821": {
+    "name": "Rookidee",
+    "type_1": "flying",
+    "type_2": null
+  },
+  "822": {
+    "name": "Corvisquire",
+    "type_1": "flying",
+    "type_2": null
+  },
+  "823": {
+    "name": "Corviknight",
+    "type_1": "flying",
+    "type_2": "steel"
+  },
+  "824": {
+    "name": "Blipbug",
+    "type_1": "bug",
+    "type_2": null
+  },
+  "825": {
+    "name": "Dottler",
+    "type_1": "bug",
+    "type_2": "psychic"
+  },
+  "826": {
+    "name": "Orbeetle",
+    "type_1": "bug",
+    "type_2": "psychic"
+  },
+  "827": {
+    "name": "Nickit",
+    "type_1": "dark",
+    "type_2": null
+  },
+  "828": {
+    "name": "Thievul",
+    "type_1": "dark",
+    "type_2": null
+  },
+  "829": {
+    "name": "Gossifleur",
+    "type_1": "grass",
+    "type_2": null
+  },
+  "830": {
+    "name": "Eldegoss",
+    "type_1": "grass",
+    "type_2": null
+  },
+  "831": {
+    "name": "Wooloo",
+    "type_1": "normal",
+    "type_2": null
+  },
+  "832": {
+    "name": "Dubwool",
+    "type_1": "normal",
+    "type_2": null
+  },
+  "833": {
+    "name": "Chewtle",
+    "type_1": "water",
+    "type_2": null
+  },
+  "834": {
+    "name": "Drednaw",
+    "type_1": "water",
+    "type_2": "rock"
+  },
+  "835": {
+    "name": "Yamper",
+    "type_1": "electric",
+    "type_2": null
+  },
+  "836": {
+    "name": "Boltund",
+    "type_1": "electric",
+    "type_2": null
+  },
+  "837": {
+    "name": "Rolycoly",
+    "type_1": "rock",
+    "type_2": null
+  },
+  "838": {
+    "name": "Carkol",
+    "type_1": "rock",
+    "type_2": "fire"
+  },
+  "839": {
+    "name": "Coalossal",
+    "type_1": "rock",
+    "type_2": "fire"
+  },
+  "840": {
+    "name": "Applin",
+    "type_1": "grass",
+    "type_2": "dragon"
+  },
+  "841": {
+    "name": "Flapple",
+    "type_1": "grass",
+    "type_2": "dragon"
+  },
+  "842": {
+    "name": "Appletun",
+    "type_1": "grass",
+    "type_2": "dragon"
+  },
+  "843": {
+    "name": "Silicobra",
+    "type_1": "ground",
+    "type_2": null
+  },
+  "844": {
+    "name": "Sandaconda",
+    "type_1": "ground",
+    "type_2": null
+  },
+  "845": {
+    "name": "Cramorant",
+    "type_1": "flying",
+    "type_2": "water"
+  },
+  "846": {
+    "name": "Arrokuda",
+    "type_1": "water",
+    "type_2": null
+  },
+  "847": {
+    "name": "Barraskewda",
+    "type_1": "water",
+    "type_2": null
+  },
+  "848": {
+    "name": "Toxel",
+    "type_1": "electric",
+    "type_2": "poison"
+  },
+  "849": {
+    "name": "Toxtricity",
+    "type_1": "electric",
+    "type_2": "poison"
+  },
+  "850": {
+    "name": "Sizzlipede",
+    "type_1": "fire",
+    "type_2": "bug"
+  },
+  "851": {
+    "name": "Centiskorch",
+    "type_1": "fire",
+    "type_2": "bug"
+  },
+  "852": {
+    "name": "Clobbopus",
+    "type_1": "fighting",
+    "type_2": null
+  },
+  "853": {
+    "name": "Grapploct",
+    "type_1": "fighting",
+    "type_2": null
+  },
+  "854": {
+    "name": "Sinistea",
+    "type_1": "ghost",
+    "type_2": null
+  },
+  "855": {
+    "name": "Polteageist",
+    "type_1": "ghost",
+    "type_2": null
+  },
+  "856": {
+    "name": "Hatenna",
+    "type_1": "psychic",
+    "type_2": null
+  },
+  "857": {
+    "name": "Hattrem",
+    "type_1": "psychic",
+    "type_2": null
+  },
+  "858": {
+    "name": "Hatterene",
+    "type_1": "psychic",
+    "type_2": "fairy"
+  },
+  "859": {
+    "name": "Impidimp",
+    "type_1": "dark",
+    "type_2": "fairy"
+  },
+  "860": {
+    "name": "Morgrem",
+    "type_1": "dark",
+    "type_2": "fairy"
+  },
+  "861": {
+    "name": "Grimmsnarl",
+    "type_1": "dark",
+    "type_2": "fairy"
+  },
+  "862": {
+    "name": "Obstagoon",
+    "type_1": "dark",
+    "type_2": "normal"
+  },
+  "863": {
+    "name": "Perrserker",
+    "type_1": "steel",
+    "type_2": null
+  },
+  "864": {
+    "name": "Cursola",
+    "type_1": "ghost",
+    "type_2": null
+  },
+  "865": {
+    "name": "Sirfetch'd",
+    "type_1": "fighting",
+    "type_2": null
+  },
+  "866": {
+    "name": "Mr. Rime",
+    "type_1": "ice",
+    "type_2": "psychic"
+  },
+  "867": {
+    "name": "Runerigus",
+    "type_1": "ground",
+    "type_2": "ghost"
+  },
+  "868": {
+    "name": "Milcery",
+    "type_1": "fairy",
+    "type_2": null
+  },
+  "869": {
+    "name": "Alcremie",
+    "type_1": "fairy",
+    "type_2": null
+  },
+  "870": {
+    "name": "Falinks",
+    "type_1": "fighting",
+    "type_2": null
+  },
+  "871": {
+    "name": "Pincurchin",
+    "type_1": "electric",
+    "type_2": null
+  },
+  "872": {
+    "name": "Snom",
+    "type_1": "ice",
+    "type_2": "bug"
+  },
+  "873": {
+    "name": "Frosmoth",
+    "type_1": "ice",
+    "type_2": "bug"
+  },
+  "874": {
+    "name": "Stonjourner",
+    "type_1": "rock",
+    "type_2": null
+  },
+  "875": {
+    "name": "Eiscue",
+    "type_1": "ice",
+    "type_2": null
+  },
+  "876": {
+    "name": "Indeedee",
+    "type_1": "psychic",
+    "type_2": "normal"
+  },
+  "877": {
+    "name": "Morpeko",
+    "type_1": "electric",
+    "type_2": "dark"
+  },
+  "878": {
+    "name": "Cufant",
+    "type_1": "steel",
+    "type_2": null
+  },
+  "879": {
+    "name": "Copperajah",
+    "type_1": "steel",
+    "type_2": null
+  },
+  "880": {
+    "name": "Dracozolt",
+    "type_1": "electric",
+    "type_2": "dragon"
+  },
+  "881": {
+    "name": "Arctozolt",
+    "type_1": "electric",
+    "type_2": "ice"
+  },
+  "882": {
+    "name": "Dracovish",
+    "type_1": "water",
+    "type_2": "dragon"
+  },
+  "883": {
+    "name": "Arctovish",
+    "type_1": "water",
+    "type_2": "ice"
+  },
+  "884": {
+    "name": "Duraludon",
+    "type_1": "steel",
+    "type_2": "dragon"
+  },
+  "885": {
+    "name": "Dreepy",
+    "type_1": "dragon",
+    "type_2": "ghost"
+  },
+  "886": {
+    "name": "Drakloak",
+    "type_1": "dragon",
+    "type_2": "ghost"
+  },
+  "887": {
+    "name": "Dragapult",
+    "type_1": "dragon",
+    "type_2": "ghost"
+  },
+  "888": {
+    "name": "Zacian",
+    "type_1": "fairy",
+    "type_2": null
+  },
+  "889": {
+    "name": "Zamazenta",
+    "type_1": "fighting",
+    "type_2": null
+  },
+  "890": {
+    "name": "Eternatus",
+    "type_1": "poison",
+    "type_2": "dragon"
   }
 }
