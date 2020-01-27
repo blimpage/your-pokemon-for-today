@@ -47,7 +47,7 @@ var kc_pokemon = {
     this._unchoose_all_chosen_ones();
     chosen_one.classList.add("chosen-one");
 
-    this._force_image_load(chosen_one);
+    this._lazy_load_instance.update(); // Force image to load, since it's popped on screen but no scroll events have happened
     this._update_bulbapedia_link(chosen_one);
   },
 
@@ -58,12 +58,6 @@ var kc_pokemon = {
     all_cells.forEach(function(cell) {
       cell.classList.remove("chosen-one");
     });
-  },
-
-  _force_image_load: function(cell) {
-    var thumb = cell.querySelector("img");
-
-    thumb.src = thumb.dataset.original;
   },
 
   _update_bulbapedia_link: function(cell) {
