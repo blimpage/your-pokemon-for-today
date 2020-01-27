@@ -175,7 +175,7 @@ var kc_pokemon = {
       "a forest dweller",
       "some guy I met at a gas station",
       "a gift from the heavens",
-      "the meme dog guy, but also a very talented artist with a large library of work",
+      "an accidental memesmith",
       "just a guy",
       "a wandering dreamer",
       "a Mega Man boss",
@@ -184,6 +184,10 @@ var kc_pokemon = {
       "a world-class kiwifruit juggler",
       "a seven-foot-tall talking taco",
       "a successful beard model",
+      "a retired carpenter",
+      "your best friend",
+      "an unstoppable force of nature",
+      "a Simpsons fan",
     ];
 
     return things_kc_might_be[Math.floor(Math.random() * things_kc_might_be.length)];
