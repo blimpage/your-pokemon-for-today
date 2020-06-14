@@ -4448,5 +4448,35 @@
     "name": "Eternatus",
     "type_1": "poison",
     "type_2": "dragon"
+  },
+  "891": {
+    "name": "Kubfu",
+    "type_1": "fighting",
+    "type_2": null
+  },
+  "892": {
+    "name": "Urshifu",
+    "type_1": "fighting",
+    "type_2": "dark"
+  },
+  "893": {
+    "name": "Calyrex",
+    "type_1": "psychic",
+    "type_2": "grass"
+  },
+  "894": {
+    "name": "Zarude",
+    "type_1": "dark",
+    "type_2": "grass"
+  },
+  "895": {
+    "name": "Regieleki",
+    "type_1": "electric",
+    "type_2": null
+  },
+  "896": {
+    "name": "Regidrago",
+    "type_1": "dragon",
+    "type_2": null
   }
 }
