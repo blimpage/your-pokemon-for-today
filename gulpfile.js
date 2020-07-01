@@ -65,14 +65,14 @@ var padded_number = function(number) {
 parse_json_data = function() {
   var json_data = JSON.parse(fs.readFileSync(paths.data + 'all_pokemon.json'));
 
-  for (number in json_data) {
-    var this_pokemon = json_data[number];
+  for (pokemon_id in json_data) {
+    var this_pokemon = json_data[pokemon_id];
 
-    // The key for each property is the Pokemon's Pokedex number, in an unpadded
+    // The Pokedex number for each Pokemon is stored in an unpadded
     // stringified form (e.g. "1", "42", "307").
-    // For display purposes we also need the dex number in three-digit padded
-    // form (e.g. "001", "042", "307"), so let's add that for each Pokemon.
-    this_pokemon.dex_number = padded_number(number);
+    // For display purposes we need the dex number in a three-digit padded
+    // form (e.g. "001", "042", "307"), so let's adjust that for each Pokemon.
+    this_pokemon.dex_number = padded_number(this_pokemon.dex_number);
 
     // There are a lot of Pokemon who are Normal/Flying type, and very very few
     // Pokemon who have Flying as their primary type. Those Normal/Flying Pokemon
@@ -92,12 +92,13 @@ var parse_sugimori_data = function() {
 
   // Convert our array of filenames into an object, with the format:
   // {
+  //   '26-alola': { thumb_filepath: '/images/sugimori/26-alola.png' },
   //   '34': { thumb_filepath: '/images/sugimori/34.jpg' },
   // }
   var sugimori_data = {};
   filenames.forEach(function(filename) {
-    var just_the_number = filename.match(/(\d+)/)[1];
-    sugimori_data[just_the_number] = {
+    var filename_without_extension = filename.match(/(.+)\.\w+$/)[1];
+    sugimori_data[filename_without_extension] = {
       thumb_filepath: `/images/sugimori/${filename}`,
     };
   });
@@ -120,8 +121,8 @@ var parse_kc_data = function() {
   // }
   var kc_data = {};
   filenames.forEach(function(filename) {
-    var just_the_number = filename.match(/(\d+)/)[1];
-    kc_data[just_the_number] = {
+    var filename_without_extension = filename.match(/(.+)\.\w+$/)[1];
+    kc_data[filename_without_extension] = {
       has_kc_image: true,
       full_filepath: `/images/kc/${filename}`,
       thumb_filepath: `/images/kc/thumbs/${filename}`,
@@ -140,12 +141,12 @@ var compile_data = function() {
 
   var all_data = {};
 
-  for (key in all_pokemon_data) {
-    all_data[key] = Object.assign(
+  for (pokemon_id in all_pokemon_data) {
+    all_data[pokemon_id] = Object.assign(
       {},
-      all_pokemon_data[key],
-      sugimori_data[key],
-      kc_data[key]
+      all_pokemon_data[pokemon_id],
+      sugimori_data[pokemon_id],
+      kc_data[pokemon_id]
     );
   }
 
@@ -157,9 +158,9 @@ var randomizer_data = function() {
 
   var non_kc_data = {};
 
-  for (key in all_data) {
-    if (!all_data[key].has_kc_image) {
-      non_kc_data[key] = all_data[key];
+  for (pokemon_id in all_data) {
+    if (!all_data[pokemon_id].has_kc_image) {
+      non_kc_data[pokemon_id] = all_data[pokemon_id];
     }
   }
 
@@ -174,8 +175,8 @@ var stats = function() {
     remaining: 0
   };
 
-  for (key in all_data) {
-    if (all_data[key].has_kc_image) {
+  for (pokemon_id in all_data) {
+    if (all_data[pokemon_id].has_kc_image) {
       stats.done += 1;
     } else {
       stats.remaining += 1;
@@ -283,14 +284,14 @@ gulp.task('silhouette', function(callback) {
   var images_to_silhouette = [];
 
   // Select Sugimori images for which there is no corresponding KC image
-  for (key in sugimori_data) {
-    if (kc_data[key] === undefined) {
+  for (pokemon_id in sugimori_data) {
+    if (kc_data[pokemon_id] === undefined) {
       // The "thumb_filepath" is actually the path to where we'll put the image
       // in the "build" directory for the finished site to access, but it's
       // coincidentally the same path from here to the source image.
       // That's a happy convenient coincidence - we'll need some smarter logic
       // here if that ever changes.
-      images_to_silhouette.push("." + sugimori_data[key].thumb_filepath);
+      images_to_silhouette.push("." + sugimori_data[pokemon_id].thumb_filepath);
     }
   }
 
