@@ -143,26 +143,26 @@ var compile_data = function() {
 
   for (pokemon_id in all_pokemon_data) {
     all_data[pokemon_id] = Object.assign(
-      {},
+      { pokemon_id: pokemon_id },
       all_pokemon_data[pokemon_id],
       sugimori_data[pokemon_id],
-      kc_data[pokemon_id]
+      kc_data[pokemon_id],
     );
   }
 
-  return all_data;
+  var all_data_as_array = Object.values(all_data).sort(function(a, b) {
+    return parseInt(a.dex_number) - parseInt(b.dex_number);
+  })
+
+  return all_data_as_array;
 };
 
 var randomizer_data = function() {
   var all_data = compile_data();
 
-  var non_kc_data = {};
-
-  for (pokemon_id in all_data) {
-    if (!all_data[pokemon_id].has_kc_image) {
-      non_kc_data[pokemon_id] = all_data[pokemon_id];
-    }
-  }
+  var non_kc_data = all_data.filter(function(pokemon) {
+    return !pokemon.has_kc_image;
+  });
 
   return non_kc_data;
 }
@@ -175,8 +175,8 @@ var stats = function() {
     remaining: 0
   };
 
-  for (pokemon_id in all_data) {
-    if (all_data[pokemon_id].has_kc_image) {
+  for (var pokemon of all_data) {
+    if (pokemon.has_kc_image) {
       stats.done += 1;
     } else {
       stats.remaining += 1;
