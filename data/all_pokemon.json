@@ -109,9 +109,9 @@
   },
   "19": {
     "dex_number": "19",
-    "name": "Rattata",
-    "type_1": "normal",
-    "type_2": null
+    "name": "Rattata (Alolan Form)",
+    "type_1": "dark",
+    "type_2": "normal"
   },
   "20": {
     "dex_number": "20",
@@ -157,7 +157,7 @@
   },
   "26-alola": {
     "dex_number": "26",
-    "name": "Raichu (Alola Form)",
+    "name": "Raichu (Alolan Form)",
     "type_1": "electric",
     "type_2": "psychic"
   },
@@ -223,8 +223,8 @@
   },
   "37": {
     "dex_number": "37",
-    "name": "Vulpix",
-    "type_1": "fire",
+    "name": "Vulpix (Alolan Form)",
+    "type_1": "ice",
     "type_2": null
   },
   "38": {
@@ -317,10 +317,16 @@
     "type_1": "normal",
     "type_2": null
   },
+  "52-galar": {
+    "dex_number": "52",
+    "name": "Meowth (Galarian Form)",
+    "type_1": "steel",
+    "type_2": null
+  },
   "53": {
     "dex_number": "53",
-    "name": "Persian",
-    "type_1": "normal",
+    "name": "Persian (Alolan Form)",
+    "type_1": "dark",
     "type_2": null
   },
   "54": {
@@ -457,9 +463,9 @@
   },
   "76": {
     "dex_number": "76",
-    "name": "Golem",
+    "name": "Golem (Alolan Form)",
     "type_1": "rock",
-    "type_2": "ground"
+    "type_2": "electric"
   },
   "77": {
     "dex_number": "77",
@@ -467,11 +473,23 @@
     "type_1": "fire",
     "type_2": null
   },
+  "77-galar": {
+    "dex_number": "77",
+    "name": "Ponyta (Galarian Form)",
+    "type_1": "psychic",
+    "type_2": null
+  },
   "78": {
     "dex_number": "78",
     "name": "Rapidash",
     "type_1": "fire",
     "type_2": null
+  },
+  "78-galar": {
+    "dex_number": "78",
+    "name": "Rapidash (Galarian Form)",
+    "type_1": "psychic",
+    "type_2": "fairy"
   },
   "79": {
     "dex_number": "79",
@@ -481,7 +499,7 @@
   },
   "79-galar": {
     "dex_number": "79",
-    "name": "Slowpoke (Galar Form)",
+    "name": "Slowpoke (Galarian Form)",
     "type_1": "psychic",
     "type_2": null
   },
@@ -489,6 +507,12 @@
     "dex_number": "80",
     "name": "Slowbro",
     "type_1": "water",
+    "type_2": "psychic"
+  },
+  "80-galar": {
+    "dex_number": "80",
+    "name": "Slowbro (Galarian Form)",
+    "type_1": "poison",
     "type_2": "psychic"
   },
   "81": {
@@ -508,6 +532,12 @@
     "name": "Farfetch'd",
     "type_1": "normal",
     "type_2": "flying"
+  },
+  "83-galar": {
+    "dex_number": "83",
+    "name": "Farfetch'd (Galarian Form)",
+    "type_1": "fighting",
+    "type_2": null
   },
   "84": {
     "dex_number": "84",
@@ -671,6 +701,12 @@
     "type_1": "poison",
     "type_2": null
   },
+  "110-galar": {
+    "dex_number": "110",
+    "name": "Weezing (Galarian Form)",
+    "type_1": "poison",
+    "type_2": "fairy"
+  },
   "111": {
     "dex_number": "111",
     "name": "Rhyhorn",
@@ -742,6 +778,12 @@
     "name": "Mr. Mime",
     "type_1": "psychic",
     "type_2": "fairy"
+  },
+  "122-galar": {
+    "dex_number": "122",
+    "name": "Mr. Mime (Galarian Form)",
+    "type_1": "ice",
+    "type_2": "psychic"
   },
   "123": {
     "dex_number": "123",
@@ -875,16 +917,34 @@
     "type_1": "ice",
     "type_2": "flying"
   },
+  "144-galar": {
+    "dex_number": "144",
+    "name": "Articuno (Galarian Form)",
+    "type_1": "psychic",
+    "type_2": "flying"
+  },
   "145": {
     "dex_number": "145",
     "name": "Zapdos",
     "type_1": "electric",
     "type_2": "flying"
   },
+  "145-galar": {
+    "dex_number": "145",
+    "name": "Zapdos (Galarian Form)",
+    "type_1": "fighting",
+    "type_2": "flying"
+  },
   "146": {
     "dex_number": "146",
     "name": "Moltres",
     "type_1": "fire",
+    "type_2": "flying"
+  },
+  "146-galar": {
+    "dex_number": "146",
+    "name": "Moltres (Galarian Form)",
+    "type_1": "dark",
     "type_2": "flying"
   },
   "147": {
@@ -1343,6 +1403,12 @@
     "type_1": "water",
     "type_2": "rock"
   },
+  "222-galar": {
+    "dex_number": "222",
+    "name": "Corsola (Galarian Form)",
+    "type_1": "ghost",
+    "type_2": null
+  },
   "223": {
     "dex_number": "223",
     "name": "Remoraid",
@@ -1589,11 +1655,23 @@
     "type_1": "normal",
     "type_2": null
   },
+  "263-galar": {
+    "dex_number": "263",
+    "name": "Zigzagoon (Galarian Form)",
+    "type_1": "dark",
+    "type_2": "normal"
+  },
   "264": {
     "dex_number": "264",
     "name": "Linoone",
     "type_1": "normal",
     "type_2": null
+  },
+  "264-galar": {
+    "dex_number": "264",
+    "name": "Linoone (Galarian Form)",
+    "type_1": "dark",
+    "type_2": "normal"
   },
   "265": {
     "dex_number": "265",
@@ -3335,10 +3413,22 @@
     "type_1": "fire",
     "type_2": null
   },
+  "554-galar": {
+    "dex_number": "554",
+    "name": "Darumaka (Galarian Form)",
+    "type_1": "ice",
+    "type_2": null
+  },
   "555": {
     "dex_number": "555",
     "name": "Darmanitan",
     "type_1": "fire",
+    "type_2": null
+  },
+  "555-galar": {
+    "dex_number": "555",
+    "name": "Darmanitan (Galarian Form)",
+    "type_1": "ice",
     "type_2": null
   },
   "556": {
@@ -3382,6 +3472,12 @@
     "name": "Yamask",
     "type_1": "ghost",
     "type_2": null
+  },
+  "562-galar": {
+    "dex_number": "562",
+    "name": "Yamask (Galarian Form)",
+    "type_1": "ground",
+    "type_2": "ghost"
   },
   "563": {
     "dex_number": "563",
@@ -3718,6 +3814,12 @@
     "name": "Stunfisk",
     "type_1": "ground",
     "type_2": "electric"
+  },
+  "618-galar": {
+    "dex_number": "618",
+    "name": "Stunfisk (Galarian Form)",
+    "type_1": "ground",
+    "type_2": "steel"
   },
   "619": {
     "dex_number": "619",
