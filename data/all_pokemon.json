@@ -155,6 +155,12 @@
     "type_1": "electric",
     "type_2": null
   },
+  "26-alola": {
+    "dex_number": "26",
+    "name": "Raichu (Alola Form)",
+    "type_1": "electric",
+    "type_2": "psychic"
+  },
   "27": {
     "dex_number": "27",
     "name": "Sandshrew",
