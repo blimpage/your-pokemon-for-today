@@ -43,6 +43,7 @@
     border-radius: 18px;
     background-color: hsl(0, 0%, 60%);
     padding: 15px 15px 75px;
+    max-height: 235px;
     box-shadow: rgba(black, 0.1) -3px 3px;
     transition: transform 0.2s ease;
     position: relative; // Just to make z-index work on hover
