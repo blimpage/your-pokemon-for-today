@@ -479,6 +479,12 @@
     "type_1": "water",
     "type_2": "psychic"
   },
+  "79-galar": {
+    "dex_number": "79",
+    "name": "Slowpoke (Galar Form)",
+    "type_1": "psychic",
+    "type_2": null
+  },
   "80": {
     "dex_number": "80",
     "name": "Slowbro",
