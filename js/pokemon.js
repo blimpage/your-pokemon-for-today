@@ -68,7 +68,9 @@ var kc_pokemon = {
   },
 
   _generate_bulbapedia_url: function(pokemon_name) {
-    var sanitised_name = pokemon_name.replace(/\s/g, "_");
+    var sanitised_name = pokemon_name
+                           .replace(/ (.+)$/, "") // Remove form, e.g. "Raichu (Alolan Form)" -> "Raichu"
+                           .replace(/\s/g, "_"); // Replace spaces with underscores, e.g. "Tapu Bulu" -> "Tapu_Bulu"
 
     return "https://bulbapedia.bulbagarden.net/wiki/" + sanitised_name + "_(Pok%C3%A9mon)";
   },
