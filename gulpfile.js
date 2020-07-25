@@ -2,6 +2,7 @@ var gulp = require('gulp');
 
 var del    = require('del'); // For deletin' files
 var fs     = require('fs'); // For filesystem access
+var glob   = require('glob'); // For finding files using a glob pattern
 var newer  = require('gulp-newer'); // For only regenerating files when necessary
 var rename = require('gulp-rename'); // For renaming files in the middle of a gulp pipeline
 var hasha  = require('hasha'); // For hashing files to give them cacheable filenames
@@ -64,11 +65,45 @@ var padded_number = function(number) {
   }
 };
 
+
+const filepaths_from_glob_pattern = (pattern) => {
+  let all_filepaths = []
+
+  // We might have a single glob pattern or an array of glob patterns.
+  // If it's an array, recursively call ourselves with each pattern in the array.
+  if (Array.isArray(pattern)) {
+    for (sub_pattern of pattern) {
+      let sub_filepaths = filepaths_from_glob_pattern(sub_pattern)
+      all_filepaths = [...all_filepaths, ...sub_filepaths]
+    }
+    return all_filepaths
+  }
+
+  const filepaths = glob.sync(pattern)
+  all_filepaths = [...all_filepaths, ...filepaths]
+
+  return all_filepaths
+}
+
 const file_hash = (filepath) => (
   hasha
     .fromFileSync(filepath, { algorithm: "md5" })
     .slice(0, 8)
 )
+
+const multiple_files_hash = (filepaths) => {
+  const hashed_filepaths =
+    filepaths
+      .sort()
+      .map((filepath) => hasha.fromFileSync(filepath, { algorithm: "md5" }))
+
+  return hasha(hashed_filepaths, { algorithm: "md5" }).slice(0, 8)
+}
+
+const files_hash_from_glob_pattern = (pattern) => {
+  const filepaths = filepaths_from_glob_pattern(pattern)
+  return multiple_files_hash(filepaths)
+}
 
 const image_destination_filename = (source_filepath) => {
   const hash = file_hash(source_filepath)
@@ -220,6 +255,7 @@ gulp.task('render_index', function() {
       stats: stats(),
       build_date: build_date(),
       app_version: app_version(),
+      scripts_hash: files_hash_from_glob_pattern(paths.scripts),
       render_names_for_non_kc: false,
     }))
     .pipe(nunjucksRender())
@@ -245,8 +281,9 @@ gulp.task('render_rando', function() {
 
 gulp.task('scripts', function() {
   // Minify and copy all JavaScript
+  const scripts_hash = files_hash_from_glob_pattern(paths.scripts)
   const outputDirectory = `${paths.build}js`
-  const outputFileName = `scripts-${app_version()}.min.js`
+  const outputFileName = `scripts-${scripts_hash}.min.js`
   const fullPathToOutputFile = `${outputDirectory}/${outputFileName}`
 
   return gulp.src(paths.scripts)
