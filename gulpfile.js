@@ -46,10 +46,6 @@ var build_date = function() {
   return date.toDateString();
 }
 
-var app_version = function() {
-  return JSON.parse(fs.readFileSync('package.json')).version;
-}
-
 var padded_number = function(number) {
   var stringed_number = Number(number).toString();
 
@@ -254,7 +250,6 @@ gulp.task('render_index', function() {
       pokemons: compile_data(),
       stats: stats(),
       build_date: build_date(),
-      app_version: app_version(),
       scripts_hash: files_hash_from_glob_pattern(paths.scripts),
       styles_hash: files_hash_from_glob_pattern([paths.styles, paths.styles_extra]),
       render_names_for_non_kc: false,
@@ -272,7 +267,6 @@ gulp.task('render_rando', function() {
       pokemons: randomizer_data(),
       stats: stats(),
       build_date: build_date(),
-      app_version: app_version(),
       scripts_hash: files_hash_from_glob_pattern(paths.scripts),
       styles_hash: files_hash_from_glob_pattern([paths.styles, paths.styles_extra]),
       render_names_for_non_kc: true,
