@@ -3,6 +3,7 @@ var gulp = require('gulp');
 var del    = require('del'); // For deletin' files
 var fs     = require('fs'); // For filesystem access
 var newer  = require('gulp-newer'); // For only regenerating files when necessary
+var hasha  = require('hasha'); // For hashing files to give them cacheable filenames
 
 // For HTML templating
 var nunjucksRender = require('gulp-nunjucks-render');
@@ -61,6 +62,12 @@ var padded_number = function(number) {
       throw new Error(stringed_number + ' is not a 1-3 digit number!');
   }
 };
+
+const file_hash = (filepath) => (
+  hasha
+    .fromFileSync(filepath, { algorithm: "md5" })
+    .slice(0, 8)
+)
 
 parse_json_data = function() {
   var json_data = JSON.parse(fs.readFileSync(paths.data + 'all_pokemon.json'));
@@ -121,6 +128,9 @@ var parse_kc_data = function() {
   // }
   var kc_data = {};
   filenames.forEach(function(filename) {
+    const filepath = `images/kc/${filename}`
+    console.log(filepath, file_hash(filepath))
+
     var filename_without_extension = filename.match(/(.+)\.\w+$/)[1];
     kc_data[filename_without_extension] = {
       has_kc_image: true,
