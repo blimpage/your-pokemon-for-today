@@ -3,6 +3,7 @@ var gulp = require('gulp');
 var del    = require('del'); // For deletin' files
 var fs     = require('fs'); // For filesystem access
 var newer  = require('gulp-newer'); // For only regenerating files when necessary
+var rename = require('gulp-rename'); // For renaming files in the middle of a gulp pipeline
 var hasha  = require('hasha'); // For hashing files to give them cacheable filenames
 
 // For HTML templating
@@ -28,7 +29,7 @@ var paths = {
   styles: ['scss/vendor/*.scss', 'scss/pokemon.scss'],
   styles_extra: ['scss/_base.scss'], // Styles that aren't directly compiled, but should still trigger a rebuild
   sugimori_images: 'images/sugimori/',
-  kc_images: 'images/kc/*',
+  kc_images: 'images/kc/',
   favicon: 'images/favicon.png',
   all_other_images: ['images/!(favicon)*.*', 'images/!(sugimori|kc)/**/*'],
   data: 'data/',
@@ -68,6 +69,12 @@ const file_hash = (filepath) => (
     .fromFileSync(filepath, { algorithm: "md5" })
     .slice(0, 8)
 )
+
+const kc_image_destination_filename = (source_filepath) => {
+  const hash = file_hash(source_filepath)
+  const [_, basename, extension] = source_filepath.match(/.+\/(.+)\.(.+)$/)
+  return `${basename}-${hash}.${extension}`
+}
 
 parse_json_data = function() {
   var json_data = JSON.parse(fs.readFileSync(paths.data + 'all_pokemon.json'));
@@ -128,9 +135,6 @@ var parse_kc_data = function() {
   // }
   var kc_data = {};
   filenames.forEach(function(filename) {
-    const filepath = `images/kc/${filename}`
-    console.log(filepath, file_hash(filepath))
-
     var filename_without_extension = filename.match(/(.+)\.\w+$/)[1];
     kc_data[filename_without_extension] = {
       has_kc_image: true,
@@ -266,8 +270,16 @@ gulp.task('styles', function() {
 
 gulp.task('generate_thumbs', function() {
   // Generate thumbs for all KC images
-  return gulp.src(paths.kc_images)
-    .pipe(newer(paths.build + 'images/kc/thumbs'))
+  return gulp.src(`${paths.kc_images}*`)
+    .pipe(
+      newer({
+        dest: `${paths.build}images/kc/thumbs`,
+        map: (relative_path) => {
+          const source_filepath = `${paths.kc_images}${relative_path}`
+          return kc_image_destination_filename(source_filepath)
+        },
+      })
+    )
     .pipe(gm(function(gmfile) {
       // Most images have a white background, but some have different colours.
       // Test for the special cases and set their background colour appropriately.
@@ -285,6 +297,16 @@ gulp.task('generate_thumbs', function() {
         .extent(245, 155)
     }))
     .pipe(imagemin())
+    .pipe(rename((path_info) => {
+      const source_filepath = `${paths.kc_images}${path_info.basename}${path_info.extname}`
+      const destination_filename = kc_image_destination_filename(source_filepath)
+      const [_, new_basename] = destination_filename.match(/(.+)\..+$/)
+
+      return {
+        ...path_info,
+        basename: new_basename,
+      }
+    }))
     .pipe(gulp.dest(paths.build + 'images/kc/thumbs'));
 });
 
@@ -326,7 +348,7 @@ gulp.task('silhouette', function(callback) {
 
 gulp.task('optimize_kc_images', function() {
   // Optimize and copy all KC images
-  return gulp.src(paths.kc_images)
+  return gulp.src(`${paths.kc_images}*`)
     .pipe(newer(paths.build + 'images/kc'))
     .pipe(imagemin())
     .pipe(gulp.dest(paths.build + 'images/kc'));
