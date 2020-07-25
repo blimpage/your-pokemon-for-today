@@ -70,7 +70,7 @@ const file_hash = (filepath) => (
     .slice(0, 8)
 )
 
-const kc_image_destination_filename = (source_filepath) => {
+const image_destination_filename = (source_filepath) => {
   const hash = file_hash(source_filepath)
   const [_, basename, extension] = source_filepath.match(/.+\/(.+)\.(.+)$/)
   return `${basename}-${hash}.${extension}`
@@ -276,7 +276,7 @@ gulp.task('generate_thumbs', function() {
         dest: `${paths.build}images/kc/thumbs`,
         map: (relative_path) => {
           const source_filepath = `${paths.kc_images}${relative_path}`
-          return kc_image_destination_filename(source_filepath)
+          return image_destination_filename(source_filepath)
         },
       })
     )
@@ -299,7 +299,7 @@ gulp.task('generate_thumbs', function() {
     .pipe(imagemin())
     .pipe(rename((path_info) => {
       const source_filepath = `${paths.kc_images}${path_info.basename}${path_info.extname}`
-      const destination_filename = kc_image_destination_filename(source_filepath)
+      const destination_filename = image_destination_filename(source_filepath)
       const [_, new_basename] = destination_filename.match(/(.+)\..+$/)
 
       return {
@@ -318,11 +318,6 @@ gulp.task('silhouette', function(callback) {
   // Select Sugimori images for which there is no corresponding KC image
   for (pokemon_id in sugimori_data) {
     if (kc_data[pokemon_id] === undefined) {
-      // The "thumb_filepath" is actually the path to where we'll put the image
-      // in the "build" directory for the finished site to access, but it's
-      // coincidentally the same path from here to the source image.
-      // That's a happy convenient coincidence - we'll need some smarter logic
-      // here if that ever changes.
       images_to_silhouette.push("." + sugimori_data[pokemon_id].thumb_filepath);
     }
   }
@@ -331,7 +326,15 @@ gulp.task('silhouette', function(callback) {
   if (images_to_silhouette.length === 0) return callback();
 
   return gulp.src(images_to_silhouette)
-    .pipe(newer(paths.build + 'images/sugimori'))
+    .pipe(
+      newer({
+        dest: `${paths.build}images/sugimori`,
+        map: (relative_path) => {
+          const source_filepath = `${paths.sugimori_images}${relative_path}`
+          return image_destination_filename(source_filepath)
+        },
+      })
+    )
     .pipe(gm(function(gmfile) {
       return gmfile
         .threshold('100%')
@@ -343,6 +346,16 @@ gulp.task('silhouette', function(callback) {
         .extent(245, 155)
     }))
     .pipe(imagemin())
+    .pipe(rename((path_info) => {
+      const source_filepath = `${paths.sugimori_images}${path_info.basename}${path_info.extname}`
+      const destination_filename = image_destination_filename(source_filepath)
+      const [_, new_basename] = destination_filename.match(/(.+)\..+$/)
+
+      return {
+        ...path_info,
+        basename: new_basename,
+      }
+    }))
     .pipe(gulp.dest(paths.build + 'images/sugimori'));
 });
 
