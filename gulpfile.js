@@ -129,17 +129,19 @@ var parse_kc_data = function() {
   // {
   //   '34': {
   //     has_kc_image: true,
-  //     full_filepath: '/images/kc/34.jpg',
-  //     thumb_filepath: '/images/kc/thumbs/34.jpg'
+  //     full_filepath: '/images/kc/34-abcd1234.jpg',
+  //     thumb_filepath: '/images/kc/thumbs/34-abcd1234.jpg'
   //   },
   // }
   var kc_data = {};
   filenames.forEach(function(filename) {
-    var filename_without_extension = filename.match(/(.+)\.\w+$/)[1];
-    kc_data[filename_without_extension] = {
+    const source_filepath = `images/kc/${filename}`
+    const destination_filename = image_destination_filename(source_filepath)
+    const pokemon_id = filename.match(/(.+)\.\w+$/)[1]
+    kc_data[pokemon_id] = {
       has_kc_image: true,
-      full_filepath: `/images/kc/${filename}`,
-      thumb_filepath: `/images/kc/thumbs/${filename}`,
+      full_filepath: `/images/kc/${destination_filename}`,
+      thumb_filepath: `/images/kc/thumbs/${destination_filename}`,
     };
   });
 
