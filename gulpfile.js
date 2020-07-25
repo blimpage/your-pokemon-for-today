@@ -362,9 +362,27 @@ gulp.task('silhouette', function(callback) {
 gulp.task('optimize_kc_images', function() {
   // Optimize and copy all KC images
   return gulp.src(`${paths.kc_images}*`)
-    .pipe(newer(paths.build + 'images/kc'))
+    .pipe(
+      newer({
+        dest: `${paths.build}images/kc`,
+        map: (relative_path) => {
+          const source_filepath = `${paths.kc_images}${relative_path}`
+          return image_destination_filename(source_filepath)
+        },
+      })
+    )
     .pipe(imagemin())
-    .pipe(gulp.dest(paths.build + 'images/kc'));
+    .pipe(rename((path_info) => {
+      const source_filepath = `${paths.kc_images}${path_info.basename}${path_info.extname}`
+      const destination_filename = image_destination_filename(source_filepath)
+      const [_, new_basename] = destination_filename.match(/(.+)\..+$/)
+
+      return {
+        ...path_info,
+        basename: new_basename,
+      }
+    }))
+    .pipe(gulp.dest(`${paths.build}images/kc`));
 });
 
 gulp.task('copy_favicon', function() {
