@@ -256,6 +256,7 @@ gulp.task('render_index', function() {
       build_date: build_date(),
       app_version: app_version(),
       scripts_hash: files_hash_from_glob_pattern(paths.scripts),
+      styles_hash: files_hash_from_glob_pattern([paths.styles, paths.styles_extra]),
       render_names_for_non_kc: false,
     }))
     .pipe(nunjucksRender())
@@ -272,6 +273,8 @@ gulp.task('render_rando', function() {
       stats: stats(),
       build_date: build_date(),
       app_version: app_version(),
+      scripts_hash: files_hash_from_glob_pattern(paths.scripts),
+      styles_hash: files_hash_from_glob_pattern([paths.styles, paths.styles_extra]),
       render_names_for_non_kc: true,
     }))
     .pipe(nunjucksRender())
@@ -295,8 +298,9 @@ gulp.task('scripts', function() {
 
 gulp.task('styles', function() {
   // Minify and copy all styles
+  const styles_hash = files_hash_from_glob_pattern([paths.styles, paths.styles_extra])
   const outputDirectory = `${paths.build}css`
-  const outputFileName = `style-${app_version()}.min.css`
+  const outputFileName = `style-${styles_hash}.min.css`
   const fullPathToOutputFile = `${outputDirectory}/${outputFileName}`
 
   return gulp.src(paths.styles)
