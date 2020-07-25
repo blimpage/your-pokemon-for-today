@@ -111,10 +111,13 @@ var parse_sugimori_data = function() {
   // }
   var sugimori_data = {};
   filenames.forEach(function(filename) {
-    var filename_without_extension = filename.match(/(.+)\.\w+$/)[1];
-    sugimori_data[filename_without_extension] = {
-      thumb_filepath: `/images/sugimori/${filename}`,
-    };
+    const source_filepath = `images/sugimori/${filename}`
+    const destination_filename = image_destination_filename(source_filepath)
+    const pokemon_id = filename.match(/(.+)\.\w+$/)[1]
+    sugimori_data[pokemon_id] = {
+      source_image_filepath: source_filepath,
+      thumb_filepath: `/images/sugimori/${destination_filename}`,
+    }
   });
 
   return sugimori_data;
@@ -320,7 +323,7 @@ gulp.task('silhouette', function(callback) {
   // Select Sugimori images for which there is no corresponding KC image
   for (pokemon_id in sugimori_data) {
     if (kc_data[pokemon_id] === undefined) {
-      images_to_silhouette.push("." + sugimori_data[pokemon_id].thumb_filepath);
+      images_to_silhouette.push(sugimori_data[pokemon_id].source_image_filepath);
     }
   }
 
