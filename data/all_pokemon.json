@@ -1265,6 +1265,12 @@
     "type_1": "water",
     "type_2": "psychic"
   },
+  "199-galar": {
+    "dex_number": "199",
+    "name": "Slowking (Galarian Form)",
+    "type_1": "poison",
+    "type_2": "psychic"
+  },
   "200": {
     "dex_number": "200",
     "name": "Misdreavus",
