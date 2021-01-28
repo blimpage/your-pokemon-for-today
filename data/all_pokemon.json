@@ -5489,6 +5489,18 @@
     "type_1": "dragon",
     "type_2": null
   },
+  "896": {
+    "dex_number": "896",
+    "name": "Glastrier",
+    "type_1": "ice",
+    "type_2": null
+  },
+  "897": {
+    "dex_number": "897",
+    "name": "Spectrier",
+    "type_1": "ghost",
+    "type_2": null
+  },
   "898": {
     "dex_number": "898",
     "name": "Calyrex",
