@@ -5473,26 +5473,26 @@
   },
   "893": {
     "dex_number": "893",
-    "name": "Calyrex",
-    "type_1": "psychic",
-    "type_2": "grass"
-  },
-  "894": {
-    "dex_number": "894",
     "name": "Zarude",
     "type_1": "dark",
     "type_2": "grass"
   },
-  "895": {
-    "dex_number": "895",
+  "894": {
+    "dex_number": "894",
     "name": "Regieleki",
     "type_1": "electric",
     "type_2": null
   },
-  "896": {
-    "dex_number": "896",
+  "895": {
+    "dex_number": "895",
     "name": "Regidrago",
     "type_1": "dragon",
     "type_2": null
+  },
+  "898": {
+    "dex_number": "898",
+    "name": "Calyrex",
+    "type_1": "psychic",
+    "type_2": "grass"
   }
 }
